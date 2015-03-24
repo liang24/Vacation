@@ -1,0 +1,180 @@
+[2015-03-10 00:21:57]错误页路径：/
+引发异常的方法名：CallSite.Target
+错误信息：无法将 null 转换为“bool”，因为后者是不可以为 null 的值类型
+错误跟踪信息：   在 CallSite.Target(Closure , CallSite , Object )
+   在 System.Dynamic.UpdateDelegates.UpdateAndExecute1[T0,TRet](CallSite site, T0 arg0)
+   在 ASP._Page_Views_Home_Index_cshtml.<Execute>b__4() 位置 e:\鸿爷\Vacation\Vacation.Web\Views\Home\Index.cshtml:行号 95
+   在 System.Web.WebPages.WebPageBase.<>c__DisplayClassb.<RenderSection>b__9(TextWriter tw)
+   在 System.Web.WebPages.HelperResult.WriteTo(TextWriter writer)
+   在 System.Web.WebPages.WebPageBase.Write(HelperResult result)
+   在 ASP._Page_Views_Shared__Layout_cshtml.Execute() 位置 e:\鸿爷\Vacation\Vacation.Web\Views\Shared\_Layout.cshtml:行号 27
+   在 System.Web.WebPages.WebPageBase.ExecutePageHierarchy()
+   在 System.Web.Mvc.WebViewPage.ExecutePageHierarchy()
+   在 System.Web.WebPages.WebPageBase.ExecutePageHierarchy(WebPageContext pageContext, TextWriter writer, WebPageRenderingBase startPage)
+   在 System.Web.WebPages.WebPageBase.<>c__DisplayClass7.<RenderPageCore>b__6(TextWriter writer)
+   在 System.Web.WebPages.HelperResult.WriteTo(TextWriter writer)
+   在 System.Web.WebPages.WebPageBase.Write(HelperResult result)
+   在 System.Web.WebPages.WebPageBase.RenderSurrounding(String partialViewName, Action`1 body)
+   在 System.Web.WebPages.WebPageBase.PopContext()
+   在 System.Web.WebPages.WebPageBase.ExecutePageHierarchy(WebPageContext pageContext, TextWriter writer, WebPageRenderingBase startPage)
+   在 System.Web.Mvc.RazorView.RenderView(ViewContext viewContext, TextWriter writer, Object instance)
+   在 System.Web.Mvc.BuildManagerCompiledView.Render(ViewContext viewContext, TextWriter writer)
+   在 System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass1c.<InvokeActionResultWithFilters>b__19()
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilter(IResultFilter filter, ResultExecutingContext preContext, Func`1 continuation)
+   在 System.Web.Mvc.ControllerActionInvoker.<>c__DisplayClass1c.<>c__DisplayClass1e.<InvokeActionResultWithFilters>b__1b()
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeAction(ControllerContext controllerContext, String actionName)
+   在 System.Web.Mvc.Controller.ExecuteCore()
+   在 System.Web.Mvc.ControllerBase.Execute(RequestContext requestContext)
+   在 System.Web.Mvc.ControllerBase.System.Web.Mvc.IController.Execute(RequestContext requestContext)
+   在 System.Web.Mvc.MvcHandler.<>c__DisplayClass6.<>c__DisplayClassb.<BeginProcessRequest>b__5()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass1.<MakeVoidDelegate>b__0()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass8`1.<BeginSynchronous>b__7(IAsyncResult _)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   在 System.Web.Mvc.MvcHandler.<>c__DisplayClasse.<EndProcessRequest>b__d()
+   在 System.Web.Mvc.SecurityUtil.<GetCallInAppTrustThunk>b__0(Action f)
+   在 System.Web.Mvc.SecurityUtil.ProcessInApplicationTrust(Action action)
+   在 System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+[2015-03-10 00:26:33]错误页路径：/Home/changepwd
+表单参数：
+		oldpwd：111111
+		newpwd：123456
+		confirmpwd：123456
+引发异常的方法名：HandleUnknownAction
+错误信息：在控制器“Vacation.Web.Controllers.HomeController”上未找到公共操作方法“changepwd”。
+错误跟踪信息：   在 System.Web.Mvc.Controller.HandleUnknownAction(String actionName)
+   在 System.Web.Mvc.Controller.ExecuteCore()
+   在 System.Web.Mvc.ControllerBase.Execute(RequestContext requestContext)
+   在 System.Web.Mvc.ControllerBase.System.Web.Mvc.IController.Execute(RequestContext requestContext)
+   在 System.Web.Mvc.MvcHandler.<>c__DisplayClass6.<>c__DisplayClassb.<BeginProcessRequest>b__5()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass1.<MakeVoidDelegate>b__0()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass8`1.<BeginSynchronous>b__7(IAsyncResult _)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   在 System.Web.Mvc.MvcHandler.<>c__DisplayClasse.<EndProcessRequest>b__d()
+   在 System.Web.Mvc.SecurityUtil.<GetCallInAppTrustThunk>b__0(Action f)
+   在 System.Web.Mvc.SecurityUtil.ProcessInApplicationTrust(Action action)
+   在 System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+[2015-03-10 00:45:44]错误页路径：/user/
+引发异常的方法名：HandleUnknownAction
+错误信息：在控制器“Vacation.Web.Controllers.UserController”上未找到公共操作方法“Index”。
+错误跟踪信息：   在 System.Web.Mvc.Controller.HandleUnknownAction(String actionName)
+   在 System.Web.Mvc.Controller.ExecuteCore()
+   在 System.Web.Mvc.ControllerBase.Execute(RequestContext requestContext)
+   在 System.Web.Mvc.ControllerBase.System.Web.Mvc.IController.Execute(RequestContext requestContext)
+   在 System.Web.Mvc.MvcHandler.<>c__DisplayClass6.<>c__DisplayClassb.<BeginProcessRequest>b__5()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass1.<MakeVoidDelegate>b__0()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass8`1.<BeginSynchronous>b__7(IAsyncResult _)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   在 System.Web.Mvc.MvcHandler.<>c__DisplayClasse.<EndProcessRequest>b__d()
+   在 System.Web.Mvc.SecurityUtil.<GetCallInAppTrustThunk>b__0(Action f)
+   在 System.Web.Mvc.SecurityUtil.ProcessInApplicationTrust(Action action)
+   在 System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+[2015-03-10 00:46:54]错误页路径：/user/
+引发异常的方法名：HandleUnknownAction
+错误信息：在控制器“Vacation.Web.Controllers.UserController”上未找到公共操作方法“Index”。
+错误跟踪信息：   在 System.Web.Mvc.Controller.HandleUnknownAction(String actionName)
+   在 System.Web.Mvc.Controller.ExecuteCore()
+   在 System.Web.Mvc.ControllerBase.Execute(RequestContext requestContext)
+   在 System.Web.Mvc.ControllerBase.System.Web.Mvc.IController.Execute(RequestContext requestContext)
+   在 System.Web.Mvc.MvcHandler.<>c__DisplayClass6.<>c__DisplayClassb.<BeginProcessRequest>b__5()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass1.<MakeVoidDelegate>b__0()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass8`1.<BeginSynchronous>b__7(IAsyncResult _)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   在 System.Web.Mvc.MvcHandler.<>c__DisplayClasse.<EndProcessRequest>b__d()
+   在 System.Web.Mvc.SecurityUtil.<GetCallInAppTrustThunk>b__0(Action f)
+   在 System.Web.Mvc.SecurityUtil.ProcessInApplicationTrust(Action action)
+   在 System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+[2015-03-10 00:49:30]错误页路径：/user/
+引发异常的方法名：HandleUnknownAction
+错误信息：在控制器“Vacation.Web.Controllers.UserController”上未找到公共操作方法“Index”。
+错误跟踪信息：   在 System.Web.Mvc.Controller.HandleUnknownAction(String actionName)
+   在 System.Web.Mvc.Controller.ExecuteCore()
+   在 System.Web.Mvc.ControllerBase.Execute(RequestContext requestContext)
+   在 System.Web.Mvc.ControllerBase.System.Web.Mvc.IController.Execute(RequestContext requestContext)
+   在 System.Web.Mvc.MvcHandler.<>c__DisplayClass6.<>c__DisplayClassb.<BeginProcessRequest>b__5()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass1.<MakeVoidDelegate>b__0()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass8`1.<BeginSynchronous>b__7(IAsyncResult _)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   在 System.Web.Mvc.MvcHandler.<>c__DisplayClasse.<EndProcessRequest>b__d()
+   在 System.Web.Mvc.SecurityUtil.<GetCallInAppTrustThunk>b__0(Action f)
+   在 System.Web.Mvc.SecurityUtil.ProcessInApplicationTrust(Action action)
+   在 System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+[2015-03-10 00:50:03]错误页路径：/user/
+引发异常的方法名：HandleUnknownAction
+错误信息：在控制器“Vacation.Web.Controllers.UserController”上未找到公共操作方法“Index”。
+错误跟踪信息：   在 System.Web.Mvc.Controller.HandleUnknownAction(String actionName)
+   在 System.Web.Mvc.Controller.ExecuteCore()
+   在 System.Web.Mvc.ControllerBase.Execute(RequestContext requestContext)
+   在 System.Web.Mvc.ControllerBase.System.Web.Mvc.IController.Execute(RequestContext requestContext)
+   在 System.Web.Mvc.MvcHandler.<>c__DisplayClass6.<>c__DisplayClassb.<BeginProcessRequest>b__5()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass1.<MakeVoidDelegate>b__0()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass8`1.<BeginSynchronous>b__7(IAsyncResult _)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   在 System.Web.Mvc.MvcHandler.<>c__DisplayClasse.<EndProcessRequest>b__d()
+   在 System.Web.Mvc.SecurityUtil.<GetCallInAppTrustThunk>b__0(Action f)
+   在 System.Web.Mvc.SecurityUtil.ProcessInApplicationTrust(Action action)
+   在 System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+[2015-03-10 00:50:11]错误页路径：/user/
+引发异常的方法名：HandleUnknownAction
+错误信息：在控制器“Vacation.Web.Controllers.UserController”上未找到公共操作方法“Index”。
+错误跟踪信息：   在 System.Web.Mvc.Controller.HandleUnknownAction(String actionName)
+   在 System.Web.Mvc.Controller.ExecuteCore()
+   在 System.Web.Mvc.ControllerBase.Execute(RequestContext requestContext)
+   在 System.Web.Mvc.ControllerBase.System.Web.Mvc.IController.Execute(RequestContext requestContext)
+   在 System.Web.Mvc.MvcHandler.<>c__DisplayClass6.<>c__DisplayClassb.<BeginProcessRequest>b__5()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass1.<MakeVoidDelegate>b__0()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass8`1.<BeginSynchronous>b__7(IAsyncResult _)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   在 System.Web.Mvc.MvcHandler.<>c__DisplayClasse.<EndProcessRequest>b__d()
+   在 System.Web.Mvc.SecurityUtil.<GetCallInAppTrustThunk>b__0(Action f)
+   在 System.Web.Mvc.SecurityUtil.ProcessInApplicationTrust(Action action)
+   在 System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+[2015-03-10 00:51:02]错误页路径：/user/
+引发异常的方法名：HandleUnknownAction
+错误信息：在控制器“Vacation.Web.Controllers.UserController”上未找到公共操作方法“Index”。
+错误跟踪信息：   在 System.Web.Mvc.Controller.HandleUnknownAction(String actionName)
+   在 System.Web.Mvc.Controller.ExecuteCore()
+   在 System.Web.Mvc.ControllerBase.Execute(RequestContext requestContext)
+   在 System.Web.Mvc.ControllerBase.System.Web.Mvc.IController.Execute(RequestContext requestContext)
+   在 System.Web.Mvc.MvcHandler.<>c__DisplayClass6.<>c__DisplayClassb.<BeginProcessRequest>b__5()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass1.<MakeVoidDelegate>b__0()
+   在 System.Web.Mvc.Async.AsyncResultWrapper.<>c__DisplayClass8`1.<BeginSynchronous>b__7(IAsyncResult _)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.End()
+   在 System.Web.Mvc.MvcHandler.<>c__DisplayClasse.<EndProcessRequest>b__d()
+   在 System.Web.Mvc.SecurityUtil.<GetCallInAppTrustThunk>b__0(Action f)
+   在 System.Web.Mvc.SecurityUtil.ProcessInApplicationTrust(Action action)
+   在 System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+

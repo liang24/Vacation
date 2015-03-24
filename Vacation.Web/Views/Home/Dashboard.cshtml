@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "后台";
+    int msgCount = 0;
+}
+<style type="text/css">
+    .zdxx dl dt
+    {
+        width: 100px;
+    }
+    .def_con ul
+    {
+        width: 1100px;
+    }
+    .b
+    {
+        font-weight: bold;
+    }
+</style>
+<div class="def_con">
+    <div class="kjcz">
+        <p class="def_title">
+            快捷操作</p>
+        <ul>
+            <li><a class="link_4" href="/Admin/SystemMsg.aspx">系统信息</a></li>
+            <li><a class="link_3" href="/Admin/BasicsData/NoticeManage/ViewNotice.aspx">学校公告</a></li>
+            <li><a class="link_7" href="/Admin/Equipment/EquipmentSearch.aspx">设备查阅</a></li>
+        </ul>
+    </div>
+    <div class="zdxx">
+        <p class="def_title">
+            站点信息</p>
+        <dl>
+            <dt>服务器名称：</dt>
+            <dd>
+                @Server.MachineName
+            </dd>
+        </dl>
+        <dl>
+            <dt>服务器IP：</dt>
+            <dd>
+                @Request.ServerVariables["LOCAL_ADDR"]</dd>
+        </dl>
+        <dl>
+            <dt>服务器端口：</dt>
+            <dd>
+                @Request.ServerVariables["SERVER_PORT"]</dd>
+        </dl>
+        <dl>
+            <dt>服务器时间：</dt>
+            <dd>
+                @DateTime.Now.ToString("yyyy年MM月dd日 HH:mm:ss")&nbsp;&nbsp;@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetDayName(DateTime.Now.DayOfWeek)</dd>
+        </dl>
+        <dl>
+            <dt>IIS环境：</dt>
+            <dd>
+                &nbsp;@Request.ServerVariables["SERVER_SOFTWARE"]
+            </dd>
+        </dl>
+        <dl>
+            <dt>本地文件路径：</dt>
+            <dd>
+                @Request.ServerVariables["PATH_TRANSLATED"]</dd>
+        </dl>
+        <dl>
+            <dt>服务器解译引擎：</dt>
+            <dd>
+                .NET CLR@(Environment.Version.Major).@(Environment.Version.Minor).@(Environment.Version.Build).@(Environment.Version.Revision)</dd>
+        </dl>
+    </div>
+    <div id="msg" style="display: none;">
+        尊敬的用户您好：<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;你当前有<label class="red b">@msgCount</label>条未读信息，请注意查看！&nbsp;&nbsp;<a
+            href="@Url.Action("message", "user")" style="color: green; font-weight: normal; font-size: 12px;">立即查看>></a></div>
+</div>
+@if (msgCount > 0)
+{ 
+    <script type="text/javascript">
+        $(function () {
+            BaseOP.notice({
+                title: '温馨提示',
+                width: 220, // 必须指定一个像素宽度值或者百分比，否则浏览器窗口改变可能导致artDialog收缩
+                content: $("#msg").html(),
+                time: 10
+            }, 0);
+        });
+    </script>
+}

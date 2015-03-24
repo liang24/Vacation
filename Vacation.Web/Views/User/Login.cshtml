@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "登录";
+    ViewBag.BodyClass = "bg";
+}
+<style type="text/css">
+    .ml50
+    {
+        color: White;
+    }
+</style>
+<form id="form1" action="@Url.Action("login")" method="post">
+<div class="logo">
+    <div class="logo_top">
+    </div>
+    <div class="logo_ico">
+        @*<img src="/images/login_07.jpg" />*@
+        <span class="ml50">休假管理系统</span>
+    </div>
+    <div class="logo_info mt5">
+        <p>
+            <span style="float: left;">账号</span>
+            <p>
+                <input class="username" type="text" id="txtUserName" name="UserName" />
+            </p>
+            <p>
+                密码</p>
+            <p>
+                <input type="password" id="txtPassword" class="password" name="Password" />
+            </p>
+    </div>
+    <div class="logo_bt">
+        <span class="fLeft"><a class="repwd" href="javascript:void();">
+            <input type="hidden" id="hdRememberMe" name="RememberMe" value="false" /></a><span
+                title="请不要在公共场所使用，以免账号信息泄露！"> 记住密码</span> </span><span class="fRight"><a href="javascript:void();"
+                    id="btnLogin" class="logo_an">登录</a> </span>
+    </div>
+</div>
+</form>
+@if (ViewBag.Error != null)
+{
+    <script type="text/javascript">
+        $(function () {
+            BaseOP.dialog.error("@ViewBag.Error");
+        });
+    </script>
+}
+<script type="text/javascript">
+    $(function () {
+
+        $(".repwd").click(function () {
+            if ($(this).hasClass("repwdcheck")) {
+                $(this).removeClass("repwdcheck");
+                $("#hdRememberMe").val("false");
+            } else {
+                $(this).addClass("repwdcheck");
+                $("#hdRememberMe").val("true");
+            };
+        });
+
+        $("#btnLogin").click(function (e) {
+            e.preventDefault();
+
+            $("form").submit();
+        });
+
+        $(":input").keyup(function (e) {
+            if (e.keyCode == 13) {
+                if ($("#txtUserName").val() == "") {
+                    $("#txtUserName").focus();
+                    return false;
+                }
+
+                if ($("#txtPassword").val() == "") {
+                    $("#txtPassword").focus();
+                    return false;
+                }
+
+                $("#btnLogin").click();
+            }
+        });
+    });
+</script>

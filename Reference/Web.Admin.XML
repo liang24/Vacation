@@ -1,0 +1,1095 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Web.Admin</name>
+    </assembly>
+    <members>
+        <member name="T:Web.Admin.Validation.Requires">
+            <summary>
+            Common runtime checks that throw ArgumentExceptions upon failure.
+            </summary>
+        </member>
+        <member name="M:Web.Admin.Validation.Requires.NotNull``1(``0,System.String)">
+            <summary>
+            Throws an exception if the specified parameter's value is null.
+            </summary>
+            <typeparam name="T">The type of the parameter.</typeparam>
+            <param name="value">The value of the argument.</param>
+            <param name="parameterName">The name of the parameter to include in any thrown exception.</param>
+            <returns>The value of the parameter.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="value"/> is <c>null</c></exception>
+        </member>
+        <member name="M:Web.Admin.Validation.Requires.NotNull(System.IntPtr,System.String)">
+            <summary>
+            Throws an exception if the specified parameter's value is IntPtr.Zero.
+            </summary>
+            <param name="value">The value of the argument.</param>
+            <param name="parameterName">The name of the parameter to include in any thrown exception.</param>
+            <returns>The value of the parameter.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="value"/> is IntPtr.Zero</exception>
+        </member>
+        <member name="M:Web.Admin.Validation.Requires.NotNull(System.Threading.Tasks.Task,System.String)">
+            <summary>
+            Throws an exception if the specified parameter's value is null.
+            </summary>
+            <param name="value">The value of the argument.</param>
+            <param name="parameterName">The name of the parameter to include in any thrown exception.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="value"/> is <c>null</c></exception>
+            <remarks>
+            This method allows async methods to use Requires.NotNull without having to assign the result
+            to local variables to avoid C# warnings.
+            </remarks>
+        </member>
+        <member name="M:Web.Admin.Validation.Requires.NotNull``1(System.Threading.Tasks.Task{``0},System.String)">
+            <summary>
+            Throws an exception if the specified parameter's value is null.
+            </summary>
+            <typeparam name="T">The type of the return value of the task.</typeparam>
+            <param name="value">The value of the argument.</param>
+            <param name="parameterName">The name of the parameter to include in any thrown exception.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="value"/> is <c>null</c></exception>
+            <remarks>
+            This method allows async methods to use Requires.NotNull without having to assign the result
+            to local variables to avoid C# warnings.
+            </remarks>
+        </member>
+        <member name="M:Web.Admin.Validation.Requires.NotNullAllowStructs``1(``0,System.String)">
+            <summary>
+            Throws an exception if the specified parameter's value is null.
+            </summary>
+            <typeparam name="T">The type of the parameter.</typeparam>
+            <param name="value">The value of the argument.</param>
+            <param name="parameterName">The name of the parameter to include in any thrown exception.</param>
+            <returns>The value of the parameter.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="value"/> is <c>null</c></exception>
+            <remarks>
+            This method exists for callers who themselves only know the type as a generic parameter which
+            may or may not be a class, but certainly cannot be null.
+            </remarks>
+        </member>
+        <member name="M:Web.Admin.Validation.Requires.NotNullOrEmpty(System.String,System.String)">
+            <summary>
+            Throws an exception if the specified parameter's value is null or empty.
+            </summary>
+            <param name="value">The value of the argument.</param>
+            <param name="parameterName">The name of the parameter to include in any thrown exception.</param>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="value"/> is <c>null</c> or empty.</exception>
+        </member>
+        <member name="M:Web.Admin.Validation.Requires.NotNullOrWhiteSpace(System.String,System.String)">
+            <summary>
+            Throws an exception if the specified parameter's value is null, empty, or whitespace.
+            </summary>
+            <param name="value">The value of the argument.</param>
+            <param name="parameterName">The name of the parameter to include in any thrown exception.</param>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="value"/> is <c>null</c> or empty.</exception>
+        </member>
+        <member name="M:Web.Admin.Validation.Requires.NotNullOrEmpty(System.Collections.IEnumerable,System.String)">
+            <summary>
+            Throws an exception if the specified parameter's value is null,
+            has no elements or has an element with a null value.
+            </summary>
+            <param name="values">The value of the argument.</param>
+            <param name="parameterName">The name of the parameter to include in any thrown exception.</param>
+            <exception cref="T:System.ArgumentException">Thrown if the tested condition is false.</exception>
+        </member>
+        <member name="M:Web.Admin.Validation.Requires.NotNullEmptyOrNullElements``1(System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>
+            Throws an exception if the specified parameter's value is null,
+            has no elements or has an element with a null value.
+            </summary>
+            <typeparam name="T">The type of the elements in the sequence.</typeparam>
+            <param name="values">The value of the argument.</param>
+            <param name="parameterName">The name of the parameter to include in any thrown exception.</param>
+            <exception cref="T:System.ArgumentException">Thrown if the tested condition is false.</exception>
+        </member>
+        <member name="M:Web.Admin.Validation.Requires.NullOrNotNullElements``1(System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>
+            Throws an exception if the specified parameter's value is not null
+            <em>and</em> has an element with a null value.
+            </summary>
+            <typeparam name="T">The type of the elements in the sequence.</typeparam>
+            <param name="values">The value of the argument.</param>
+            <param name="parameterName">The name of the parameter to include in any thrown exception.</param>
+            <exception cref="T:System.ArgumentException">Thrown if the tested condition is false.</exception>
+        </member>
+        <member name="M:Web.Admin.Validation.Requires.Range(System.Boolean,System.String,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if a condition does not evaluate to true.
+            </summary>
+        </member>
+        <member name="M:Web.Admin.Validation.Requires.FailRange(System.String,System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentOutOfRangeException"/> if a condition does not evaluate to true.
+            </summary>
+            <returns>Nothing.  This method always throws.</returns>
+        </member>
+        <member name="M:Web.Admin.Validation.Requires.Argument(System.Boolean,System.String,System.String)">
+            <summary>
+            Throws an ArgumentException if a condition does not evaluate to true.
+            </summary>
+        </member>
+        <member name="M:Web.Admin.Validation.Requires.Argument(System.Boolean,System.String,System.String,System.Object)">
+            <summary>
+            Throws an ArgumentException if a condition does not evaluate to true.
+            </summary>
+        </member>
+        <member name="M:Web.Admin.Validation.Requires.Argument(System.Boolean,System.String,System.String,System.Object,System.Object)">
+            <summary>
+            Throws an ArgumentException if a condition does not evaluate to true.
+            </summary>
+        </member>
+        <member name="M:Web.Admin.Validation.Requires.Argument(System.Boolean,System.String,System.String,System.Object[])">
+            <summary>
+            Throws an ArgumentException if a condition does not evaluate to true.
+            </summary>
+        </member>
+        <member name="M:Web.Admin.Validation.Requires.That(System.Boolean,System.String,System.String,System.Object[])">
+            <summary>
+            Validates some expression describing the acceptable condition for an argument evaluates to true.
+            </summary>
+            <param name="condition">The expression that must evaluate to true to avoid an <see cref="T:System.ArgumentException"/>.</param>
+            <param name="parameterName">Name of the parameter.</param>
+            <param name="unformattedMessage">The unformatted message.</param>
+            <param name="args">Formatting arguments.</param>
+        </member>
+        <member name="M:Web.Admin.Validation.Requires.ValidState(System.Boolean,System.String)">
+            <summary>
+            Validates some expression describing the acceptable condition for an argument evaluates to true.
+            </summary>
+            <param name="condition">The expression that must evaluate to true to avoid an <see cref="T:System.InvalidOperationException"/>.</param>
+            <param name="message">The message to include with the exception.</param>
+        </member>
+        <member name="M:Web.Admin.Validation.Requires.Fail(System.String)">
+            <summary>
+            Throws an ArgumentException.
+            </summary>
+            <returns>Nothing.  It always throws.</returns>
+        </member>
+        <member name="M:Web.Admin.Validation.Requires.Fail(System.String,System.Object[])">
+            <summary>
+            Throws an ArgumentException.
+            </summary>
+            <returns>Nothing.  It always throws.</returns>
+        </member>
+        <member name="M:Web.Admin.Validation.Requires.Fail(System.Exception,System.String,System.Object[])">
+            <summary>
+            Throws an ArgumentException.
+            </summary>
+            <returns>Nothing.  This method always throws.  But the signature allows calling code to "throw" this method for C# syntax reasons.</returns>
+        </member>
+        <member name="M:Web.Admin.Validation.Requires.Format(System.String,System.Object[])">
+            <summary>
+            Helper method that formats string arguments.
+            </summary>
+            <returns>The formatted string.</returns>
+        </member>
+        <member name="T:Web.Admin.Repository.PowerRepository">
+            <summary>
+            权限仓储
+            </summary>
+        </member>
+        <member name="M:Web.Admin.Repository.PowerRepository.HasAnyPower(Web.Admin.Domain.SysUser)">
+            <summary>
+            是否拥有权限
+            </summary>
+            <param name="user">用户ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Web.Admin.Repository.PowerRepository.HasPower(Web.Admin.Domain.SysUser,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            是否授权此权限
+            </summary>
+            <param name="user">用户ID</param>
+            <param name="functionTags">功能标签集</param>
+            <returns></returns>
+        </member>
+        <member name="M:Web.Admin.Repository.PowerRepository.GetSelectedFunctionIds(Web.Admin.Domain.MasterType,System.Int32)">
+            <summary>
+            获取已有的功能ID集
+            </summary>
+            <param name="masterType">主体类型</param>
+            <param name="masterId">主体主键</param>
+            <returns></returns>
+            创建人：尹学良
+            2014/2/25 9:59
+        </member>
+        <member name="M:Web.Admin.Repository.PowerRepository.Authorize(Web.Admin.Domain.MasterType,System.Int32,System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            授权
+            </summary>
+            <param name="masterType">主体类型</param>
+            <param name="masterId">主体主键</param>
+            <param name="selectedFunctionIds">需要授权的功能ID集</param>
+            创建人：尹学良
+            2014/2/25 10:00
+        </member>
+        <member name="M:Web.Admin.Repository.PowerRepository.HasModulePower(Web.Admin.Domain.SysMenu,Web.Admin.Domain.SysUser)">
+            <summary>
+            判断用户是否该模块的权限
+            </summary>
+            <param name="module"></param>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Web.Admin.Repository.PowerRepository._HasModulePowerSqlFormat">
+            <summary>
+            判断用户是否拥有此模块权限语句
+            </summary>
+        </member>
+        <member name="M:Web.Admin.Repository.BaseRepository`1.GetAll">
+            <summary>
+            Gets all.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Web.Admin.Repository.BaseRepository`1.GetListByIDs(System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            根据主键集合获取实体
+            </summary>
+            <param name="ids">The ids.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Web.Admin.Repository.BaseRepository`1.GetModel(System.Int32)">
+            <summary>
+            获取实体
+            </summary>
+            <param name="id">编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Web.Admin.Repository.BaseRepository`1.Add(`0)">
+            <summary>
+            添加
+            </summary>
+            <param name="model">实体</param>
+            <returns></returns>
+            创建人：CJJ
+        </member>
+        <member name="M:Web.Admin.Repository.BaseRepository`1.Update(`0)">
+            <summary>
+            修改
+            </summary>
+            <param name="model">实体</param>
+            <returns></returns>
+            创建人：CJJ
+        </member>
+        <member name="M:Web.Admin.Repository.BaseRepository`1.Page(Web.Admin.SearchParameters.BaseSearchParameter)">
+            <summary>
+            分页查询
+            </summary>
+            <param name="searchPatameter">搜索参数</param>
+            <returns></returns> 
+        </member>
+        <member name="M:Web.Admin.Repository.BaseRepository`1.GetList(Web.Admin.SearchParameters.BaseSearchParameter)">
+            <summary>
+            查询
+            </summary>
+            <param name="searchPatameter">搜索参数</param>
+            <returns></returns> 
+        </member>
+        <member name="M:Web.Admin.Repository.SubjectRepository`1.Add(`0)">
+            <summary>
+            添加
+            </summary>
+            <param name="model">The model.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Web.Admin.Repository.SubjectRepository`1.Delete(`0)">
+            <summary>
+            删除
+            </summary>
+            <param name="model">The model.</param> 
+        </member>
+        <member name="M:Web.Admin.Repository.SubjectRepository`1.Page(System.Int32,System.Int32,System.String)">
+            <summary>
+            分页
+            </summary>
+            <param name="pageIndex">当前页数</param>
+            <param name="pageSize">每页条数</param>
+            <param name="keyword">关键字搜索（课程编号，课程名称）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Web.Admin.Repository.SubjectRepository`1.GetListByProfession(Web.Admin.Domain.SysProfession)">
+            <summary>
+            获取专业下的课程
+            </summary>
+            <param name="profession">专业</param>
+            <returns></returns>
+        </member>
+        <member name="M:Web.Admin.Repository.SubjectRepository`1.PageByProfession(System.Int32,System.Int32,System.String,System.Int32,System.Int32)">
+            <summary>
+            获取专业下的课程
+            </summary>
+            <param name="pageIndex">页码</param>
+            <param name="pageSize">每页记录数</param>
+            <param name="keyword">课程关键字（课程编号、课程名称）</param>
+            <param name="professionId">所在专业Id，0为所有</param>
+            <param name="withoutProfessionId">排除专业Id，0为不排除</param>
+            <returns></returns>
+        </member>
+        <member name="T:Web.Admin.SearchParameters.BaseSearchParameter">
+            <summary>
+            搜索参数基类
+            </summary>
+        </member>
+        <member name="P:Web.Admin.SearchParameters.BaseSearchParameter.PageIndex">
+            <summary>
+            页码
+            </summary>
+        </member>
+        <member name="P:Web.Admin.SearchParameters.BaseSearchParameter.PageSize">
+            <summary>
+            每页数量
+            </summary>
+        </member>
+        <member name="P:Web.Admin.SearchParameters.BaseSearchParameter.IsGetAll">
+            <summary>
+            是否获取所有符合条件的记录
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysSubject.ID">
+            <summary>
+            课程编号
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysSubject.Code">
+            <summary>
+            课程代码
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysSubject.Name">
+            <summary>
+            课程名字
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysSubject.Sort">
+            <summary>
+            排序数字
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysSubject.SubjectType">
+            <summary>
+            课程类型
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysSubject.ProfessionIds">
+            <summary>
+            所属专业Id列表
+            </summary>
+        </member>
+        <member name="T:Web.Admin.Domain.SysPower">
+            <summary>
+            权限
+            </summary>
+            尹学良
+            2014/1/15 11:40
+        </member>
+        <member name="P:Web.Admin.Domain.SysPower.MasterID">
+            <summary>
+            主体ID
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysPower.MasterType">
+            <summary>
+            主体类型（user,role）
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysPower.FunctionID">
+            <summary>
+            功能ID
+            </summary>
+        </member>
+        <member name="T:Web.Admin.Repository.FunctionRepository">
+            <summary>
+            功能仓储
+            </summary>
+        </member>
+        <member name="M:Web.Admin.Repository.FunctionRepository.GetListByMenu(Web.Admin.Domain.SysMenu)">
+            <summary>
+            获取菜单功能集
+            </summary>
+            <param name="menuId">菜单</param>
+            <returns></returns>
+            创建人：尹学良
+            2014/2/25 9:55
+        </member>
+        <member name="T:Web.Admin.Domain.SysRole">
+            <summary>
+            角色
+            </summary>
+            尹学良
+            2014/1/15 11:46
+        </member>
+        <member name="P:Web.Admin.Domain.SysRole.ID">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysRole.Name">
+            <summary>
+            角色名
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysRole.Description">
+            <summary>
+            描述
+            </summary>        
+        </member>
+        <member name="P:Web.Admin.Domain.SysRole.IsSystem">
+            <summary>
+            是否系统数据
+            </summary>
+        </member>
+        <member name="M:Web.Admin.Repository.CollegeRepository`1.Add(`0)">
+            <summary>
+            添加
+            </summary>
+            <param name="model">实体</param>
+            <returns></returns>
+            创建人：CJJ
+        </member>
+        <member name="M:Web.Admin.Repository.CollegeRepository`1.Page(System.Int32,System.Int32,System.String)">
+            <summary>
+            分页
+            </summary>
+            <param name="pageIndex">当前页数</param>
+            <param name="pageSize">每页条数</param>
+            <param name="keyword">关键字搜索</param>
+            <returns></returns>
+        </member>
+        <member name="T:Web.Admin.Repository.RoleRepository`1">
+            <summary>
+            角色仓储
+            </summary>
+        </member>
+        <member name="M:Web.Admin.Repository.RoleRepository`1.Page(System.Int32,System.Int32,System.String)">
+            <summary>
+            分页查询
+            </summary>
+            <param name="pageIndex">页码</param>
+            <param name="pageSize">每页记录数</param>
+            <param name="name">名称</param>
+            <returns></returns>
+            创建人：尹学良
+            2014/2/25 10:00
+        </member>
+        <member name="M:Web.Admin.Repository.RoleRepository`1.Assign(System.Collections.Generic.IEnumerable{System.Int32},`0)">
+            <summary>
+            分配角色
+            </summary>
+            <param name="userIds">需要分配角色的用户集</param>
+            <param name="role">分配的角色ID</param>
+            创建人：尹学良
+            2014/2/25 10:01
+        </member>
+        <member name="M:Web.Admin.Repository.RoleRepository`1.RemoveUserRole(System.Collections.Generic.IEnumerable{System.Int32},`0)">
+            <summary>
+            移除用户角色
+            </summary>
+            <param name="userIds">需要移除角色的用户集</param>
+            <param name="role">移除的角色ID</param>
+            创建人：尹学良
+            2014/2/25 10:01
+        </member>
+        <member name="T:Web.Admin.Repository.ProfessionRepository`1">
+            <summary>
+            专业仓储
+            </summary>
+        </member>
+        <member name="M:Web.Admin.Repository.ProfessionRepository`1.Add(`0)">
+            <summary>
+            添加
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Web.Admin.Repository.ProfessionRepository`1.Page(System.Int32,System.Int32,System.Nullable{System.Int32},System.String)">
+            <summary>
+            分页
+            </summary>
+            <param name="pageIndex">当前页数</param>
+            <param name="pageSize">每页条数</param>
+            <param name="collegeId">所属院系</param>
+            <param name="keyword">关键字搜索</param>
+            <returns></returns>
+        </member>
+        <member name="M:Web.Admin.Repository.ProfessionRepository`1.GetListByCollege(Web.Admin.Domain.SysCollege)">
+            <summary>
+            获取院系下的专业
+            </summary>
+            <param name="college">院系</param>
+            <returns></returns>
+        </member>
+        <member name="M:Web.Admin.Repository.ProfessionRepository`1.GetListBySubject(Web.Admin.Domain.SysSubject)">
+            <summary>
+            获取课程所属专业
+            </summary>
+            <param name="subject">The subject.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Web.Admin.Repository.ProfessionRepository`1.ChooseSubject(`0,System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            选择课程
+            </summary>
+            <param name="profession">专业</param>
+            <param name="subjectIds">要选择的课程Ids</param>
+        </member>
+        <member name="M:Web.Admin.Repository.ProfessionRepository`1.RemoveSubject(`0,System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            移除专业下的课程
+            </summary>
+            <param name="profession">专业</param>
+            <param name="subjectIds">移除的课程Ids</param> 
+        </member>
+        <member name="T:Web.Admin.Repository.MenuRepository`1">
+            <summary>
+            菜单仓储
+            </summary>
+        </member>
+        <member name="M:Web.Admin.Repository.MenuRepository`1.GetMenuTrees(System.Int32,System.Nullable{System.Boolean})">
+            <summary>
+            获取菜单树
+            </summary>
+            <param name="parentId">上级ID</param>
+            <param name="isVisible">是否可见，null表示不限制</param>
+            <returns></returns>
+            创建人：尹学良
+            2014/2/25 9:56
+        </member>
+        <member name="M:Web.Admin.Repository.MenuRepository`1.GetFullMenuTree">
+            <summary>
+            获取整颗树
+            </summary>
+            <returns></returns>
+            创建人：尹学良
+            2014/2/25 9:56
+        </member>
+        <member name="M:Web.Admin.Repository.MenuRepository`1.Add(Web.Admin.Domain.SysMenu,System.Nullable{Web.Admin.Domain.PreDefinedFunction})">
+            <summary>
+            添加
+            </summary>
+            <param name="menu">菜单</param>
+            <param name="preDefinedFunction">预定义功能</param>
+            创建人：尹学良
+            2014/2/25 9:57
+        </member>
+        <member name="M:Web.Admin.Repository.MenuRepository`1.Delete(`0)">
+            <summary>
+            删除
+            </summary>
+            <param name="model">The model.</param>
+            创建人：尹学良
+            2014/2/25 9:57
+        </member>
+        <member name="M:Web.Admin.Repository.MenuRepository`1.GetIdsByUser(Web.Admin.Domain.SysUser)">
+            <summary>
+            获取用户可用菜单Id，包括模块
+            </summary>
+            <param name="user">The user.</param>
+            <returns></returns>
+            创建人：尹学良
+            2014/10/31 11:14
+        </member>
+        <member name="M:Web.Admin.Repository.MenuRepository`1.GetListByUser(Web.Admin.Domain.SysUser)">
+            <summary>
+            获取用户可用菜单，包括模块
+            </summary>
+            <param name="user">The user.</param>
+            <returns></returns>
+            创建人：尹学良
+            2014/10/31 11:14
+        </member>
+        <member name="F:Web.Admin.Repository.MenuRepository`1._GetListByUserSqlFormat">
+            <summary>
+            获取用户的菜单语句
+            </summary>
+        </member>
+        <member name="T:Web.Admin.Domain.SysUserRole">
+            <summary>
+            用户角色
+            </summary>
+            尹学良
+            2014/1/15 11:52
+        </member>
+        <member name="T:Web.Admin.Repository.UserRepository`1">
+            <summary>
+            用户仓储
+            </summary> 
+        </member>
+        <member name="M:Web.Admin.Repository.UserRepository`1.Register(System.String,System.String,System.String,System.String,Web.Admin.Domain.IdentityRoleType)">
+            <summary>
+            注册
+            </summary>
+            <param name="userName">用户名</param>
+            <param name="password">密码</param>
+            <param name="nickName">昵称</param>
+            <param name="email">邮箱</param>
+            <param name="identityRoleType">身份角色类型</param>
+            <returns></returns>
+            尹学良
+            2014/1/15 11:58
+        </member>
+        <member name="M:Web.Admin.Repository.UserRepository`1.Login(System.String,System.String)">
+            <summary>
+            登陆
+            </summary>
+            <param name="userName">用户名</param>
+            <param name="password">密码</param>
+            <returns></returns>
+            尹学良
+            2014/1/15 15:07
+        </member>
+        <member name="M:Web.Admin.Repository.UserRepository`1.Add(`0)">
+            <summary>
+            添加
+            </summary>
+            <param name="user">用户</param>
+            <returns></returns>
+            创建人：尹学良
+            2014/2/25 9:41
+        </member>
+        <member name="M:Web.Admin.Repository.UserRepository`1.Update(Web.Admin.Domain.SysUser)">
+            <summary>
+            更新
+            </summary>
+            <param name="user">用户</param>
+            <returns></returns>
+            创建人：尹学良
+            2014/2/25 9:41
+        </member>
+        <member name="M:Web.Admin.Repository.UserRepository`1.Delete(System.Collections.Generic.IEnumerable{System.Int32})">
+            <summary>
+            删除
+            </summary>
+            <param name="ids">用户ID集</param>
+            创建人：尹学良
+            2014/2/25 9:42
+        </member>
+        <member name="M:Web.Admin.Repository.UserRepository`1.SetPassword(`0,System.String,System.String)">
+            <summary>
+            修改密码
+            </summary>
+            <param name="currUser">当前用户（完整实体）</param>
+            <param name="oldPassword">旧密码</param>
+            <param name="newPassword">新密码</param>
+            <returns></returns>
+            创建人：尹学良
+            2014/2/25 9:42
+        </member>
+        <member name="M:Web.Admin.Repository.UserRepository`1.GetModel(System.String,System.String)">
+            <summary>
+            获取实体
+            </summary>
+            <param name="userName"></param>
+            <param name="password"></param>
+            <returns></returns>
+            创建人：尹学良
+            2014/3/1 10:58
+        </member>
+        <member name="M:Web.Admin.Repository.UserRepository`1.GetModel(System.String)">
+            <summary>
+            获取实体
+            </summary>
+            <param name="userName">Name of the user.</param>
+            <returns></returns>
+            创建人：尹学良
+            2014/3/1 11:01
+        </member>
+        <member name="M:Web.Admin.Repository.UserRepository`1.GetModelByRealName(System.String)">
+            <summary>
+            获取实体
+            </summary>
+            <param name="realName">用户真实姓名</param>
+            <returns></returns>
+        </member>
+        <member name="M:Web.Admin.Repository.UserRepository`1.Page(System.Int32,System.Int32,System.String,System.Nullable{Web.Admin.Domain.IdentityRoleType},System.String,System.String,System.Boolean)">
+            <summary>
+            分页查询
+            </summary>
+            <param name="pageIndex">页码</param>
+            <param name="pageSize">每页记录数</param>
+            <param name="name">用户名</param>
+            <param name="identityRoleType">身份</param>
+            <param name="withoutRoleId">不包含此角色</param>
+            <param name="withRoleId">包含此角色</param>
+            <param name="containIdentityRoleType">是否不包含该角色类型</param>
+            <returns></returns>
+            创建人：尹学良
+            2014/2/25 9:44
+        </member>
+        <member name="M:Web.Admin.Repository.UserRepository`1.CheckName(System.String)">
+            <summary>
+            检测用户名是否存在
+            </summary>
+            <param name="userName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Web.Admin.Repository.UserRepository`1.Import(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            导入
+            </summary>
+            <param name="users">用户集</param>
+            <returns></returns>
+            创建人：尹学良
+            2014/2/25 9:32
+        </member>
+        <member name="P:Web.Admin.Domain.SysCollege.ID">
+            <summary>
+            学院编号
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysCollege.Code">
+            <summary>
+            学院代码
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysCollege.Name">
+            <summary>
+            学院名字
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysCollege.Sort">
+            <summary>
+            排序数字
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysClass.ID">
+            <summary>
+            班级编号
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysClass.Code">
+            <summary>
+            班级代码
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysClass.Name">
+            <summary>
+            班级名字
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysClass.Grade">
+            <summary>
+            年级（以入学年份区分）
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysClass.HeadTeacher">
+            <summary>
+            班主任ID
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysClass.CollegeID">
+            <summary>
+            院系ID
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysClass.ProfessionID">
+            <summary>
+            专业ID
+            </summary>
+        </member>
+        <member name="T:Web.Admin.Validation.Strings">
+            <summary>
+              一个强类型的资源类，用于查找本地化的字符串等。
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Validation.Strings.ResourceManager">
+            <summary>
+              返回此类使用的缓存的 ResourceManager 实例。
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Validation.Strings.Culture">
+            <summary>
+              使用此强类型资源类，为所有资源查找
+              重写当前线程的 CurrentUICulture 属性。
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Validation.Strings.Argument_EmptyArray">
+            <summary>
+              查找类似 &apos;{0}&apos; must contain at least one element. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Validation.Strings.Argument_EmptyString">
+            <summary>
+              查找类似 &apos;{0}&apos; cannot be an empty string (&quot;&quot;) or start with the null character. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Validation.Strings.Argument_NullElement">
+            <summary>
+              查找类似 &apos;{0}&apos; cannot contain a null (Nothing in Visual Basic) element. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Validation.Strings.Argument_Whitespace">
+            <summary>
+              查找类似 The parameter &quot;{0}&quot; cannot consist entirely of white space characters. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Validation.Strings.InternalExceptionMessage">
+            <summary>
+              查找类似 An internal error occurred. Please contact customer support. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Validation.Strings.ServiceMissing">
+            <summary>
+              查找类似 Cannot find an instance of the {0} service. 的本地化字符串。
+            </summary>
+        </member>
+        <member name="M:Web.Admin.Repository.ClassRepository`1.Add(`0)">
+            <summary>
+            添加
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Web.Admin.Repository.ClassRepository`1.Page(System.Int32,System.Int32,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            分页
+            </summary>
+            <param name="pageIndex">当前页数</param>
+            <param name="pageSize">每页条数</param>
+            <param name="keyword">关键字搜索</param>
+            <returns></returns>
+        </member>
+        <member name="T:Web.Admin.Validation.PrivateErrorHelpers">
+            <summary>
+            Common utility methods used by the various error detection and reporting classes.
+            </summary>
+        </member>
+        <member name="M:Web.Admin.Validation.PrivateErrorHelpers.TrimGenericWrapper(System.Type,System.Type)">
+            <summary>
+            Trims away a given surrounding type, returning just the generic type argument,
+            if the given type is in fact a generic type with just one type argument and
+            the generic type matches a given wrapper type.  Otherwise, it returns the original type.
+            </summary>
+            <param name="type">The type to trim, or return unmodified.</param>
+            <param name="wrapper">The SomeType&lt;&gt; generic type definition to trim away from <paramref name="type"/> if it is present.</param>
+            <returns><paramref name="type"/>, if it is not a generic type instance of <paramref name="wrapper"/>; otherwise the type argument.</returns>
+        </member>
+        <member name="M:Web.Admin.Validation.PrivateErrorHelpers.Format(System.String,System.Object[])">
+            <summary>
+            Helper method that formats string arguments.
+            </summary>
+            <param name="format">The unformatted string.</param>
+            <param name="arguments">The formatting arguments.</param>
+            <returns>The formatted string.</returns>
+        </member>
+        <member name="T:Web.Admin.Domain.SysMenu">
+            <summary>
+            菜单
+            </summary>
+            尹学良
+            2014/1/15 11:27
+        </member>
+        <member name="P:Web.Admin.Domain.SysMenu.ID">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysMenu.Name">
+            <summary>
+            菜单名
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysMenu.ParentID">
+            <summary>
+            上级菜单ID
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysMenu.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysMenu.IsVisible">
+            <summary>
+            是否可见
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysMenu.Tag">
+            <summary>
+            菜单标签
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysMenu.Url">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysMenu.Icon">
+            <summary>
+            图标
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysMenu.IsShowIndex">
+            <summary>
+            是否首页显示
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysMenu.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="T:Web.Admin.Domain.PreDefinedFunction">
+            <summary>
+            预定义功能枚举
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.View.MenuTree.Icon">
+            <summary>
+            图标
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.View.MenuTree.IsShowIndex">
+            <summary>
+            是否首页显示
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.View.MenuTree.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysProfession.ID">
+            <summary>
+            专业编号
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysProfession.Code">
+            <summary>
+            专业代码
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysProfession.Name">
+            <summary>
+            专业名称
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysProfession.Sort">
+            <summary>
+            排序数字
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysProfession.CollegeID">
+            <summary>
+            学院编号
+            </summary>
+        </member>
+        <member name="T:Web.Admin.Domain.SysFunction">
+            <summary>
+            功能
+            </summary>
+            尹学良
+            2014/1/15 11:41
+        </member>
+        <member name="P:Web.Admin.Domain.SysFunction.ID">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysFunction.Name">
+            <summary>
+            功能名
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysFunction.MenuID">
+            <summary>
+            所属菜单
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysFunction.Sort">
+            <summary>
+            排序
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysFunction.Tag">
+            <summary>
+            标签
+            </summary>
+        </member>
+        <member name="T:Web.Admin.Domain.SysUser">
+            <summary>
+            用户
+            </summary>
+            尹学良
+            2014/1/15 11:28
+        </member>
+        <member name="P:Web.Admin.Domain.SysUser.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysUser.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysUser.RealName">
+            <summary>
+            真实姓名
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysUser.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysUser.IdentityRole">
+            <summary>
+            身份
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysUser.IsSuperUser">
+            <summary>
+            是否超级用户
+            </summary>
+        </member>
+        <member name="P:Web.Admin.Domain.SysUser.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="T:Web.Admin.Domain.IdentityRoleType">
+            <summary>
+            身份枚举
+            </summary>
+        </member>
+        <member name="F:Web.Admin.Domain.IdentityRoleType.Teacher">
+            <summary>
+            教师
+            </summary>
+        </member>
+        <member name="F:Web.Admin.Domain.IdentityRoleType.Student">
+            <summary>
+            学生
+            </summary>
+        </member>
+        <member name="F:Web.Admin.Domain.IdentityRoleType.Admin">
+            <summary>
+            管理员
+            </summary>
+        </member>
+        <member name="M:Web.Admin.Domain.DBExtension.TableName(System.Object)">
+            <summary>
+            表名
+            </summary>
+            <param name="table">表实体</param>
+            <returns></returns>
+            尹学良
+            2014/1/15 14:43
+        </member>
+        <member name="M:Web.Admin.Domain.DBExtension.TableName``1">
+            <summary>
+            表名
+            </summary>
+            <typeparam name="TTable">表类型</typeparam>
+            <returns></returns>
+            尹学良
+            2014/1/15 14:50
+        </member>
+        <member name="T:Web.Admin.Aop.TransactionAttribute">
+            <summary>
+            事务特性
+            </summary>
+        </member>
+    </members>
+</doc>

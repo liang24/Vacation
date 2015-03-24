@@ -1,0 +1,117 @@
+﻿/*.pagination
+{
+    font-size: 12px;
+}
+
+.pagination span
+{
+    display: block;
+    width: 28px;
+    height: 28px;
+    float: left;
+    line-height: 28px;
+    text-align: center;
+}*/
+
+#pager
+{
+    margin-top: 25px;
+    float: left;
+}
+#pager a
+{
+    display: block;
+    width: 37px;
+    height: 37px;
+    float: left;
+    text-align: center;
+    line-height: 37px;
+    margin-right: 10px;
+    background: url(../images/index/page.jpg) no-repeat;
+    font-size: 16px;
+    color: #999999;
+    font-weight: bold;
+}
+
+#pager a:hover
+{
+    text-decoration: none;
+    background: url(../images/index/page-hover.jpg) no-repeat;
+    cursor: pointer;
+}
+#pager a:active
+{
+    background: url(../images/index/page-down.jpg) no-repeat;
+}
+
+.pagination .act a
+{
+    color: #fff;
+    background: url(../images/index/page-click.jpg) no-repeat !important;
+}
+
+
+
+.pagination .pre a
+{
+    color: #999999;
+    background: url(../images/index/lastpage.jpg) no-repeat !important;
+}
+
+.pagination .pre a:hover
+{
+    background: url(../images/index/last-hover.png) no-repeat;
+}
+
+.pagination .pre a:active
+{
+    background: url(../images/index/last-down.png) no-repeat;
+}
+
+
+
+#pager .next a
+{
+    background: url(../images/index/nextpage.jpg) no-repeat !important;
+}
+#pager .next a:hover
+{
+    background: url(../images/index/next-hover.png) no-repeat;
+}
+#pager .next a:active
+{
+    background: url(../images/index/next-down.png) no-repeat;
+}
+
+
+
+/*.pagination a:hover
+{
+    text-decoration: none;
+}
+.pagination .pre.act a
+{
+    color: #999;
+    background-color: inherit;
+    border: 1px solid #d8d8da !important;
+} 
+
+
+
+.pagination a
+{
+    display: block;
+    background-color: #FFFFFF;
+    border: 1px solid #D8D8DA;
+    color:#000;
+}
+.pagination .act a
+{
+    background-color: #33B5E5;
+    border: 1px solid #33B5E5 !important;
+    color: #FFF;
+}
+.numhr
+{
+    background-color: #eee;
+}*/

@@ -1,0 +1,61 @@
+﻿@model SysDept
+@{
+    ViewBag.Title = "修改部门";
+}
+<form id="form1" action="@Url.Action("Update")" runat="server">
+<input type="hidden" name="ID" value="@Model.ID" />
+<div class="addinfo_con">
+    <dl>
+        <dt><i>*</i> 编号：</dt>
+        <dd>
+            <input type="text" name="Code" class="info_put" datatype="*" nullmsg="请输入编号！" value="@Model.Code" />
+        </dd>
+    </dl>
+    <dl>
+        <dt><i>*</i> 名称：</dt>
+        <dd>
+            <input type="text" name="Name" class="info_put" datatype="*" nullmsg="请输入名称！" value="@Model.Name" />
+        </dd>
+    </dl>
+    <dl>
+        <dt>排序：</dt>
+        <dd>
+            <input type="text" name="Sort" class="info_put" datatype="n" value="@Model.Sort" />
+        </dd>
+    </dl> 
+    <dl class="input_an">
+        <dt></dt>
+        <dd>
+            <a class="input_ok" href="#" id="btnUpdate">修改</a><a class="close" href="#" id="btnClose">关闭</a>
+        </dd>
+    </dl>
+</div>
+</form>
+@section Script{
+    <script type="text/javascript">
+        $(function () {
+            $("#form1").Validform({
+                tiptype: 4,
+                ajaxPost: true,
+                btnSubmit: "#btnUpdate",
+                callback: function (data) {
+                    if (data.IsSuccess) {
+                        art.dialog.data("user_upd", true)
+                        art.dialog({ content: "操作成功...", icon: "succeed", ok: function () {
+                            art.dialog.close();
+                        }
+                        });
+                    }
+                    else {
+                        art.dialog({ content: data.Message, icon: "error", ok: true });
+                    }
+                }
+            });
+
+            $("#btnClose").click(function () {
+                art.dialog.close();
+            });
+        });
+         
+    </script>
+}

@@ -1,0 +1,204 @@
+﻿@{
+    ViewBag.Title = "后台";
+    var currUser = SysHelper.GetCurrUser();
+    int msgCount = 0;
+}
+<style type="text/css">
+    .main_right
+    {
+        float: none;
+    }
+</style>
+<div class="con">
+    <!--头部-->
+    <div class="con_top">
+        <div class="top_logo">
+            <a href="@Url.Action("index")" title="休假管理系统">
+                @*<img src="/images/i_03.png" />*@</a>
+        </div>
+        <div class="top_right">
+            <div class="top_menu" id="top_menu">
+                <ul>
+                    <li><a class="menuc_home  menucl" href="@Url.Action("Dashboard")" target="content" node-type="top-menu"
+                        module-id="0">首页</a></li>
+                    @*<asp:repeater id="repFirstMenu" runat="server">
+                            <ItemTemplate>
+                                <li><a id="menuc_1 menucl1" class="menuc_<%# Eval("Icon")%>" href="javascript:void(0)"
+                                    node-type="top-menu" module-id="<%# Eval("ID") %>">
+                                    <%# Eval("Name") %></a></li>
+                            </ItemTemplate>
+                        </asp:repeater>*@
+                    <li class="zwbl"></li>
+                </ul>
+            </div>
+            <div class="top_info" id="top_info" style="position: absolute; right: 0px; z-index: 999;">
+                <dl>
+                    <dt>
+                        <img src="@currUser.HeadImage" /></dt>
+                    <dd>
+                        <a href="javascript:void();">@currUser.RealName</a></dd>
+                </dl>
+                <div class="top_menu_sm" id="top_menu_sm" style="right: 0px;">
+                    <ul>
+                        <li><a class="tm2" href="@Url.Action("info", "user")" target="content">个人信息</a></li>
+                        <li><a class="tm1" href="@Url.Action("message", "user")" target="content">系统信息</a></li>
+                        <li><a class="tm3" href="@Url.Action("changepwd", "user")" target="content">修改密码</a></li>
+                        <li><a class="tm4" href="@Url.Action("exit", "user")">注销登录</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--头部-->
+    <!--主体-->
+    <div class="con_main">
+        <div class="menu_left">
+            <div module-id="0" class="menu_list xz" style="display: block;">
+                <p>
+                    <a class=" xz" href="javascript:void(0);">首页</a></p>
+                <ul style="display: none;">
+                    <li><a target="content" href="@Url.Action("Dashboard")">首页</a></li>
+                    <li><a target="content" href="@Url.Action("message", "user")">系统信息<label style="color: Red;
+                        font-weight: bold;">
+                        [@msgCount]
+                    </label>
+                    </a></li>
+                </ul>
+            </div>
+            <div module-id="1" class="menu_list xz"">
+                <p>
+                    <a class=" xz" href="javascript:void(0);">权限管理</a></p>
+                <ul style="display: none;">
+                    <li><a target="content" href="@Url.Action("index","user")">用户管理</a></li>
+                    <li><a target="content" href="@Url.Action("index", "dept")">部门管理 </a></li>
+                </ul>
+            </div>
+            @*<asp:repeater id="repSecondMenu" runat="server" onitemdatabound="repSecondMenu_ItemDataBound">
+                    <ItemTemplate>
+                        <div module-id="<%# Eval("ParentID")%>" class="menu_list" style="display: none">
+                            <p>
+                                <a class="" href="javascript:void(0);">
+                                    <%# Eval("Name")%></a></p>
+                            <ul style="display: none;">
+                                <asp:Repeater ID="repThirdMenu" runat="server">
+                                    <ItemTemplate>
+                                        <li><a target="content" href="<%# Eval("Url") %>">
+                                            <%# Eval("Name")%></a></li>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </ul>
+                        </div>
+                    </ItemTemplate>
+                </asp:repeater>*@
+        </div>
+        <div class="main_right" style="position: absolute; right: 0px;">
+            <iframe name="content" scrolling="auto" frameborder="0" src="@Url.Action("Dashboard")" style="width: 100%;
+                height: 100%;"></iframe>
+        </div>
+    </div>
+    <!--主体-->
+</div>
+@section Script
+{
+    @if (ViewBag.IsFirstVisit != null && ViewBag.IsFirstVisit)
+    {
+        <div id="div_changepwd" class="addinfo_con" style="width: 600px; display: none;">
+            <form id="resform" action="@Url.Action("changepwd", "user")"  >
+            <dl>
+                <dt>温馨提示：</dt>
+                <dd>
+                    <font style="color: Red; line-height: 30px;">首次登录，为保证您的账号安全，请修改默认密码！</font>
+                </dd>
+            </dl>
+            <dl>
+                <dt>旧密码：</dt>
+                <dd>
+                    <input type="password" name="oldpwd" class="info_put" datatype="*6-16" nullmsg="请输入旧密码！" />
+                </dd>
+            </dl>
+            <dl>
+                <dt>新密码：</dt>
+                <dd>
+                    <input type="password" name="newpwd" class="info_put" datatype="*6-16" plugin="passwordStrength"
+                        nullmsg="请输入密码！" />
+                    <span class="Validform_checktip"></span>
+                    <div class="passwordStrength" style="margin-left: 100px;">
+                        <b>密码强度：</b> <span>弱</span><span>中</span><span class="last">强</span></div>
+                </dd>
+            </dl>
+            <dl>
+                <dt>确认新密码：</dt>
+                <dd>
+                    <input type="password" name="confirmpwd" class="info_put" datatype="*6-16" recheck="newpwd"
+                        errormsg="两次输入的密码不一致！" nullmsg="请输入确认密码！" />
+                </dd>
+            </dl>
+            <dl class="input_an">
+                <dt></dt>
+                <dd>
+                    <a class="input_ok" href="javascript:void();" id="btnUpdate">修改</a>
+                </dd>
+            </dl>
+            </form>
+        </div> 
+        <link href="/Scripts/validform/passwordStrength.css" rel="stylesheet" type="text/css" />
+        <script src="/Scripts/validform/passwordStrength-min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(function () {
+                art.dialog({ id: "div_changepwd", content: document.getElementById("div_changepwd"), lock: true });
+
+                $("#resform").Validform({
+                    tiptype: 4,
+                    ajaxPost: true,
+                    btnSubmit: "#btnUpdate",
+                    usePlugin: {
+                        passwordstrength: {
+                            minLen: 6,
+                            maxLen: 18
+                        }
+                    },
+                    callback: function (data) {
+                        if (data.IsSuccess) {
+                            art.dialog({ content: "操作成功！", icon: "succeed", ok: function () {
+                                art.dialog.list["div_changepwd"].close();
+                            }
+                            });
+                        }
+                        else {
+                            art.dialog({ content: data.Message, icon: "error", ok: true });
+                        }
+                    }
+                });
+            }); 
+        </script>
+    }
+    <script type="text/javascript">
+        function resize() {
+            var iheight = document.documentElement.clientHeight;
+            var iwidth = document.documentElement.clientWidth;
+            $(".con_main").css("height", iheight - 75);
+            $(".menu_left").css("height", iheight - 75);
+            $(".main_right").css("height", iheight - 75);
+            $(".main_right").css("width", iwidth - 180);
+            $(".top_right").css("width", iwidth - 200);
+        }
+
+        window.onresize = resize;
+
+        $(function () {
+            $('[node-type="menu"]').click(function () {
+                $(".menucl").removeClass("menucl");
+            });
+
+            resize();
+
+            $("#top_menu").on("click", '[node-type="top-menu"]', function () {
+                var id = $(this).attr("module-id");
+                $("div[module-id='" + id + "']").show();
+                $("div[module-id='" + id + "']").eq(0).addClass("xz");
+                $("div[module-id='" + id + "'] ul").eq(0).show();
+            });
+        }); 
+    
+    </script>
+}

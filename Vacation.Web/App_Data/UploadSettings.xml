@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--notice:Refers to the type you can upload these type-->
+<settings>
+  <ignore>
+    <ext>.exe</ext>
+    <ext>.aspx</ext>
+  </ignore>
+  <default type="image" desc="图片格式">
+    <ext>*.jpg</ext>
+    <ext>*.png</ext>
+    <ext>*.bmp</ext>
+    <ext>*.gif</ext>
+  </default>
+  <default type="document" desc="文档格式">
+    <ext>*.txt</ext>
+    <ext>*.pdf</ext>
+    <ext>*.doc</ext>
+    <ext>*.ppt</ext>
+    <ext>*.xls</ext>
+  </default>
+  <default type="video" desc="视频格式">
+    <ext>*.flv</ext>
+    <ext>*.3gp</ext>
+    <ext>*.wmv</ext>
+    <ext>*.avi</ext>
+    <ext>*.rm</ext>
+    <ext>*.rmvb</ext>s
+  </default>
+</settings>

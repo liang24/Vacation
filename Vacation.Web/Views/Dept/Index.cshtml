@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<div class="class_con">
+    <p class="showlink">
+        <span>权限管理 > 部门管理</span>
+    </p>
+    <p id="wrapSearchBar" class="cz_an">
+        <span class="fLeft"><a class="choicecl" href="#" id="btnCheckAll">全选</a><a class="del"
+            href="#" id="btnDelete">删除</a><a class="add" href="#" id="btnAdd">新增</a> </span>
+        <span class="fRight">
+            <input type="text" name="name" class="ss_input fLeft mr5" placeholder="请输入名称" /><a
+                class="ss_an" href="#" id="btnSearch">搜索</a></span>
+    </p>
+    <table id="tbList" class="tainfo" style="width: 100%;">
+        <thead>
+            <tr class="thead">
+                <td class="pdl30" style="width: 40px;">
+                    选择
+                </td>
+                <td width="20%">
+                    编号
+                </td>
+                <td>
+                    名称
+                </td>
+                <td>
+                    排序
+                </td>
+                <td>
+                    操作
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <p class="cz_link">
+        <span class="cont">共 <b id="total">0</b> 记录</span> <span id="pager" class="pagination">
+        </span>
+    </p>
+</div>
+<script type="text/x-jquery-tmpl" id="tmplList">
+        <tr>
+            <td><input type="checkbox" node-type="ckb" rel="${ID}" class="cho check-box" /></td>
+            <td>${Code}&nbsp;</td>
+            <td>${Name}&nbsp;</td> 
+            <td>${Sort}&nbsp;</td>
+            <td>
+                <a class="update" href="#" btn="btnUpdate" node-id="${ID}">修改</a>  
+            </td>
+        </tr>
+</script>
+@section Script
+{
+    <script type="text/javascript">
+        $(function () { 
+            $("#pager").pager({
+                url: "@Url.Action("page")",
+                onLoaded: function (data, currPage, total, totalPage) {
+
+                    $("#total").text(total);
+                    $("#tbList tbody").html($("#tmplList").tmpl(data));
+                    //修改全选样式
+                    $("#btnCheckAll").removeClass("choice").addClass("choicecl");
+                    $("#tbList tbody").unmask();
+                },
+                onLoadStart: function () {
+                    $("#tbList tbody").mask("加载数据，请稍候...");
+                }
+            });
+
+            $("#tbList tbody").on("click", '[btn="btnUpdate"]', function () {
+                var id = $(this).attr("node-id");
+                art.dialog.open("@Url.Action("update")/" + id, { title: "更新", height: 350, lock: true, close: function () {
+                    if (art.dialog.data("user_upd")) {
+                        $("#pager").pager("reload");
+                        art.dialog.removeData("user_upd");
+                    }
+                }
+                });
+            });
+
+            $("#btnAdd").click(function () {
+                art.dialog.open("@Url.Action("add")", { title: "新增", lock: true, close: function () {
+                    if (art.dialog.data("user_add")) {
+                        $("#pager").pager("reload");
+                        art.dialog.removeData("user_add");
+                    }
+                }
+                });
+            });
+
+            $("#btnDelete").click(function () {
+                BaseOP.DeleteByIds("@Url.Action("delete")", "", function () { $("#pager").pager("reload"); });
+            }); 
+        }); 
+    </script>
+}

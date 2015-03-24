@@ -1,0 +1,1555 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Common</name>
+    </assembly>
+    <members>
+        <member name="T:Common.WebLib.CookieHelper">
+            <summary>
+            Cookie帮助类
+            </summary>
+        </member>
+        <member name="M:Common.WebLib.CookieHelper.Exists(System.String)">
+            <summary>
+            请求Cookie中是否存在
+            </summary>
+            <param name="key">索引</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.WebLib.CookieHelper.GetValue(System.String)">
+            <summary>
+            获取Cookie的值
+            </summary>
+            <param name="key">索引</param>
+            <returns></returns>
+        </member>
+        <member name="T:Common.Models.EasyuiTree">
+            <summary>
+            用于easyui的树状数据类
+            </summary>
+        </member>
+        <member name="T:Common.CharLib.StringHelper">
+            <summary>
+            字符串处理帮助类
+            </summary>
+        </member>
+        <member name="M:Common.CharLib.StringHelper.InputText(System.String,System.Int32)">
+            <summary>
+            截取输入最大的字符串
+            </summary>
+            <param name="maxLength">最大长度</param>
+            <returns>返回操作结果</returns>
+        </member>
+        <member name="M:Common.CharLib.StringHelper.HtmlSourceToStr(System.String)">
+            <summary>
+            将普通的HTML的文本转换成可以在C#代码中使用的字符串
+            </summary>
+            <param name="sourceString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.CharLib.StringHelper.WipeOffHtml(System.String)">
+            <summary>         
+            浅去除Html          
+            </summary>              
+            <returns>返回操作后字符串</returns>         
+        </member>
+        <member name="M:Common.CharLib.StringHelper.ScriptHtml(System.String)">
+            <summary>         
+            深去除Html包括脚本等         
+            </summary>               
+            <returns>返回操作后字符串</returns> 
+        </member>
+        <member name="M:Common.CharLib.StringHelper.GetImgUrl(System.String)">
+            <summary>
+            输入HTML中的ImgUrl
+            </summary>
+            <returns>返回干净的Url</returns>
+        </member>
+        <member name="M:Common.CharLib.StringHelper.Remove(System.String,System.String)">
+            <summary>
+            从字符串中的尾部删除指定的字符串
+            </summary>
+            <param name="removedString">删除匹配字符串</param>
+            <returns>处理后字符串</returns>
+        </member>
+        <member name="M:Common.CharLib.StringHelper.RightSplit(System.String,System.Char)">
+            <summary>
+            获取拆分符右边的字符串
+            </summary>
+            <param name="splitChar">拆分符号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.CharLib.StringHelper.LeftSplit(System.String,System.Char)">
+            <summary>
+            获取拆分符左边的字符串
+            </summary>
+            <param name="splitChar">拆分符号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.CharLib.StringHelper.DelLastComma(System.String)">
+            <summary>
+            去掉最后一个逗号
+            </summary>
+            <param name="origin"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.CharLib.StringHelper.GetStrCount(System.String,System.String[])">
+            <summary>
+            获取某一字符串在字符串数组中出现的次数
+            </summary>
+            <param name="stringArray">输入要查询的字符串数组</param>
+            <returns>返回出现次数</returns>
+        </member>
+        <member name="M:Common.CharLib.StringHelper.GetStrCount(System.String,System.String)">
+            <summary>
+            获取某一字符串在字符串中出现的次数
+            </summary>
+            <param name="sourceString">输入操作字符串</param>
+            <param name="findString">要查询的字符</param>
+            <returns>返回出现次数</returns>
+        </member>
+        <member name="M:Common.CharLib.StringHelper.GetSubStr(System.String,System.String)">
+            <summary>
+            截取从startString开始到原字符串结尾的所有字符
+            </summary>
+            <param name="sourceString">需要操作的字符串</param>
+            <param name="startString">开始字符</param>
+            <returns>返回结果</returns>
+        </member>
+        <member name="M:Common.CharLib.StringHelper.GetSubStr(System.String,System.String,System.String)">
+            <summary>
+            删除从beginRemovedString到 endRemovedString的字符串
+            </summary>
+            <param name="sourceString">需要操作的字符串</param>
+            <param name="beginRemovedString">开始字符</param>
+            <param name="endRemovedString">结束字符</param>
+            <returns>返回结果</returns>
+        </member>
+        <member name="M:Common.CharLib.StringHelper.GetLengthStr(System.String,System.Int32,System.Boolean)">
+            <summary>
+            获取指定长度的字符串
+            </summary>
+            <param name="sourceString">源字符串</param>
+            <param name="length">指定的长度值</param>
+            <param name="isAtted">是否附加省略号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.CharLib.StringHelper.Intercept(System.String,System.Int32,System.Boolean)">
+            <summary>
+            截获超过指定字节长度的字符串
+            </summary>
+            <param name="sourceString">源字符串</param>
+            <param name="length">截获的字节长度</param>
+            <param name="isAtted">是否附加省略号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.CharLib.StringHelper.FilterBadWords(System.String,System.String)">
+            <summary> 
+            移除非法或不友好字符 
+            </summary> 
+            <param name="keyWord">非法或不友好字符以|隔开</param> 
+            <param name="chkStr">要处理的字符串</param> 
+            <returns>处理后的字符串</returns> 
+        </member>
+        <member name="M:Common.CharLib.StringHelper.Format(System.String,System.Object[])">
+            <summary>
+            将string.Format改为扩展方法
+            </summary>
+            <param name="sourceString">要格式化的字符串</param>
+            <param name="args">一个对象数组，其中包含零个或多个要设置格式的对象。</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.CharLib.StringHelper.ToCNUpperCase(System.Int32)">
+            <summary> 
+            将整数转为大写的中文数字 
+            </summary> 
+            <param name="input">输入的数字</param> 
+            <returns></returns> 
+        </member>
+        <member name="M:Common.CharLib.StringHelper.ToCNLowerCase(System.Int32)">
+            <summary>
+            将整数转为小写的中文数字
+            </summary>
+            <param name="input">输入的数字</param>
+            <returns></returns>
+            创建人：尹学良
+            5/29/2013 3:58 PM
+        </member>
+        <member name="M:Common.CharLib.StringHelper.GetByteCount(System.String)">
+            <summary>
+            按字节数取出字符串的长度
+            </summary>
+            <param name="strTmp">要计算的字符串</param>
+            <returns>字符串的字节数</returns>
+        </member>
+        <member name="M:Common.CharLib.StringHelper.GetByteIndex(System.String,System.Int32)">
+            <summary>
+            按字节数要在字符串的位置
+            </summary>
+            <param name="intIns">字符串的位置</param>
+            <returns>字节的位置</returns>
+        </member>
+        <member name="M:Common.CharLib.StringHelper.ChageStringToIntArray(System.String)">
+            <summary>
+            将string转换为int数组
+            </summary>
+            <param name="ids">string数组</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.CharLib.StringHelper.GetStringArray(System.String)">
+            <summary>
+            删除数组中的重复项
+            </summary>
+            <param name="values">源</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.CharLib.StringHelper.MakeQRCode(System.String,System.String@)">
+            <summary>
+            生成二维码
+            </summary>        
+            <param name="content">二维码内容</param>
+            <returns>二维码保存地址</returns>
+        </member>
+        <member name="M:Common.CharLib.StringHelper.DateTimeToString(System.DateTime)">
+            <summary>
+            日期转换为字符串
+            </summary>
+            <param name="dt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Linq.NumericExtension.Between(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            将数值保持在[min,max]之间
+            </summary>
+            <param name="value">The value.</param>
+            <param name="min">最小值</param>
+            <param name="max">最大值</param>
+            <returns></returns>
+            创建人：尹学良
+            5/11/2013 9:53 AM
+        </member>
+        <member name="T:Common.CharLib.ChHelper">
+            <summary>
+            汉字转拼音帮助类
+            </summary>
+        </member>
+        <member name="M:Common.CharLib.ChHelper.ConvertToCh(System.String)">
+            <summary>
+            汉字转换成全拼的拼音
+            </summary>
+            <param name="strCh">汉字字符串</param>
+            <returns>转换后的拼音字符串</returns>
+        </member>
+        <member name="M:Common.CharLib.ChHelper.ConvertToAcronym(System.String)">
+            <summary>
+            汉字转换成
+            </summary>
+            <param name="strCh">中文字符串</param>
+            <returns></returns>
+            创建人：尹学良
+            2014/5/21 9:48
+        </member>
+        <member name="T:Common.EnumLib.EnumExtension">
+            <summary>
+            枚举扩展类
+            </summary>
+        </member>
+        <member name="M:Common.EnumLib.EnumExtension.StringToEnum``1(System.String)">
+            <summary>
+            转换为枚举
+            </summary>
+            <typeparam name="TEnum"></typeparam>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.EnumLib.EnumExtension.IntToEnum``1(System.Int32)">
+            <summary>
+            转换为枚举
+            </summary>
+            <typeparam name="TEnum"></typeparam>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.EnumLib.EnumExtension.EnumToInt``1(``0)">
+            <summary>
+            转换为int
+            </summary>
+            <typeparam name="TEnum"></typeparam>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.EnumLib.EnumExtension.EnumToName``1(``0)">
+            <summary>
+            转换为名字
+            </summary>
+            <typeparam name="TEnum"></typeparam>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.EnumLib.EnumExtension.GetComboBox``1">
+            <summary>
+            获取下拉数据源
+            </summary>
+            <typeparam name="TEnum"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Common.EnumLib.EnumExtension.GetComboBox``1(System.Func{``0,System.String},System.Func{``0,System.String})">
+            <summary>
+            获取下拉数据源
+            </summary>
+            <typeparam name="TEnum">枚举</typeparam>
+            <param name="funcGetText">获取Text的委托</param>
+            <param name="funcGetValue">获取Value的委托</param>
+            <returns></returns>
+            创建人：尹学良
+            2014/5/22 11:14
+            <exception cref="T:System.ArgumentException">类型不是枚举</exception>
+        </member>
+        <member name="T:Common.FileLib.ExcelHelper">
+            <summary>
+            NPOI版Excel帮助类
+            </summary>
+        </member>
+        <member name="M:Common.FileLib.ExcelHelper.ConvertToDataTable(System.String,System.Int32,System.Int32)">
+            <summary>
+            将Excel文件转换为DataTable
+            </summary>
+            <param name="path">文件路径</param>
+            <param name="columnCount">列数（默认值：30）</param>
+            <param name="ignoreRows">忽略行数（默认值：0）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.FileLib.ExcelHelper.ConvertToDataTable(System.String,System.Int32,System.String[])">
+            <summary>
+            将Excel文件转换为DataTable
+            </summary>
+            <param name="path">文件路径</param>
+            <param name="ignoreRows">忽略行数，从0开始</param>
+            <param name="columnNames">列名集合，必须有值</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">columnNames必须有值！</exception>
+        </member>
+        <member name="M:Common.FileLib.ExcelHelper.Export(System.Data.DataTable,System.String,System.String,System.String[])">
+            <summary>
+            DataTable导出到Excel文件
+            </summary>
+            <param name="dtSource">源DataTable</param>
+            <param name="strHeaderText">表头文本</param>
+            <param name="strFileName">保存位置</param>
+            创建人：尹学良
+            5/11/2013 9:22 AM
+        </member>
+        <member name="M:Common.FileLib.ExcelHelper.Export(System.Data.DataTable,System.String,System.String[])">
+            <summary>
+            DataTable导出到Excel的MemoryStream
+            </summary>
+            <param name="dtSource">源DataTable</param>
+            <param name="strHeaderText">表头文本</param> 
+            <param name="paramsHeader">列头名称</param>
+            <returns></returns>
+            创建人：尹学良
+            5/11/2013 9:22 AM
+        </member>
+        <member name="M:Common.FileLib.ExcelHelper.ToDataTable``1(System.Collections.Generic.IList{``0},System.String[])">
+            
+            <summary>
+            将泛型集合类转换成DataTable
+            </summary>
+            <typeparam name="T">集合项类型</typeparam>
+            <param name="list">集合</param>
+            <param name="propertyName">需要返回的列的列名</param>
+            <returns>数据集(表)</returns>
+        </member>
+        <member name="T:Common.Models.Tree">
+            <summary>
+            用于获取树状的数据类
+            </summary>
+        </member>
+        <member name="P:Common.Models.Tree.ID">
+            <summary>
+            Unique值
+            </summary>
+        </member>
+        <member name="P:Common.Models.Tree.Text">
+            <summary>
+            显示的文本值
+            </summary>
+        </member>
+        <member name="P:Common.Models.Tree.ChildrenCount">
+            <summary>
+            孩子数量
+            </summary>
+        </member>
+        <member name="P:Common.Models.Tree.IsParentNode">
+            <summary>
+            是事父结点
+            </summary> 
+            创建人：尹学良
+            2013-3-11 10:33
+        </member>
+        <member name="T:System.Linq.IEnumerableExtension">
+            <summary>
+            泛型集合扩展类
+            </summary>
+            创建人：尹学良
+            2013-3-21 11:58
+        </member>
+        <member name="M:System.Linq.IEnumerableExtension.Join``1(System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>
+            串联字符串集合的成员，其中在每个成员之间使用指定的分隔符。
+            </summary>
+            <typeparam name="TSource">source 成员的类型</typeparam>
+            <param name="source">一个包含要串联的对象的集合</param>
+            <param name="separator">要用作分隔符的字符串</param>
+            <returns></returns>
+            创建人：尹学良
+            2013-3-21 11:56
+        </member>
+        <member name="M:System.Linq.IEnumerableExtension.HasElements``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            集合中是否有元素
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Common.EnumLib.EnumAttribute">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Common.EnumLib.EnumAttribute.Get(System.Object)">
+            <summary>
+            获取枚举对应特性名
+            </summary>
+            <param name="enm">枚举值</param>
+            <returns>特性名</returns>
+        </member>
+        <member name="T:Common.WebLib.DownloadHelper">
+            <summary>
+            下载帮助类
+            </summary>
+        </member>
+        <member name="M:Common.WebLib.DownloadHelper.DownloadByStream(System.String,System.String)">
+            <summary>
+            流文件方式下载
+            </summary>
+            <param name="filePath">文件绝对路径</param>
+            <param name="downloadName">下载名字</param>
+            <remarks>必须是Web方式下的应用程序</remarks>
+        </member>
+        <member name="T:Common.Models.IComboBox">
+            <summary>
+            获取下拉框数据源接口
+            </summary>
+        </member>
+        <member name="M:System.Linq.DateTimeExtension.ToDateString(System.DateTime)">
+            <summary>
+            返回日期格式字符串
+            </summary>
+            <param name="source">The source.</param>
+            <returns></returns>
+            创建人：尹学良
+            2014/6/24 11:48
+        </member>
+        <member name="M:System.Linq.DateTimeExtension.ToDateTimeString(System.DateTime)">
+            <summary>
+            返回时间格式字符串
+            </summary>
+            <param name="source">The source.</param>
+            <returns></returns>
+            创建人：尹学良
+            2014/6/24 11:48
+        </member>
+        <member name="T:Common.FileLib.XmlHelper">
+            <summary>
+            XML文件处理帮助类
+            </summary>
+        </member>
+        <member name="M:Common.FileLib.XmlHelper.Replace(System.String,System.String)">
+            <summary>
+            新节点内容。
+            示例：xmlTool.Replace("Book/Authors[ISBN=\"0002\"]/Content","ppppppp"); 
+            </summary>
+            <param name="XmlPathNode"></param>
+            <param name="Content"></param>
+        </member>
+        <member name="M:Common.FileLib.XmlHelper.DeleteChild(System.String)">
+            <summary>
+            删除一个指定节点的子节点。 
+            示例： xmlTool.DeleteChild("Book/Authors[ISBN=\"0003\"]"); 
+            </summary>
+            <param name="Node"></param>
+        </member>
+        <!-- 对于成员“M:Common.FileLib.XmlHelper.Delete(System.String,System.String)”忽略有格式错误的 XML 注释 -->
+        <member name="M:Common.FileLib.XmlHelper.InsertNode(System.String,System.String,System.String,System.String)">
+            <summary>
+            插入一节点和此节点的一子节点。 
+            示例：xmlTool.InsertNode("Book","Author","ISBN","0004"); 
+            </summary>
+            <param name="MainNode">主节点</param>
+            <param name="ChildNode">子节点</param>
+            <param name="Element">元素</param>
+            <param name="Content">内容</param>
+        </member>
+        <member name="M:Common.FileLib.XmlHelper.InsertElement(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            插入一个节点，带一属性。
+            示例： xmlTool.InsertElement("Book/Author[ISBN=\"0004\"]","Title","Sex","man","iiiiiiii"); 
+            </summary>
+            <param name="MainNode">主节点</param>
+            <param name="Element">元素</param>
+            <param name="Attrib">属性</param>
+            <param name="AttribContent">属性内容</param>
+            <param name="Content">元素内容</param>
+        </member>
+        <member name="M:Common.FileLib.XmlHelper.InsertElement(System.String,System.String,System.String)">
+            <summary>
+            插入一个节点，不带属性。
+            示例：xmlTool.InsertElement("Book/Author[ISBN=\"0004\"]","Content","aaaaaaaaa"); 
+            </summary>
+            <param name="MainNode">主节点</param>
+            <param name="Element">元素</param>
+            <param name="Content">元素内容</param>
+        </member>
+        <member name="M:Common.FileLib.XmlHelper.Save">
+            <summary>
+            对xml文件做插入，更新，删除后需做Save()操作，以保存修改
+            </summary>
+        </member>
+        <member name="T:Common.FileLib.ThumbnailHelper">
+            <summary>
+            缩略图帮助类
+            </summary>
+        </member>
+        <member name="M:Common.FileLib.ThumbnailHelper.CreateThumbnail(System.String,System.Int32,System.Int32)">
+            <summary>
+            生成缩略图并存入MemoryStream
+            </summary>
+            <param name="fileSaveUrl">原图存放地址以及名字</param>
+            <param name="thumbnailWidth">缩略图宽度</param>
+            <param name="thumbnailHeight">缩略图高度</param>
+        </member>
+        <member name="M:Common.FileLib.ThumbnailHelper.CreateThumbnail(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            生成缩略图并保存到指定路径
+            </summary>
+            <param name="file">上传控件对象</param>
+            <param name="savePath">缩略图保存路径以名字</param>
+            <param name="thumbnailWidth">缩略图宽度</param>
+            <param name="thumbnailHeight">缩略图高度</param>
+        </member>
+        <member name="T:Common.FileLib.ZipHelper">
+            <summary>
+            Zip压缩与解压缩 
+            </summary>
+        </member>
+        <member name="M:Common.FileLib.ZipHelper.ZipFile(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            压缩单个文件
+            </summary>
+            <param name="fileToZip">要压缩的文件</param>
+            <param name="zipedFile">压缩后的文件</param>
+            <param name="compressionLevel">压缩等级</param>
+            <param name="blockSize">每次写入大小</param>
+        </member>
+        <member name="M:Common.FileLib.ZipHelper.ZipFile(System.String,System.String)">
+            <summary>
+            压缩单个文件
+            </summary>
+            <param name="fileToZip">要进行压缩的文件名</param>
+            <param name="zipedFile">压缩后生成的压缩文件名</param>
+        </member>
+        <member name="M:Common.FileLib.ZipHelper.ZipFileDirectory(System.String,System.String)">
+            <summary>
+            压缩多层目录
+            </summary>
+            <param name="strDirectory">The directory.</param>
+            <param name="zipedFile">The ziped file.</param>
+        </member>
+        <member name="M:Common.FileLib.ZipHelper.ZipSetp(System.String,ICSharpCode.SharpZipLib.Zip.ZipOutputStream,System.String)">
+            <summary>
+            递归遍历目录
+            </summary>
+            <param name="strDirectory">The directory.</param>
+            <param name="s">The ZipOutputStream Object.</param>
+            <param name="parentPath">The parent path.</param>
+        </member>
+        <member name="M:Common.FileLib.ZipHelper.UnZip(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            解压缩一个 zip 文件。
+            </summary>
+            <param name="zipedFile">The ziped file.</param>
+            <param name="strDirectory">The STR directory.</param>
+            <param name="password">zip 文件的密码。</param>
+            <param name="overWrite">是否覆盖已存在的文件。</param>
+        </member>
+        <member name="M:Common.WebLib.JsonHelper.SerializeStateInfo(System.Boolean,System.String)">
+            <summary>
+            序列化状态信息。返回给客户端的状态信息为success:成功标志，msg:相关信息。
+            </summary>
+            <param name="success">成功的状态</param>
+            <param name="msg">信息</param>
+            <returns>返回状态信息的json串</returns>
+        </member>
+        <member name="M:Common.WebLib.JsonHelper.NameValueCollectionToJsonString(System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            NameValueCollection转换为json格式字符串。自动添加{}。一般用于客户端提交的串的json格式转换
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.WebLib.JsonHelper.NameValueCollectionToJsonString(System.Collections.Specialized.NameValueCollection,System.Boolean)">
+            <summary>
+            NameValueCollection转换为json格式字符串。一般用于客户端提交的串的json格式转换
+            </summary>
+            <param name="value">需要转换的值</param>
+            <param name="addBraces">是否添加{}</param>
+            <returns>json串</returns>
+        </member>
+        <member name="M:Common.WebLib.JsonHelper.Serialize(System.Object,System.String)">
+            <summary>
+            序列化对象成Json格式串
+            </summary>
+            <param name="value">需要序列的对象</param>
+            <param name="format">日期类型属性序列化的格式</param>
+            <returns>序列化结果，Json格式串</returns>
+        </member>
+        <member name="M:Common.WebLib.JsonHelper.Serialize(System.Object)">
+            <summary>
+            序列化对象成Json格式串，日期类型属性按照yyyy-MM-dd格式序列化成字符串类型
+            </summary>
+            <param name="value">序列的对象</param>
+            <returns>序列化结果，Json格式串</returns>
+        </member>
+        <member name="M:Common.WebLib.JsonHelper.Serialize(System.Object,System.Boolean)">
+            <summary>
+            序列化对象成Json格式串（dataToString = false时，日期格式属性序列化为日期格式）
+            </summary>
+            <param name="value">序列的对象</param>
+            <param name="dateToString">是否将日期型属性按照字符性转换</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.WebLib.JsonHelper.SerializeByjqGrid(System.Object,System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            按照jqGrid格式序列化对象成Json格式串
+            </summary>
+            <param name="value">序列化对象</param>
+            <param name="total">总的记录数</param>
+            <param name="page">页码</param>
+            <param name="records">记录数</param>
+            <param name="format">日期属性的格式化形式</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.WebLib.JsonHelper.SerializeByjqGrid(System.Object,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            按照jqGrid格式序列化对象成Json格式串
+            </summary>
+            <param name="value">序列化对象</param>
+            <param name="total">总的记录数</param>
+            <param name="page">页码</param>
+            <param name="records">记录数</param>
+            <returns></returns>
+        </member>
+        <member name="T:Common.FileLib.ImageHelper">
+            <summary>
+            图片处理
+            http://www.cnblogs.com/wu-jian/
+            
+            吴剑 2011-02-20 创建
+            吴剑 2012-08-08 修改
+            </summary>
+        </member>
+        <member name="M:Common.FileLib.ImageHelper.CutForSquare(System.IO.Stream,System.String,System.Int32,System.Int32)">
+            <summary>
+            正方型裁剪
+            以图片中心为轴心，截取正方型，然后等比缩放
+            用于头像处理
+            </summary>
+            <remarks>吴剑 2012-08-08</remarks>
+            <param name="fromFile">原图Stream对象</param>
+            <param name="fileSaveUrl">缩略图存放地址</param>
+            <param name="side">指定的边长（正方型）</param>
+            <param name="quality">质量（范围0-100）</param>
+        </member>
+        <member name="M:Common.FileLib.ImageHelper.CutForCustom(System.IO.Stream,System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            指定长宽裁剪
+            按模版比例最大范围的裁剪图片并缩放至模版尺寸
+            </summary>
+            <remarks>吴剑 2012-08-08</remarks>
+            <param name="fromFile">原图Stream对象</param>
+            <param name="fileSaveUrl">保存路径</param>
+            <param name="maxWidth">最大宽(单位:px)</param>
+            <param name="maxHeight">最大高(单位:px)</param>
+            <param name="quality">质量（范围0-100）</param>
+        </member>
+        <member name="M:Common.FileLib.ImageHelper.ZoomAuto(System.IO.Stream,System.String,System.Double,System.Double,System.String,System.String)">
+            <summary>
+            图片等比缩放
+            </summary>
+            <remarks>吴剑 2012-08-08</remarks>
+            <param name="fromFile">原图Stream对象</param>
+            <param name="savePath">缩略图存放地址</param>
+            <param name="targetWidth">指定的最大宽度</param>
+            <param name="targetHeight">指定的最大高度</param>
+            <param name="watermarkText">水印文字(为""表示不使用水印)</param>
+            <param name="watermarkImage">水印图片路径(为""表示不使用水印)</param>
+        </member>
+        <member name="M:Common.FileLib.ImageHelper.IsWebImage(System.String)">
+            <summary>
+            判断文件类型是否为WEB格式图片
+            (注：JPG,GIF,BMP,PNG)
+            </summary>
+            <param name="contentType">HttpPostedFile.ContentType</param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Linq.StringExtension">
+            <summary>
+            字符串扩展类
+            </summary>
+            创建人：尹学良
+            2013-3-21 11:50
+        </member>
+        <member name="M:System.Linq.StringExtension.ToInt(System.String,System.Int32)">
+            <summary>
+            转换为int
+            </summary>
+            <param name="source">转换字符串</param>
+            <param name="defaultValue">默认值</param>
+            <returns></returns>
+            创建人：尹学良
+            2013-3-21 11:22
+        </member>
+        <member name="M:System.Linq.StringExtension.ToIntOrNull(System.String)">
+            <summary>
+            转为int?
+            </summary>
+            <param name="source">转换字符串</param>
+            <returns></returns>
+            创建人：尹学良
+            2014/2/27 15:26
+        </member>
+        <member name="M:System.Linq.StringExtension.ToIntList(System.String,System.String)">
+            <summary>
+            转为int集合
+            </summary>
+            <param name="source">转换字符串</param>
+            <param name="separator">The separator.</param>
+            <returns></returns>
+            创建人：尹学良
+            2014/2/27 15:26
+        </member>
+        <member name="M:System.Linq.StringExtension.ToStringList(System.String,System.String)">
+            <summary>
+            To the string list.
+            </summary>
+            <param name="source">转换字符串</param>
+            <param name="separator">The separator.</param>
+            <returns></returns>
+            创建人：尹学良
+            2014/2/27 15:26
+        </member>
+        <member name="M:System.Linq.StringExtension.RemoveSpace(System.String)">
+            <summary>
+            移除所有空白符
+            </summary>
+            <param name="source">转换字符串</param>
+            <returns></returns>
+            创建人：尹学良
+            2013-3-27 15:21
+        </member>
+        <member name="M:System.Linq.StringExtension.DefaultIfEmpty(System.String,System.String)">
+            <summary>
+            为空时的默认值
+            </summary>
+            <param name="source">转换字符串</param>
+            <param name="defaultValue">默认值</param>
+            <returns></returns>
+            创建人：尹学良
+            5/8/2013 10:07 AM
+        </member>
+        <member name="M:System.Linq.StringExtension.ToDecimal(System.String,System.Decimal)">
+            <summary>
+            转为decimal
+            </summary>
+            <param name="source">转换字符串</param>
+            <param name="defaultValue">The default value.</param>
+            <returns></returns>
+            创建人：尹学良
+            2014/2/27 15:25
+        </member>
+        <member name="M:System.Linq.StringExtension.ToDecimalOrNull(System.String)">
+            <summary>
+            转为decimal或Null
+            </summary>
+            <param name="source">转换字符串</param> 
+            <returns></returns>
+            创建人：尹学良
+            2014/2/27 15:25
+        </member>
+        <member name="M:System.Linq.StringExtension.ToBoolean(System.String,System.Boolean)">
+            <summary>
+            转换为bool
+            </summary>
+            <param name="source"></param>
+            <param name="defaultValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Linq.StringExtension.ToDateTime(System.String,System.Nullable{System.DateTime})">
+            <summary>
+            转换为DateTime
+            </summary>
+            <param name="source"></param>
+            <param name="defaultValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Linq.StringExtension.ToDateTimeOrNull(System.String)">
+            <summary>
+            转换为DateTime或Null
+            </summary>
+            <param name="source"></param> 
+            <returns></returns>
+        </member>
+        <member name="M:System.Linq.StringExtension.ToDouble(System.String,System.Double)">
+            <summary>
+            转换为double
+            </summary>
+            <param name="source"></param>
+            <param name="defaultValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Linq.StringExtension.ToDoubleOrNull(System.String)">
+            <summary>
+            转换为double或者Null
+            </summary>
+            <param name="source"></param> 
+            <returns></returns>
+        </member>
+        <member name="T:Common.CharLib.RMBHelper">
+            <summary>
+            数字金额转换为中文大写形式帮助类
+            </summary>
+        </member>
+        <member name="M:Common.CharLib.RMBHelper.CmycurD(System.Decimal)">
+            <summary>
+            转换人民币大小金额
+            </summary>
+            <param name="num">金额</param>
+            <returns>返回大写形式</returns>
+        </member>
+        <member name="M:Common.CharLib.RMBHelper.CmycurD(System.String)">
+            <summary>
+            一个重载，将字符串先转换成数字在调用CmycurD(decimal num)
+            </summary>
+            <param name="num">用户输入的金额，字符串形式未转成decimal</param>
+            <returns></returns>
+        </member>
+        <member name="T:Common.WebLib.LogHelper">
+            <summary>
+            日志帮助类
+            </summary>
+        </member>
+        <member name="M:Common.WebLib.LogHelper.Log(System.Exception)">
+            <summary>
+            记录异常
+            </summary>
+            <param name="ex">异常</param>
+        </member>
+        <member name="M:Common.WebLib.LogHelper.Log(System.String,System.String)">
+            <summary>
+            记录信息
+            </summary>
+            <param name="title">标题</param>
+            <param name="content">内容</param>
+        </member>
+        <member name="T:Common.FileLib.FileHelper">
+            <summary>
+            文件处理帮助类
+            </summary>
+        </member>
+        <member name="M:Common.FileLib.FileHelper.GetPostfixStr(System.String)">
+            <summary>
+            取后缀名
+            </summary>
+            <param name="filename">文件名</param>
+            <returns>.gif|.html格式</returns>
+        </member>
+        <member name="M:Common.FileLib.FileHelper.GetFileName(System.String)">
+            <summary>
+            取文件名
+            </summary>
+            <param name="filePath">文件路径</param>
+            <returns></returns>
+            创建人：尹学良
+            2013-3-28 12:51
+        </member>
+        <member name="M:Common.FileLib.FileHelper.WriteFile(System.String,System.String)">
+            <summary>
+            写文件
+            </summary>
+            <param name="Path">文件路径</param>
+            <param name="Strings">文件内容</param>
+        </member>
+        <member name="M:Common.FileLib.FileHelper.WriteFile(System.String,System.String,System.Text.Encoding)">
+            <summary>
+            写文件
+            </summary>
+            <param name="Path">文件路径</param>
+            <param name="Strings">文件内容</param>
+            <param name="encode">编码格式</param>
+        </member>
+        <member name="M:Common.FileLib.FileHelper.ReadFile(System.String)">
+            <summary>
+            读文件
+            </summary>
+            <param name="Path">文件路径</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.FileLib.FileHelper.ReadFile(System.String,System.Text.Encoding)">
+            <summary>
+            读文件
+            </summary>
+            <param name="Path">文件路径</param>
+            <param name="encode">编码格式</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.FileLib.FileHelper.FileAdd(System.String,System.String)">
+            <summary>
+            追加文件
+            </summary>
+            <param name="Path">文件路径</param>
+            <param name="strings">内容</param>
+        </member>
+        <member name="M:Common.FileLib.FileHelper.FileCoppy(System.String,System.String)">
+            <summary>
+            拷贝文件
+            </summary>
+            <param name="OrignFile">原始文件</param>
+            <param name="NewFile">新文件路径</param>
+        </member>
+        <member name="M:Common.FileLib.FileHelper.FileDel(System.String)">
+            <summary>
+            删除文件
+            </summary>
+            <param name="Path">路径</param>
+        </member>
+        <member name="M:Common.FileLib.FileHelper.FileMove(System.String,System.String)">
+            <summary>
+            移动文件
+            </summary>
+            <param name="OrignFile">原始路径</param>
+            <param name="NewFile">新路径</param>
+        </member>
+        <member name="M:Common.FileLib.FileHelper.FolderCreate(System.String,System.String)">
+            <summary>
+            在当前目录下创建目录
+            </summary>
+            <param name="OrignFolder">当前目录</param>
+            <param name="NewFloder">新目录</param>
+        </member>
+        <member name="M:Common.FileLib.FileHelper.DeleteFolder(System.String)">
+            <summary>
+            递归删除文件夹目录及文件
+            </summary>
+            <param name="dir"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.FileLib.FileHelper.CopyDir(System.String,System.String)">
+            <summary>
+            指定文件夹下面的所有内容copy到目标文件夹下面
+            </summary>
+            <param name="srcPath">原始路径</param>
+            <param name="aimPath">目标文件夹</param>
+        </member>
+        <member name="T:Common.Models.ResponseResult">
+            <summary>
+            响应结果
+            </summary>
+            创建人：尹学良
+            2013-3-11 10:39
+        </member>
+        <member name="M:Common.Models.ResponseResult.#ctor(Common.Models.VMessage)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="vMessage">通用消息序列对象</param>
+            创建人：尹学良
+            2013-3-11 10:56
+        </member>
+        <member name="P:Common.Models.ResponseResult.Entity">
+            <summary>
+            数据实体
+            </summary>
+        </member>
+        <member name="P:Common.Models.ResponseResult.IsSuccess">
+            <summary>
+            是否成功
+            </summary>  
+        </member>
+        <member name="P:Common.Models.ResponseResult.Message">
+            <summary>
+            消息
+            </summary>
+        </member>
+        <member name="T:Common.Models.ArtDialogResponseResult">
+            <summary>
+            art.dialog方式的响应结果
+            </summary>
+            创建人：尹学良
+            2013-3-28 9:58
+        </member>
+        <member name="T:Common.Models.ValidformResponseResult">
+            <summary>
+            validform方式的响应结果
+            </summary>
+            创建人：尹学良
+            2013-3-28 10:05
+        </member>
+        <member name="T:Common.Models.ResponseData">
+            <summary>
+            响应数据
+            </summary>
+            创建人：尹学良
+            2013-3-21 11:47
+        </member>
+        <member name="P:Common.Models.ResponseData.Total">
+            <summary>
+            数据总数
+            </summary> 
+            创建人：尹学良
+            2013-3-21 11:48
+        </member>
+        <member name="P:Common.Models.ResponseData.CurrentPage">
+            <summary>
+            当前页码
+            </summary> 
+            创建人：尹学良
+            2013-3-21 11:48
+        </member>
+        <member name="P:Common.Models.ResponseData.Data">
+            <summary>
+            数据集
+            </summary> 
+            创建人：尹学良
+            2013-3-21 11:48
+        </member>
+        <member name="P:Common.Models.ResponseData.Empty">
+            <summary>
+            空值
+            </summary>
+        </member>
+        <member name="T:Common.Models.ResponseResultExtension">
+            <summary>
+            响应结果扩展类
+            </summary>
+        </member>
+        <member name="M:Common.Models.ResponseResultExtension.ToArtDialogResponseResult(Common.Models.VMessage)">
+            <summary>
+            To the art dialog response result.
+            </summary>
+            <param name="message">The message.</param>
+            <returns></returns>
+            创建人：尹学良
+            2014/5/21 10:47
+        </member>
+        <member name="M:Common.Models.ResponseResultExtension.ToValidformResponseResult(Common.Models.VMessage)">
+            <summary>
+            To the validform response result.
+            </summary>
+            <param name="message">The message.</param>
+            <returns></returns>
+            创建人：尹学良
+            2014/5/21 10:47
+        </member>
+        <member name="T:Common.Models.VMessage">
+            <summary>
+            通用消息序列类
+            </summary>
+        </member>
+        <member name="F:Common.Models.VMessage.messageList">
+            <summary>
+            消息序列
+            </summary>
+        </member>
+        <member name="M:Common.Models.VMessage.AddItem(System.String)">
+            <summary>
+            向序列中添加新的项
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:Common.Models.VMessage.AddItemRange(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            向序列中追加一个新的序列
+            </summary>
+            <param name="itemRange">序列对象</param>
+        </member>
+        <member name="M:Common.Models.VMessage.Clear">
+            <summary>
+            清空所有现有项
+            </summary>
+        </member>
+        <member name="P:Common.Models.VMessage.IsComplete">
+            <summary>
+            是否成功
+            </summary>
+        </member>
+        <member name="P:Common.Models.VMessage.Entity">
+            <summary>
+            可以返回一个Object类型的实体
+            </summary>
+        </member>
+        <member name="P:Common.Models.VMessage.Item(System.Int32)">
+            <summary>
+            索引器
+            </summary>
+            <param name="index">索引</param>
+            <returns>相应值</returns>
+        </member>
+        <member name="P:Common.Models.VMessage.Message">
+            <summary>
+            得到所有消息，每条用逗号分开
+            </summary>
+        </member>
+        <member name="T:Common.CharLib.SecurityHelper">
+            <summary>
+            加密帮助类
+            </summary>
+        </member>
+        <member name="M:Common.CharLib.SecurityHelper.Md5Encode(System.String)">
+            <summary>
+            MD5加密函数
+            </summary>
+            <param name="str">要加密的字符串</param>
+            <returns>加密后的字符串</returns>
+        </member>
+        <member name="M:Common.CharLib.SecurityHelper.SimpleEncode(System.String)">
+            <summary>
+            简单加密函数
+            </summary>
+            <param name="str">要加密的字符串</param>
+            <returns>返回加密后的字符串</returns>
+        </member>
+        <member name="M:Common.CharLib.SecurityHelper.SimpleDecode(System.String)">
+            <summary>
+            简单解密函数
+            </summary>
+            <param name="str">要解密的字符串</param>
+            <returns>返回解密后的字符串</returns>
+        </member>
+        <member name="M:Common.CharLib.SecurityHelper.SymmetryEncode(System.String,System.String)">
+            <summary>
+            对称加密法加密函数
+            </summary>
+            <param name="encryptString">待加密的字符串</param>
+            <param name="encryptKey">加密密钥,要求为8位</param>
+            <returns>加密成功返回加密后的字符串，失败返回源串</returns>
+        </member>
+        <member name="M:Common.CharLib.SecurityHelper.SymmetryDecode(System.String,System.String)">
+            <summary>
+            对称加密法解密函数
+            </summary>
+            <param name="decryptString">待解密的字符串</param>
+            <param name="decryptKey">解密密钥,要求为8位,和加密密钥相同</param>
+            <returns>解密成功返回解密后的字符串，失败返源串</returns>
+        </member>
+        <member name="T:Common.SystemLib.ValidatorHelper">
+            <summary>
+            常用验证处理帮助类
+            </summary>
+        </member>
+        <member name="M:Common.SystemLib.ValidatorHelper.IsNumber(System.String)">
+            <summary>
+            验证输入字符串为数字
+            </summary>
+            <param name="strln">输入字符</param>
+            <returns>返回一个bool类型的值</returns>
+        </member>
+        <member name="M:Common.SystemLib.ValidatorHelper.IsDateTime(System.String)">
+            <summary>
+            判断用户输入是否为日期
+            </summary>
+            <param name="strln"></param>
+            <returns></returns>
+            <remarks>
+            可判断格式如下（其中-可替换为/，不影响验证)
+            YYYY | YYYY-MM | YYYY-MM-DD | YYYY-MM-DD HH:MM:SS | YYYY-MM-DD HH:MM:SS.FFF
+            </remarks>
+        </member>
+        <member name="M:Common.SystemLib.ValidatorHelper.IsMobile(System.String)">
+            <summary>
+            验证输入字符串为18位的手机号码
+            </summary>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.SystemLib.ValidatorHelper.IsIDCard(System.String)">
+            <summary>
+            验证身份证是否有效
+            </summary>
+            <param name="strln"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.SystemLib.ValidatorHelper.IsIDCard18(System.String)">
+            <summary>
+            验证输入字符串为18位的身份证号码
+            </summary>
+            <param name="strln">输入的字符</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.SystemLib.ValidatorHelper.IsIDCard15(System.String)">
+            <summary>
+            验证输入字符串为15位的身份证号码
+            </summary>
+            <param name="strln">输入的字符</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.SystemLib.ValidatorHelper.IsPhone(System.String)">
+            <summary>
+            验证输入字符串为电话号码
+            </summary>
+            <param name="P_str_phone">输入字符串</param>
+            <returns>返回一个bool类型的值</returns>
+        </member>
+        <member name="M:Common.SystemLib.ValidatorHelper.IsEmail(System.String)">
+            <summary>
+            验证是否是有效邮箱地址
+            </summary>
+            <param name="strln">输入的字符</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.SystemLib.ValidatorHelper.IsFax(System.String)">
+            <summary>
+            验证是否是有效传真号码
+            </summary>
+            <param name="strln">输入的字符</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.SystemLib.ValidatorHelper.IsOnllyChinese(System.String)">
+            <summary>
+            验证是否只含有汉字
+            </summary>
+            <param name="strln">输入的字符</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.SystemLib.ValidatorHelper.FormatVerdict(System.String,System.String)">
+            <summary>
+            正则表达式判断字符串格式
+            </summary>
+            <param name="sourceString">要处理的字符串</param>
+            <param name="strVerdict">正则表达式</param>
+            <returns>返回结果</returns>
+        </member>
+        <member name="T:Common.WebLib.ArtDialogHelper">
+            <summary>
+            art.dialog扩展类
+            </summary>
+        </member>
+        <member name="F:Common.WebLib.ArtDialogHelper.ALERT_MESSAGE_FORMAT">
+            <summary>
+            提示消息格式
+            </summary>
+        </member>
+        <member name="F:Common.WebLib.ArtDialogHelper.ALERT_MESSAGE_REDIRECT_FORMAT">
+            <summary>
+            提示消息跳转格式
+            </summary>
+        </member>
+        <member name="F:Common.WebLib.ArtDialogHelper.CONFIRM_MESSAGE_REDIRECT_FORMAT">
+            <summary>
+            确定消息跳转格式
+            </summary>
+        </member>
+        <member name="M:Common.WebLib.ArtDialogHelper.Close(System.Web.UI.Page)">
+            <summary>
+            关闭窗口
+            </summary>
+            <param name="page"></param>
+        </member>
+        <member name="M:Common.WebLib.ArtDialogHelper.Alert(System.Web.UI.Page,System.String)">
+            <summary>
+            弹出提示消息
+            </summary>
+            <param name="page"></param>
+            <param name="message">消息</param>
+        </member>
+        <member name="M:Common.WebLib.ArtDialogHelper.AlertThenClose(System.Web.UI.Page,System.String)">
+            <summary>
+            提示消息并关闭窗口
+            </summary>
+            <param name="page"></param>
+            <param name="message"></param>
+        </member>
+        <member name="M:Common.WebLib.ArtDialogHelper.AlertAndRedirect(System.Web.UI.Page,System.String,System.String)">
+            <summary>
+            弹出提示消息并跳转
+            </summary>
+            <param name="page"></param>
+            <param name="message"></param>
+            <param name="redirectUrl"></param>
+        </member>
+        <member name="M:Common.WebLib.ArtDialogHelper.ConfirmAndRedirect(System.Web.UI.Page,System.String,System.String)">
+            <summary>
+            弹出确定消息并跳转
+            </summary>
+            <param name="page"></param>
+            <param name="message"></param>
+            <param name="redirectUrl"></param>
+        </member>
+        <member name="M:Common.WebLib.ArtDialogHelper.WriteScript(System.Web.UI.Page,System.String)">
+            <summary>
+            添加脚本
+            </summary>
+            <param name="page"></param>
+            <param name="script">脚本</param>
+        </member>
+        <member name="T:Common.Models.DropDownList">
+            <summary>
+            插件dropdownlist.js的数据模型
+            </summary>
+            创建人：林盛彦
+            2013-4-22 16:57
+        </member>
+        <member name="P:Common.Models.DropDownList.Attributes">
+            <summary>
+            附加属性
+            </summary>
+        </member>
+        <member name="M:Common.WebLib.TicketHelper.GetSysTicket(System.String)">
+            <summary>
+            根据Cookie值来获取票证
+            </summary>
+            <param name="cookieValue">The cookie value.</param>
+            <returns></returns>
+            创建人：尹学良
+            2013-3-27 15:11
+        </member>
+        <member name="T:Common.Models.ComboBox">
+            <summary>
+            下拉框数据源实体
+            </summary>
+        </member>
+        <member name="P:Common.Models.ComboBox.Checked">
+            <summary>
+            下拉中被选中的
+            </summary>
+        </member>
+        <member name="T:Common.EnumLib.ComboBoxHelper">
+            <summary>
+            下拉框数据源扩展类
+            </summary>
+        </member>
+        <member name="M:Common.EnumLib.ComboBoxHelper.ToSelect``1">
+            <summary>
+            转换为下拉框Html
+            </summary>
+            <typeparam name="T">实现IComboBox接口的类</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Common.EnumLib.ComboBoxHelper.ToSelect(System.Collections.Generic.List{Common.Models.ComboBox})">
+            <summary>
+            转换为下拉框Html
+            </summary>
+            <param name="source">下拉框数据源</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.EnumLib.ComboBoxHelper.ToSelect(System.Collections.Generic.List{Common.Models.ComboBox},System.String)">
+            <summary>
+            转换为下拉框Html
+            </summary>
+            <param name="source">下拉框数据源</param>
+            <param name="selectedValue">用于设置选中</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.EnumLib.ComboBoxHelper.ToSelect(System.Collections.Generic.List{Common.Models.ComboBox},System.String,System.Boolean)">
+            <summary>
+            转换为下拉框Html
+            </summary>
+            <param name="source">下拉框数据源</param>
+            <param name="selectedValue">用于设置选中</param>
+            <param name="isAddHead">是否添加默认头部</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.EnumLib.ComboBoxHelper.ToSelect(System.Collections.Generic.List{Common.Models.ComboBox},System.String,System.Boolean,System.String)">
+            <summary>
+            转换为下拉框Html
+            </summary>
+            <param name="source">下拉框数据源</param>
+            <param name="selectedValue">用于设置选中</param>
+            <param name="isAddHead">是否添加默认头部</param>
+            <param name="headText">头部文本</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.EnumLib.ComboBoxHelper.ToRadio``1(System.String)">
+            <summary>
+            转换为单选组Html
+            </summary>
+            <param name="nameValue">设置Group的值</param>
+            <typeparam name="T">实现IComboBox接口的类</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Common.EnumLib.ComboBoxHelper.ToRadio(System.Collections.Generic.List{Common.Models.ComboBox},System.String)">
+            <summary>
+            转换为单选组Html
+            </summary>
+            <param name="source">下拉框数据源</param>
+            <param name="nameValue">设置Group的值</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.EnumLib.ComboBoxHelper.ToRadio(System.Collections.Generic.List{Common.Models.ComboBox},System.String,System.String)">
+            <summary>
+            转换为单选组Html
+            </summary>
+            <param name="source">下拉框数据源</param>
+            <param name="nameValue">设置Group的值</param>
+            <param name="checkedValue">用于设置选中</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.EnumLib.ComboBoxHelper.ToRadio(System.Collections.Generic.List{Common.Models.ComboBox},System.String,System.String,System.Boolean)">
+            <summary>
+            转换为单选组Html
+            </summary>
+            <param name="source">下拉框数据源</param>
+            <param name="nameValue">设置Group的值</param>
+            <param name="checkedValue">用于设置选中</param>
+            <param name="isAddFisrt">是否添加默认全部</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.EnumLib.ComboBoxHelper.ToRadio(System.Collections.Generic.List{Common.Models.ComboBox},System.String,System.String,System.Boolean,System.String)">
+            <summary>
+            转换为单选组Html
+            </summary>
+            <param name="source">下拉框数据源</param>
+            <param name="nameValue">设置Group的值</param>
+            <param name="checkedValue">用于设置选中</param>
+            <param name="isAddFisrt">是否添加默认首项</param>
+            <param name="firstText">首项文本</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.EnumLib.ComboBoxHelper.ToJson``1">
+            <summary>
+            转换为Json字符串
+            </summary>
+            <typeparam name="T">实现IComboBox接口的类</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Common.EnumLib.ComboBoxHelper.ToJson(System.Collections.Generic.List{Common.Models.ComboBox})">
+            <summary>
+            转换为Json字符串
+            </summary>
+            <param name="source">下拉框数据源</param>        
+            <returns></returns>
+        </member>
+        <member name="M:Common.EnumLib.ComboBoxHelper.ToJson(System.Collections.Generic.List{Common.Models.ComboBox},System.Boolean)">
+            <summary>
+            转换为Json字符串
+            </summary>
+            <param name="source">下拉框数据源</param>
+            <param name="isAddHead">是否添加默认头部</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.EnumLib.ComboBoxHelper.ToJson(System.Collections.Generic.List{Common.Models.ComboBox},System.Boolean,System.String)">
+            <summary>
+            转换为Json字符串
+            </summary>
+            <param name="source">下拉框数据源</param>
+            <param name="isAddHead">是否添加默认头部</param>
+            <param name="headText">头部文本</param>
+            <returns></returns>
+        </member>
+        <member name="T:Common.SystemLib.DOSHelper">
+            <summary>
+            DOS常用命令帮助类
+            </summary>
+        </member>
+        <member name="T:Common.WebLib.CacheHelper">
+            <summary>
+            全局缓存类
+            </summary>
+            <example><code>
+            使用示例：
+            实例化： CacheManage cache=CacheManage.Instance;
+            添加：   cache.Add("侯东照",new MDataTable);
+            判断：   if(cache.Contains("侯东照"))
+                     {
+            获取：       MDataTable table=cache.Get("侯东照") as MDataTable;
+                     }
+            </code></example>
+        </member>
+        <member name="M:Common.WebLib.CacheHelper.Get(System.String)">
+            <summary>
+            获得一个Cache对象
+            </summary>
+            <param name="key">标识</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.WebLib.CacheHelper.Contains(System.String)">
+            <summary>
+            是否存在缓存
+            </summary>
+            <param name="key">标识</param>
+            <returns></returns>
+        </member>
+        <member name="M:Common.WebLib.CacheHelper.Add(System.String,System.Object)">
+            <summary>
+            添加一个Cache对象
+            </summary>
+            <param name="key">标识</param>
+            <param name="value">对象值</param>
+        </member>
+        <member name="M:Common.WebLib.CacheHelper.Add(System.String,System.Object,System.Web.Caching.CacheDependency,System.Int32)">
+            <summary>
+            相对底层Cache添加方法,添加一个Cache请用Add方法
+            </summary>
+            <param name="key">标识</param>
+            <param name="value">对象值</param>
+            <param name="theCacheDependency">缓存依赖项</param>
+            <param name="cacheTimeMinutes">缓存时间</param>
+        </member>
+        <member name="M:Common.WebLib.CacheHelper.Remove(System.String)">
+            <summary>
+            删除一个Cache对象
+            </summary>
+            <param name="key">标识</param>
+        </member>
+        <member name="M:Common.WebLib.CacheHelper.SetChange(System.String,System.Boolean)">
+            <summary>
+            用户手动设置缓存对象已更改
+            </summary>
+            <param name="key"></param>
+            <param name="change"></param>
+        </member>
+        <member name="M:Common.WebLib.CacheHelper.GetHasChanged(System.String)">
+            <summary>
+            获取缓存对象是否已更改
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Common.WebLib.CacheHelper.Count">
+            <summary>
+            获和缓存总数
+            </summary>
+        </member>
+        <member name="P:Common.WebLib.CacheHelper.Instance">
+            <summary>
+            返回唯一实例
+            </summary>
+        </member>
+        <member name="P:Common.WebLib.CacheHelper.CacheTime">
+            <summary>
+            缓存时间[分钟]
+            </summary>
+        </member>
+        <member name="T:Common.WebLib.CacheDependencyInfo">
+            <summary>
+            缓存依赖信息
+            </summary>
+        </member>
+        <member name="P:Common.WebLib.CacheDependencyInfo.IsChanged">
+            <summary>
+            系统文件依赖是否发生改变
+            </summary>
+        </member>
+    </members>
+</doc>

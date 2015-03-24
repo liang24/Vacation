@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "添加部门";
+}
+<form id="form1" action="@Url.Action("Add")">
+<div class="addinfo_con">
+    <dl>
+        <dt><i>*</i> 编号：</dt>
+        <dd>
+            <input type="text" name="Code" class="info_put" datatype="*" nullmsg="请输入编号！" />
+        </dd>
+    </dl>
+    <dl>
+        <dt><i>*</i> 名称：</dt>
+        <dd>
+            <input type="text" name="Name" class="info_put" datatype="*" nullmsg="请输入名称！" />
+        </dd>
+    </dl>
+    <dl>
+        <dt>排序：</dt>
+        <dd>
+            <input type="text" name="Sort" class="info_put" datatype="n" />
+        </dd>
+    </dl> 
+    <dl class="input_an">
+        <dt></dt>
+        <dd>
+            <a class="input_ok" href="#" id="btnAdd">新增</a><a class="close" href="#" id="btnClose">关闭</a>
+        </dd>
+    </dl>
+</div>
+</form>
+@section Script
+{ 
+    <script type="text/javascript">
+        $(function () {
+            $("#form1").Validform({
+                tiptype: 4,
+                ajaxPost: true,
+                btnSubmit: "#btnAdd", 
+                callback: function (data) {
+                    if (data.IsSuccess) {
+                        art.dialog.data("user_add", true);
+                        art.dialog({ content: "操作成功，是否继续添加？", icon: "succeed", okVal: "继续", ok: function () {
+                            $("#form1")[0].reset();
+                        }, cancel: function () { art.dialog.close(); }
+                        });
+                    }
+                    else {
+                        art.dialog({ content: data.Message, icon: "error", ok: true });
+                    }
+                }
+            });
+            $("#btnClose").click(function () {
+                art.dialog.close();
+            });
+        }); 
+    </script>
+}

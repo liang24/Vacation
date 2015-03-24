@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "修改密码";
+}
+<style type="text/css">
+    .addinfo_con dt
+    {
+        width: 30%;
+    }
+    .addinfo_con dl
+    {
+        width: 68%;
+    }
+    .addinfo_con
+    {
+        margin-top: 30px;
+    }
+</style>
+<div class="class_con">
+    <p class="showlink">
+        <span><a href="@Url.Action("info")">个人设置</a> > 修改密码</span>
+    </p>
+    <form id="resform" action="@Url.Action("changepwd")"  >
+    <div class="addinfo_con">
+        <dl>
+            <dt>旧密码：</dt>
+            <dd>
+                <input type="password" name="oldpwd" class="info_put" datatype="*6-16" nullmsg="请输入旧密码！" />
+            </dd>
+        </dl>
+        <dl>
+            <dt>新密码：</dt>
+            <dd>
+                <input type="password" name="newpwd" class="info_put" datatype="*6-16" plugin="passwordStrength"
+                    nullmsg="请输入密码！" />
+                <span class="Validform_checktip"></span>
+                <div class="passwordStrength" style="margin-left: 240px;">
+                    <b>密码强度：</b> <span>弱</span><span>中</span><span class="last">强</span></div>
+            </dd>
+        </dl>
+        <dl>
+            <dt>确认新密码：</dt>
+            <dd>
+                <input type="password" name="confirmpwd" class="info_put" datatype="*6-16" recheck="newpwd" errormsg="两次输入的密码不一致！"
+                    nullmsg="请输入确认密码！" />
+            </dd>
+        </dl>
+        <dl class="input_an">
+            <dt></dt>
+            <dd>
+                <a class="input_ok" href="javascript:void();" id="btnUpdate">修改</a>
+            </dd>
+        </dl>
+    </div>
+    </form>
+</div>
+@section Script
+{
+    <link href="/Scripts/validform/passwordStrength.css" rel="stylesheet" type="text/css" />
+    <script src="/Scripts/validform/passwordStrength-min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#resform").Validform({
+                tiptype: 4,
+                ajaxPost: true,
+                btnSubmit: "#btnUpdate",
+                usePlugin: {
+                    passwordstrength: {
+                        minLen: 6,
+                        maxLen: 18
+                    }
+                },
+                callback: function (data) {
+                    if (data.IsSuccess) {
+                        art.dialog({ content: "操作成功！", icon: "succeed", ok: true, close: function () { window.location.reload(); } });
+                    }
+                    else {
+                        art.dialog({ content: data.Message, icon: "error", ok: true });
+                    }
+                }
+            });
+        });
+    </script>
+}

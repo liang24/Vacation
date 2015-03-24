@@ -1,0 +1,381 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PetaPoco</name>
+    </assembly>
+    <members>
+        <member name="T:PetaPoco.TableInfo">
+            <summary>
+            表信息
+            </summary>
+        </member>
+        <member name="P:PetaPoco.TableInfo.TableName">
+            <summary>
+            表名称
+            </summary>
+        </member>
+        <member name="P:PetaPoco.TableInfo.PrimaryKey">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:PetaPoco.TableInfo.AutoIncrement">
+            <summary>
+            是否自动增长
+            </summary>
+        </member>
+        <member name="P:PetaPoco.TableInfo.SequenceName">
+            <summary>
+            序列
+            </summary>
+        </member>
+        <member name="P:PetaPoco.TableInfo.VersionName">
+            <summary>
+            版本列（侯东照2013-01-31 01:23 新增）
+            </summary>
+        </member>
+        <member name="M:PetaPoco.Database.Dispose">
+            <summary>
+            销毁时自动关闭打开的连接
+            </summary>
+        </member>
+        <member name="M:PetaPoco.Database.OpenSharedConnection">
+            <summary>
+            打开连接 (可以嵌套)
+            </summary>
+        </member>
+        <member name="M:PetaPoco.Database.CloseSharedConnection">
+            <summary>
+            关闭上一次打开的连接
+            </summary>
+        </member>
+        <member name="M:PetaPoco.Database.BeginTransaction">
+            <summary>
+            开启事务
+            </summary>
+        </member>
+        <member name="M:PetaPoco.Database.CleanupTransaction">
+            <summary>
+            清除事务
+            </summary>
+        </member>
+        <member name="M:PetaPoco.Database.AbortTransaction">
+            <summary>
+            事务中断
+            </summary>
+        </member>
+        <member name="M:PetaPoco.Database.CompleteTransaction">
+            <summary>
+            事务结束
+            </summary>
+        </member>
+        <member name="M:PetaPoco.Database.AddParam(System.Data.IDbCommand,System.Object,System.String)">
+            <summary>
+            添加一个参数到命令对象中
+            </summary>
+            <param name="cmd"></param>
+            <param name="item"></param>
+            <param name="ParameterPrefix"></param>
+        </member>
+        <member name="M:PetaPoco.Database.CreateCommand(System.Data.IDbConnection,System.String,System.Object[])">
+            <summary>
+            创建命令对象
+            </summary>
+            <param name="connection">连接地址</param>
+            <param name="sql">sql语句</param>
+            <param name="args">参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:PetaPoco.Database.Execute(System.String,System.Object[])">
+            <summary>
+            执行非查询操作Sql语句
+            </summary>
+            <param name="sql">sql语句</param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PetaPoco.Database.AddSelectClause``1(System.String)">
+            <summary>
+            添加查询条款
+            </summary>
+            <typeparam name="T">任意Poco类型</typeparam>
+            <param name="sql">sql语句</param>
+            <returns></returns>
+        </member>
+        <member name="M:PetaPoco.Database.Query``1(System.String,System.Object[])">
+            <summary>
+            查询记录，并返回一个Poco对象的IEnumerable集合
+            </summary>
+            <typeparam name="T">任意Poco类型</typeparam>
+            <param name="sql">sql语句</param>
+            <param name="args">参数数组</param>
+            <returns></returns>
+        </member>
+        <member name="M:PetaPoco.Database.Exists``1(System.Object)">
+            <summary>
+            是否存在记录
+            </summary>
+            <typeparam name="T">任意Poco类型</typeparam>
+            <param name="primaryKey">主键值</param>
+            <returns></returns>
+        </member>
+        <member name="M:PetaPoco.Database.EscapeTableName(System.String)">
+            <summary>
+            表名称转码
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PetaPoco.Database.EscapeSqlIdentifier(System.String)">
+            <summary>
+            字段转码（符合各个数据库写法）
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PetaPoco.Database.Insert(System.String,System.String,System.Boolean,System.Object)">
+            <summary>
+            添加记录
+            </summary>
+            <param name="tableName">表名称</param>
+            <param name="primaryKeyName">主键字段名称</param>
+            <param name="autoIncrement">是否自动增长</param>
+            <param name="poco">poco对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:PetaPoco.Database.Insert(System.Object)">
+            <summary>
+            添加记录
+            </summary>
+            <param name="poco">poco实体对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:PetaPoco.Database.Update(System.String,System.String,System.Object,System.Object,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            更新记录。主键值可以手动提供或从更新对象中直接读取
+            </summary>
+            <param name="tableName">表格名称</param>
+            <param name="primaryKeyName">主键名称</param>
+            <param name="poco">要更新对象</param>
+            <param name="primaryKeyValue">主键值</param>
+            <param name="columns">要更新的字段</param>
+            <returns></returns>
+        </member>
+        <member name="M:PetaPoco.Database.Update``1(System.String,System.Object[])">
+            <summary>
+            使用此更新方法时，需要自行实现版本列的对比
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PetaPoco.Database.Update``1(PetaPoco.Sql)">
+            <summary>
+            使用此更新方法时，需要自行实现版本列的对比
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PetaPoco.Database.Delete(System.String,System.String,System.Object)">
+            <summary>
+            删除记录
+            </summary>
+            <param name="tableName">表名</param>
+            <param name="primaryKeyName">主键字段名称</param>
+            <param name="poco">poco对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:PetaPoco.Database.Delete(System.String,System.String,System.Object,System.Object)">
+            <summary>
+            删除记录
+            </summary>
+            <param name="tableName">表名</param>
+            <param name="primaryKeyName">主键字段名称</param>
+            <param name="poco">poco对象</param>
+            <param name="primaryKeyValue">主键值</param>
+            <returns></returns>
+        </member>
+        <member name="M:PetaPoco.Database.Delete(System.Object)">
+            <summary>
+            删除记录
+            </summary>
+            <param name="poco"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PetaPoco.Database.Delete``1(System.Object)">
+            <summary>
+            删除记录
+            </summary>
+            <typeparam name="T">任意poco类型</typeparam>
+            <param name="pocoOrPrimaryKey">poco对象或主键值</param>
+            <returns></returns>
+        </member>
+        <member name="M:PetaPoco.Database.Delete``1(System.String,System.Object[])">
+            <summary>
+            删除记录
+            </summary>
+            <typeparam name="T">任意poco类型</typeparam>
+            <param name="sql">sql语句，可直接写where语句</param>
+            <param name="args">参数</param>
+            <returns></returns>
+        </member>
+        <member name="M:PetaPoco.Database.Delete``1(PetaPoco.Sql)">
+            <summary>
+            删除记录
+            </summary>
+            <typeparam name="T">任意poco类型</typeparam>
+            <param name="sql">通过内置Sql对象构建语句</param>
+            <returns></returns>
+        </member>
+        <member name="M:PetaPoco.Database.IsNew(System.String,System.Object)">
+            <summary>
+            检查是否为新记录
+            </summary>
+            <param name="primaryKeyName">主键</param>
+            <param name="poco">被检查的对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:PetaPoco.Database.IsNew(System.Object)">
+            <summary>
+            检查是否为新记录
+            </summary>
+            <param name="poco"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PetaPoco.Database.Save(System.String,System.String,System.Object)">
+            <summary>
+            新增或更新记录
+            </summary>
+            <param name="tableName">表名称</param>
+            <param name="primaryKeyName">主键名称</param>
+            <param name="poco">要保存的对象</param>
+        </member>
+        <member name="M:PetaPoco.Database.Save(System.Object)">
+            <summary>
+            新增或更新记录
+            </summary>
+            <param name="poco"></param>
+        </member>
+        <member name="M:PetaPoco.Database.DoPreExecute(System.Data.IDbCommand)">
+            <summary>
+            命令执行前准备工作（包括超时时间设定，查询语句，参数保存）
+            </summary>
+            <param name="cmd"></param>
+        </member>
+        <member name="P:PetaPoco.Database.KeepConnectionAlive">
+            <summary>
+            设置为ture则保持第一次打开的连接直到整个对象在内存中销毁
+            </summary>
+        </member>
+        <member name="P:PetaPoco.Database.Connection">
+            <summary>
+            共享的连接对象
+            </summary>
+        </member>
+        <member name="P:PetaPoco.Database.CommandTimeout">
+            <summary>
+            命令超时时间
+            </summary>
+        </member>
+        <member name="P:PetaPoco.Database.OneTimeCommandTimeout">
+            <summary>
+            一次命令超时时间
+            </summary>
+        </member>
+        <member name="T:PetaPoco.Database.PocoColumn">
+            <summary>
+            字段信息
+            </summary>
+        </member>
+        <member name="F:PetaPoco.Database.PocoColumn.ColumnName">
+            <summary>
+            字段名称
+            </summary>
+        </member>
+        <member name="F:PetaPoco.Database.PocoColumn.PropertyInfo">
+            <summary>
+            属性信息
+            </summary>
+        </member>
+        <member name="F:PetaPoco.Database.PocoColumn.ResultColumn">
+            <summary>
+            是否是结果字段
+            </summary>
+        </member>
+        <member name="M:PetaPoco.Database.PocoColumn.ChangeType(System.Object)">
+            <summary>
+            类型转换
+            </summary>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PetaPoco.Database.PocoData.ForObject(System.Object,System.String)">
+            <summary>
+            根据对象得到PocoData对象
+            </summary>
+            <param name="o"></param>
+            <param name="primaryKeyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PetaPoco.Database.PocoData.#ctor(System.Type)">
+            <summary>
+            构造函数，根据类型构造PocoData对象
+            </summary>
+            <param name="t"></param>
+        </member>
+        <member name="M:PetaPoco.Database.PocoData.GetFactory(System.String,System.String,System.Boolean,System.Int32,System.Int32,System.Data.IDataReader)">
+            <summary>
+            创建一个工厂方法将IDataReader记录转换为Poco对象
+            </summary>
+            <param name="sql"></param>
+            <param name="connString"></param>
+            <param name="ForceDateTimesToUtc"></param>
+            <param name="firstColumn"></param>
+            <param name="countColumns"></param>
+            <param name="r"></param>
+            <returns></returns>
+        </member>
+        <member name="F:PetaPoco.Database.PocoData.PocoFactories">
+            <summary>
+            Poco工厂方法字典
+            </summary>
+        </member>
+        <member name="P:PetaPoco.Database.PocoData.TableInfo">
+            <summary>
+            表信息
+            </summary>
+        </member>
+        <member name="P:PetaPoco.Database.PocoData.Columns">
+            <summary>
+            字段字典集合
+            </summary>
+        </member>
+        <member name="T:PetaPoco.Sql">
+            <summary>
+            Sql语句构建帮助类
+            </summary>
+        </member>
+        <member name="M:PetaPoco.Sql.Build(System.Text.StringBuilder,System.Collections.Generic.List{System.Object},PetaPoco.Sql)">
+            <summary>
+            构建Sql语句
+            </summary>
+            <param name="sb">可变字符串</param>
+            <param name="args">参数数组</param>
+            <param name="lhs"></param>
+        </member>
+        <member name="T:PetaPoco.DB.Record`1">
+            <summary>
+            记录
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:PetaPoco.DB.View`1">
+            <summary>
+            视图
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,122 @@
+﻿@{
+    ViewBag.Title = "系统消息";
+}
+<style>
+    table
+    {
+        margin-bottom: 15px;
+    }
+    .b
+    {
+        font-weight: bold;
+    }
+    .cho
+    {
+        margin-left: 20px;
+    }
+</style>
+<div class="class_con">
+    <p class="showlink">
+        <span><a href="/">首页</a> > 系统消息</span>
+    </p>
+    <p id="wrapSearchBar" class="cz_an">
+        <span class="fLeft"><a class="choicecl" href="javascript:void();" id="btnCheckAll">全选</a><a class="del"
+            href="javascript:void();" id="btnDelete">删除</a><a class="add" style="width: 75px;"
+                href="javascript:void();" id="btnRead">标记已读</a></span>
+    </p>
+    <div id="list">
+    </div>
+    <p class="cz_link">
+        <span class="cont">共 <b id="total">0</b> 记录</span> <span id="pager" class="pagination">
+        </span>
+    </p>
+</div>
+@section Script{
+    <script type="text/x-jquery-tmpl" id="tmplList">
+         <table id="tbList" class="tainfo" style="width: 100%;">
+                <tr class="thead 
+                {{if Status=0}}
+                    b
+                {{/if}}
+                ">
+                  <td  style="width: 45px;"><input type="checkbox" node-type="ckb" rel="${ID}" class="cho check-box" /></td>
+                    <td width="80%">
+                        ${Title}
+                    </td>
+                    <td>
+                        <a href="javascript:void(0)"  class="update"  onclick="Delete('${ID}')" style="margin-right:15px;">删除</a>
+                        <a href="javascript:void(0);"  class="update"  read="${ID}" style="margin-right:15px;">查看</a>
+                    </td>
+                </tr>
+                <tr style="display:none;">
+                <td  style="width: 40px;"></td>
+                <td  colspan="2">${Content}</td></tr>
+        </table>
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#pager").pager({
+                url: "@Url.Action("GetMessage")",
+                pageSize: 8,
+                onLoaded: function (data, currPage, total, totalPage) {
+
+                    $("#total").text(total);
+                    $("#list").html($("#tmplList").tmpl(data));
+                    //修改全选样式
+                    $("#btnCheckAll").removeClass("choice").addClass("choicecl");
+                    $("#list").unmask();
+                },
+                onLoadStart: function () {
+                    $("#list").mask("加载数据，请稍候...");
+                }
+            });
+            //查看内容
+            $("#list").on("click", "[read]", function (e) {
+                e.preventDefault();
+
+                var $title = $(this).parent().parent();
+
+                //展示内容
+                $title.next("tr").toggle();
+
+                if ($(this).parent().parent().hasClass("b")) {
+                    $.post("@Url.Action("ReadMessage")", { ids: $(this).attr("read") }, function (response) {
+                        if (response.IsSuccess) {
+                            $title.removeClass("b");
+                        }
+                        else {
+                            art.dialog({ content: response.Message, icon: "error", ok: true });
+                        }
+                    }, "json");
+                }
+            });
+
+            $("#btnRead").click(function (e) {
+                var ids = CheckBoxs.GetCheckedIds();
+                if (ids.length == 0) {
+                    art.dialog({ content: "请至少选择一条记录...", icon: "warning", ok: true });
+                }
+                else {
+                    $.post("@Url.Action("ReadMessage")", { ids: ids.join(",") }, function (response) {
+                        if (response.IsSuccess) {
+                            $.each(ids, function (k, v) { return $("[read='" + v + "']").parent().parent().removeClass("b"); })
+                            art.dialog.tips("操作成功。");
+                        }
+                        else {
+                            art.dialog({ content: response.Message, icon: "error", ok: true });
+                        }
+                    }, "json");
+                }
+            });
+            $("#btnDelete").click(function () {
+                BaseOP.DeleteByIds('@Url.Action("DeleteMessage")', "", function () { $("#pager").pager("reload"); });
+            });
+        });
+
+        //单条删除
+        function Delete(id) {
+            BaseOP.DeleteById('@Url.Action("DeleteMessage")', id, function () { $("#pager").pager("reload"); });
+        }
+
+    </script>
+}
