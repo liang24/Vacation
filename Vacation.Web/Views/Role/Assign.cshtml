@@ -1,0 +1,114 @@
+﻿@model SysRole
+@{
+    ViewBag.Title = "分配角色";
+}
+<div class="class_con" style="width: 600px;">
+    <p id="wrapSearchBar" class="cz_an">
+        <span class="fLeft"><a class="choicecl" href="#" id="btnCheckAll">全选</a><a
+            class="del" href="#" id="btnDelete">删除</a><a class="add border0"
+                href="#" id="btnAssign">分配</a> </span><span class="fRight">
+                    <input type="hidden" name="InRole" value="@Model.ID" />
+                    <input type="text" name="name" class="ss_input fLeft mr5" /><a class="ss_an" href="#"
+                        id="btnSearch">搜索</a></span>
+    </p>
+    <table id="tbList" class="tainfo" style="width: 100%;">
+        <thead>
+            <tr class="thead">
+                <td class="pdl30" style="width: 40px;">
+                    选择
+                </td>
+                <td width="40%">
+                    用户名
+                </td>
+                <td>
+                    姓名
+                </td>
+                <td>
+                    手机号码
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <p class="cz_link">
+        <span class="cont">共 <b id="total">0</b> 记录</span> <span id="pager" class="pagination">
+        </span>
+    </p>
+</div>
+@section Script{
+    <script type="x-jquery-tmpl" id="tmplList">  
+        <tr>
+            <td><input type="checkbox" node-type="ckb" value="${ID}" class="cho"  /></td> 
+            <td>${UserName}</td>
+            <td>${RealName}</td>
+            <td >${Phone}</td>  
+        </tr> 
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#pager").pager({
+                url: "@Url.Action("page", "user")",
+                postData: BaseOP.getParameter("#wrapSearchBar [name]"),
+                onLoaded: function (data, currPage, total, totalPage) {
+                    $("#tbList tbody").html($("#tmplList").tmpl(data)); 
+
+                    $("#total").text(total); 
+                    //修改全选样式
+                    $("#btnCheckAll").removeClass("choice").addClass("choicecl");
+                    $("#tbList tbody").unmask();
+                },
+                onLoadStart: function () {
+                    $("#tbList tbody").mask("加载数据，请稍候...");
+                }
+            });
+
+            $("#btnAssign").click(function () {
+                art.dialog.open("@Url.Action("choose", "user")/?name=outrole&value=@Model.ID", { 
+                    title: "选择用户", lock: true, height: 580,
+                    close: function () {
+                        var ids = art.dialog.data("ChooseUserIDs");
+
+                        if (ids) {
+                            art.dialog.removeData("ChooseUserIDs");
+
+                            $.post("@Url.Action("assign")", { userIds: ids.join(","), id: "@Model.ID" }, function (response) {
+                                if (response.IsSuccess) {
+                                    $("#pager").pager("reload");
+                                    art.dialog({ content: "操作成功...", icon: "succeed", ok: true });
+                                }
+                                else {
+                                    art.dialog({ content: response.Message, icon: "error", ok: true });
+                                }
+                            }, "json");
+                        }
+                    }
+                });
+            });
+
+            $("#btnDelete").click(function () {
+                var ids = $('[node-type="ckb"]:checked').map(function () { return $(this).val(); }).get();
+
+                if (ids.length) {
+                    art.dialog({ content: "此操作不可恢复，确定要删除选中的记录吗？", icon: "warning", lock: true, ok: function () {
+
+                        $.post("@Url.Action("cancelassign")", { userIds: ids.join(","), id: "@Model.ID" }, function (response) {
+                            if (response.IsSuccess) {
+                                $("#pager").pager("reload");
+                                art.dialog({ content: "操作成功...", icon: "succeed", ok: true });
+                            }
+                            else {
+                                art.dialog({ content: response.Message, icon: "error", ok: true });
+                            }
+                        }, "json");
+
+                    }, cancel: true
+                    });
+                }
+                else {
+                    art.dialog({ content: "请至少选择一条记录操作...", icon: "warning", ok: true });
+                }
+            });
+        });
+    </script>
+}

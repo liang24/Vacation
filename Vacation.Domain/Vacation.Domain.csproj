@@ -57,6 +57,7 @@
     <Compile Include="Entities\SysUser.cs" />
     <Compile Include="Entities\SysUserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\MenuTree.cs" />
     <Compile Include="Views\MessageView.cs" />
   </ItemGroup>
   <ItemGroup />

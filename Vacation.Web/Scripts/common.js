@@ -35,7 +35,6 @@
 
     $(".menu_left").children(".menu_list:first").children("ul").show();
 
-
     $(".menu_list p a").click(function () {
         if (($(this).parent("p").parent(".menu_list").hasClass("xz"))) {
             $(this).parent("p").next("ul").slideUp("fast");
@@ -115,32 +114,5 @@
                 });
             });
         }
-    });
-
-    //追加耗材
-    $('[action-type="choose-appendcon"]').click(function () {
-        art.dialog.open("/Admin/Consumable/AppendConsumable.aspx",
-         { title: "追加耗材", lock: true, close: function () {
-             if (art.artDialog.data("consumable_append")) {
-                 art.artDialog.removeData("consumable_append");
-                 var data = art.artDialog.data("consumable_append_Model"); 
-                 if (data) {
-                     //如果设备有改动，则清空课时
-                     if (data.length > 0) {
-                         $("input[name='consumables']").val(1);
-                         demo.check(false);
-                     }
-
-                     $("#ConsumableList tbody").mask('加载数据，请稍候...')
-                     $("#ConsumableList tbody").append($("#ConsumableTmpl").tmpl(data));
-
-                     $("#ConsumableList tbody").unmask();
-                     art.dialog.removeData("consumable"); 
-                     art.artDialog.removeData("consumable_append_Model");
-                 }
-             }
-         }
-         });
-
     });
 });

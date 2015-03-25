@@ -92,6 +92,7 @@ namespace Vacation.Web.Controllers
             }
             else
             {
+                CurrUser.IsFirstVisit = false;
                 CurrUser.Password = newPwd;
                 CurrUser.Update();
 
@@ -171,9 +172,18 @@ namespace Vacation.Web.Controllers
         }
 
         [Authorize]
-        public JsonResult Page(int pageIndex, int pageSize, string name)
+        public JsonResult Page(int pageIndex, int pageSize, string name, string inRole, string outRole)
         {
             var sql = Sql.Builder.Where("real_name like @0 or user_name like @0", "%" + name + "%");
+
+            if (!string.IsNullOrEmpty(inRole))
+            {
+                sql.Where("id in (select user_id from sys_user_roles where role_id = @0)", inRole.ToInt());
+            }
+            else if (!string.IsNullOrEmpty(outRole))
+            {
+                sql.Where("id not in (select user_id from sys_user_roles where role_id = @0)", outRole.ToInt());
+            }
 
             var page = SysUser.Page(pageIndex, pageSize, sql);
 
@@ -185,7 +195,8 @@ namespace Vacation.Web.Controllers
                     user.ID,
                     user.Email,
                     user.UserName,
-                    user.RealName
+                    user.RealName,
+                    user.Phone
                 })
             });
         }
@@ -242,6 +253,15 @@ namespace Vacation.Web.Controllers
         //    //SysHelper.CreateSession(CurrUser);
         //    return ArtDialogResponseResult.SuccessResult;
         //}
+
+        [Authorize]
+        public ActionResult Choose(string name, string value)
+        {
+            ViewBag.Name = name;
+            ViewBag.Value = value;
+
+            return View();
+        }
 
         #endregion
     }

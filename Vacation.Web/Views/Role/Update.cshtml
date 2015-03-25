@@ -1,16 +1,10 @@
-﻿@model SysDept
+﻿@model SysRole
 @{
-    ViewBag.Title = "修改部门";
+    ViewBag.Title = "修改角色";
 }
 <form id="form1" action="@Url.Action("Update")" runat="server">
 <input type="hidden" name="ID" value="@Model.ID" />
 <div class="addinfo_con">
-    <dl>
-        <dt><i>*</i> 编号：</dt>
-        <dd>
-            <input type="text" name="Code" class="info_put" datatype="*" nullmsg="请输入编号！" value="@Model.Code" />
-        </dd>
-    </dl>
     <dl>
         <dt><i>*</i> 名称：</dt>
         <dd>
@@ -18,11 +12,11 @@
         </dd>
     </dl>
     <dl>
-        <dt>排序：</dt>
+        <dt>描述：</dt>
         <dd>
-            <input type="text" name="Sort" class="info_put" datatype="n" value="@Model.Sort" />
+            <input type="text" name="Description" class="info_put" value="@Model.Description" />
         </dd>
-    </dl> 
+    </dl>
     <dl class="input_an">
         <dt></dt>
         <dd>
@@ -40,7 +34,7 @@
                 btnSubmit: "#btnUpdate",
                 callback: function (data) {
                     if (data.IsSuccess) {
-                        art.dialog.data("dept_update", true)
+                        art.dialog.data("role_update", true)
                         art.dialog({ content: "操作成功...", icon: "succeed", ok: function () {
                             art.dialog.close();
                         }

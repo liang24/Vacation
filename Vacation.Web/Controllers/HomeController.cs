@@ -14,13 +14,7 @@ namespace Vacation.Web.Controllers
     {
         public ActionResult Index()
         {
-            if (CurrUser.IsFirstVisit)
-            {
-                ViewBag.IsFirstVisit = true;
-
-                CurrUser.IsFirstVisit = false;
-                CurrUser.Update();
-            }
+            ViewBag.IsFirstVisit = CurrUser.IsFirstVisit;
 
             return View();
         }
@@ -41,7 +35,7 @@ namespace Vacation.Web.Controllers
             }
 
             var file = Request.Files["Filedata"];
-             
+
             var vm = UploadHelper.UploadFile(file, Server.MapPath("~/uploadfiles"));
 
             string filePath = string.Format("/uploadfiles/{0}", vm.Entity);

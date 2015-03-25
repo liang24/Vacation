@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "选择用户";
+}
+<div class="class_con" style="width: 600px;">
+    <p id="wrapSearchBar" class="cz_an">
+        <span class="fLeft"><a class="choicecl" href="#" id="btnCheckAll">全选</a><a class="add border0"
+            href="#" id="btnChoose">选中</a></span> <span class="fRight">
+                <input type="hidden" name="@ViewBag.Name" value="@ViewBag.Value" />  
+                <input type="text" name="name" class="ss_input fLeft mr5" /><a class="ss_an" href="#"
+                    id="btnSearch">搜索</a></span>
+    </p>
+    <table id="tbList" class="tainfo" style="width: 100%;">
+        <thead>
+            <tr class="thead">
+                <td class="pdl30" style="width: 40px;">
+                    选择
+                </td>
+                <td width="40%">
+                    用户名
+                </td>
+                <td>
+                    姓名
+                </td>
+                <td>
+                    手机号码
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <p class="cz_link">
+        <span class="cont">共 <b id="total">0</b> 记录</span> <span id="pager" class="pagination">
+        </span>
+    </p>
+</div>
+@section Script{
+    <script type="text/x-jquery-tmpl" id="tmplList">
+        <tr>
+            <td><input type="checkbox" node-type="ckb" value="${ID}"  class="cho"  /></td>
+            <td>${UserName}</td>
+            <td>${RealName}</td>
+            <td>${Phone}</td> 
+        </tr>
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#pager").pager({
+                url: "@Url.Action("page")",
+                postData: BaseOP.getParameter("#wrapSearchBar [name]"),
+                onLoaded: function (data, currPage, total, totalPage) {
+                    $("#total").text(total);
+                    $("#tbList tbody").html($("#tmplList").tmpl(data));
+                    //修改全选样式
+                    $("#btnCheckAll").removeClass("choice").addClass("choicecl");
+                    $("#tbList tbody").unmask();
+                },
+                onLoadStart: function () {
+                    $("#tbList tbody").mask("加载数据，请稍候...");
+                }
+            });
+
+            $("#btnChoose").click(function () {
+                var ids = $('[node-type="ckb"]:checked').map(function () { return $(this).val(); }).get();
+
+                if (ids.length) {
+                    art.dialog.data("ChooseUserIDs", ids);
+                    art.dialog.close();
+                }
+                else {
+                    art.dialog({ content: "请至少选择一条记录操作...", icon: "warning", ok: true });
+                }
+            });
+        });
+    </script>
+}

@@ -1,14 +1,8 @@
 ﻿@{
-    ViewBag.Title = "添加部门";
+    ViewBag.Title = "添加角色";
 }
 <form id="form1" action="@Url.Action("Add")">
 <div class="addinfo_con">
-    <dl>
-        <dt><i>*</i> 编号：</dt>
-        <dd>
-            <input type="text" name="Code" class="info_put" datatype="*" nullmsg="请输入编号！" />
-        </dd>
-    </dl>
     <dl>
         <dt><i>*</i> 名称：</dt>
         <dd>
@@ -16,11 +10,11 @@
         </dd>
     </dl>
     <dl>
-        <dt>排序：</dt>
+        <dt>描述：</dt>
         <dd>
-            <input type="text" name="Sort" class="info_put" datatype="n" />
+            <input type="text" name="Description" class="info_put" />
         </dd>
-    </dl> 
+    </dl>
     <dl class="input_an">
         <dt></dt>
         <dd>
@@ -30,16 +24,16 @@
 </div>
 </form>
 @section Script
-{ 
+{
     <script type="text/javascript">
         $(function () {
             $("#form1").Validform({
                 tiptype: 4,
                 ajaxPost: true,
-                btnSubmit: "#btnAdd", 
+                btnSubmit: "#btnAdd",
                 callback: function (data) {
                     if (data.IsSuccess) {
-                        art.dialog.data("dept_add", true);
+                        art.dialog.data("role_add", true);
                         art.dialog({ content: "操作成功，是否继续添加？", icon: "succeed", okVal: "继续", ok: function () {
                             $("#form1")[0].reset();
                         }, cancel: function () { art.dialog.close(); }

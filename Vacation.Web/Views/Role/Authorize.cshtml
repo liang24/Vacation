@@ -1,0 +1,106 @@
+﻿@model RoleAuthorizeModel
+@{
+    ViewBag.Title = "分配权限";
+}
+<style type="text/css">
+    .input_an
+    {
+        margin-left: 82px;
+        margin-top: 10px;
+        padding-bottom: 10px;
+    }
+    
+    .input_anx
+    {
+        margin-top: 20px;
+        height: 40px;
+    }
+    
+    .l1
+    {
+        padding-left: 0px;
+        text-align: right;
+        padding-right: 35px;
+        width: 150px;
+    }
+</style>
+<div class="qxinfo_con">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+            <tr class="dj1">
+                <td class="l1" width="80px">
+                    菜单名称
+                </td>
+                <td class="tCenter" width="430px">
+                    权限分配
+                </td>
+                <td class="tCenter">
+                    全选
+                </td>
+            </tr>
+            @foreach (MenuTree tree in Model.Trees.Where(t => t.ParentID == 0).OrderBy(t => t.Sort))
+            {
+                <tr class="dj2">
+                    <td class="l1" width="80px">
+                        @tree.Name
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                foreach (MenuTree menu in Model.Trees.Where(t => t.ParentID == tree.ID).OrderBy(t => t.Sort))
+                { 
+                <tr>
+                    <td class="l1" width="80px">
+                        @menu.Name
+                    </td>
+                    <td class="cl99 czts">
+                        @foreach (SysFunction func in Model.Funcs.Where(f => f.MenuID == menu.ID).OrderBy(f => f.Sort))
+                        {
+                            <div>
+                                <label>
+                                    <input type="checkbox" node-type="checkbox" value="@(func.ID)" menu-id="@(func.MenuID)" @(Model.SelectedFuncIds.Contains(func.ID) ? "checked=\"checked\"" : "")   
+                                                                 /><span>
+                                                                     @func.Name</span></label></div> 
+                        }
+                    </td>
+                    <td class="tCenter">
+                        <input type="checkbox" menu-id="@menu.ID" node-type="ckbAll" />
+                    </td>
+                </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <p class="input_anx">
+        <a class="input_ok" href="#" id="btnSubmit">保存</a><a class="close" href="#" id="btnClose">关闭</a></p>
+</div>
+@section Script{
+    <script type="text/javascript">
+        $(function () {
+            $("#btnClose").click(function () { art.dialog.close(); });
+
+            $("#btnSubmit").click(function () {
+
+                var ids = $('[node-type="checkbox"]:checked').map(function () { return $(this).val(); }).get();
+
+                $.post("@Url.Action("Authorize")", { id: "@Model.Role.ID", functionIds: ids.join(",") }, function (response) {
+                    if (response.IsSuccess) {
+
+                        art.dialog({ content: "操作成功...", icon: "succeed", ok: function () { art.dialog.close(); } });
+                    }
+                    else {
+                        art.dialog({ content: response.Message, icon: "error", ok: true });
+                    }
+                }, "json");
+            });
+
+            $('[node-type="ckbAll"]').click(function () {
+                $('[menu-id="' + $(this).attr("menu-id") + '"]').attr("checked", $(this).is(":checked"));
+            });
+        });
+    </script>
+}

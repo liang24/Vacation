@@ -65,12 +65,13 @@
                     </a></li>
                 </ul>
             </div>
-            <div module-id="1" class="menu_list xz"">
+            <div module-id="1" class="menu_list"">
                 <p>
                     <a class=" xz" href="javascript:void(0);">权限管理</a></p>
                 <ul style="display: none;">
                     <li><a target="content" href="@Url.Action("index","user")">用户管理</a></li>
                     <li><a target="content" href="@Url.Action("index", "dept")">部门管理 </a></li>
+                    <li><a target="content" href="@Url.Action("index", "role")">角色管理 </a></li>
                 </ul>
             </div>
             @*<asp:repeater id="repSecondMenu" runat="server" onitemdatabound="repSecondMenu_ItemDataBound">
@@ -100,7 +101,7 @@
 </div>
 @section Script
 {
-    @if (ViewBag.IsFirstVisit != null && ViewBag.IsFirstVisit)
+    @if (ViewBag.IsFirstVisit)
     {
         <div id="div_changepwd" class="addinfo_con" style="width: 600px; display: none;">
             <form id="resform" action="@Url.Action("changepwd", "user")"  >
