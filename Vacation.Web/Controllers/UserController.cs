@@ -174,7 +174,7 @@ namespace Vacation.Web.Controllers
         [Authorize]
         public JsonResult Page(int pageIndex, int pageSize, string name, string inRole, string outRole)
         {
-            var sql = Sql.Builder.Where("real_name like @0 or user_name like @0", "%" + name + "%");
+            var sql = Sql.Builder.Where("is_super_user=0 and (real_name like @0 or user_name like @0)", "%" + name + "%");
 
             if (!string.IsNullOrEmpty(inRole))
             {

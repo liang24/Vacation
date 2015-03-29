@@ -23,7 +23,7 @@
                 </td>
                 <td>
                     姓名
-                </td> 
+                </td>
                 <td>
                     邮箱
                 </td>
@@ -47,8 +47,7 @@
             <td>${RealName}&nbsp;</td> 
             <td>${Email}&nbsp;</td>
             <td>
-                <a class="update" href="#" btn="btnUpdate" node-id="${ID}">修改</a> 
-                <a class="update" href="#" btn="btnAuthorize" node-id="${ID}">分配权限</a>  
+                <a class="update" href="#" btn="btnUpdate" node-id="${ID}">修改</a>  
             </td>
         </tr>
 </script>
@@ -80,9 +79,6 @@
                     }
                 }
                 });
-            }).on("click", '[btn="btnAuthorize"]', function () {
-                var id = $(this).attr("node-id");
-                art.dialog.open("@Url.Action("authorize")/" + id, { title: "分配权限", height: 500, width: 720, lock: true });
             }).on("click", '[btn="btnEnabled"]', function () {
                 var id = $(this).attr("node-id");
                 var value = $(this).attr("node-value");

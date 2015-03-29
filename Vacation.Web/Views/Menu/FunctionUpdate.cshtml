@@ -1,20 +1,20 @@
-﻿@model SysDept
+﻿@model SysFunction
 @{
-    ViewBag.Title = "修改部门";
+    ViewBag.Title = "修改功能";
 }
-<form id="form1" action="@Url.Action("Update")">
+<form id="form1" action="@Url.Action("FunctionUpdate")">
 <input type="hidden" name="ID" value="@Model.ID" />
-<div class="addinfo_con">
-    <dl>
-        <dt><i>*</i> 编号：</dt>
-        <dd>
-            <input type="text" name="Code" class="info_put" datatype="*" nullmsg="请输入编号！" value="@Model.Code" />
-        </dd>
-    </dl>
+<div class="addinfo_con"> 
     <dl>
         <dt><i>*</i> 名称：</dt>
         <dd>
             <input type="text" name="Name" class="info_put" datatype="*" nullmsg="请输入名称！" value="@Model.Name" />
+        </dd>
+    </dl>
+    <dl>
+        <dt><i>*</i> 标签：</dt>
+        <dd>
+            <input type="text" name="Tag" class="info_put" datatype="*" nullmsg="请输入标签！" value="@Model.Tag" />
         </dd>
     </dl>
     <dl>
@@ -40,7 +40,7 @@
                 btnSubmit: "#btnUpdate",
                 callback: function (data) {
                     if (data.IsSuccess) {
-                        art.dialog.data("dept_update", true)
+                        art.dialog.data("function_update", true)
                         art.dialog({ content: "操作成功...", icon: "succeed", ok: function () {
                             art.dialog.close();
                         }

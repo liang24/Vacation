@@ -1,0 +1,84 @@
+﻿@model SysMenu
+@{
+    ViewBag.Title = "功能管理";
+}
+<form id="form">
+<div class="class_con">
+    <p id="wrapSearchBar" class="cz_an">
+        <span class="fLeft"><a class="choicecl" href="#" id="btnCheckAll">全选</a><a class="del"
+            href="#" id="btnDelete">删除</a><a class="add border0" href="#" id="btnAdd">新增</a>
+        </span>
+    </p>
+    <table id="tbList" class="tainfo" style="width: 100%;">
+        <thead>
+            <tr class="thead">
+                <td class="pdl30" style="width: 40px;">
+                    选择
+                </td>
+                <td width="40%">
+                    功能名
+                </td>
+                <td>
+                    标签
+                </td>
+                <td>
+                    排序
+                </td>
+                <td>
+                    操作
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var func in Model.Functions)
+            {
+                <tr>
+                    <td>
+                        <input type="checkbox" node-type="ckb" rel="@func.ID" class="cho check-box"  />
+                    </td>
+                    <td>@func.Name&nbsp;
+                    </td>
+                    <td>@func.Tag&nbsp;
+                    </td>
+                    <td>@func.Sort&nbsp;
+                    </td>
+                    <td>
+                        <a class="update" href="#" btn="btnUpdate" node-id="@func.ID">修改</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+</form>
+@section Script{
+    <script type="text/javascript">
+
+        $(function () {
+            $("#tbList tbody").on("click", '[btn="btnUpdate"]', function () {
+                var id = $(this).attr("node-id");
+                art.dialog.open('@Url.Action("FunctionUpdate")/' + id, { title: "更新", lock: true, close: function () {
+                    if (art.dialog.data("function_update")) {
+                        art.dialog.removeData("function_update");
+                        window.location.reload();
+                    }
+                }
+                });
+            });
+
+            $("#btnAdd").click(function () {
+                art.dialog.open('@Url.Action("FunctionAdd")/?menuId=@Model.ID', { title: "新增", lock: true, close: function () {
+                    if (art.dialog.data("function_add")) {
+                        art.dialog.removeData("function_add");
+                        window.location.reload();
+                    }
+                }
+                });
+            });
+
+            $("#btnDelete").click(function () {
+                BaseOP.DeleteByIds('@Url.Action("FunctionDelete")', "", function () { window.location.reload(); });
+            });
+        }); 
+    </script>
+}

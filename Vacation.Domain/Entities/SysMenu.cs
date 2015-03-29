@@ -36,5 +36,8 @@ namespace Vacation.Domain.Entities
 
         [Column("url")]
         public string Url { get; set; }
+
+        [Ignore]
+        public IEnumerable<SysFunction> Functions { get; set; }
     }
 }
