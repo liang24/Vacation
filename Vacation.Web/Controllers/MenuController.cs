@@ -52,6 +52,10 @@ namespace Vacation.Web.Controllers
             var old = SysMenu.SingleOrDefault(menu.ID);
             old.Name = menu.Name;
             old.Sort = menu.Sort;
+            old.Url = menu.Url;
+            old.Tag = menu.Tag;
+            old.ParentID = menu.ParentID;
+            old.IsVisible = menu.IsVisible;
 
             old.Update();
 
