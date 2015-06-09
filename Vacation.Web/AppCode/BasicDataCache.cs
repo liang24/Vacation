@@ -150,6 +150,40 @@ namespace Vacation.Web.AppCode
             return trees.OrderBy(tree => tree.Sort);
         }
 
+        public static IEnumerable<MenuTree> GetCurrUserMenuTrees()
+        {
+            if (!SysHelper.IsLogined())
+            {
+                return new List<MenuTree>();
+            }
+
+            var currUser = SysHelper.GetCurrUser();
+
+            if (currUser.IsSuperUser)
+            {
+                return listMenuTrees;
+            }
+
+            var funcIds = SysPower.Fetch("where master_id=@0 and master_type=@1", currUser.ID, MasterType.User.ToString()).Select(power => power.FunctionID);
+            var funcs = listFunctions.Where(func => funcIds.Contains(func.ID));
+
+            List<MenuTree> result = new List<MenuTree>();
+
+            result.AddRange(listMenuTrees.Where(tree => funcs.Any(func => func.MenuID == tree.ID)));
+
+            foreach (var item in listMenuTrees.Where(tree => funcs.Any(func => func.MenuID == tree.ID)))
+            {
+                var parent = listMenuTrees.SingleOrDefault(tree => tree.ID == item.ParentID);
+
+                if (parent != null && !result.Any(tree => tree.ID == parent.ID))
+                {
+                    result.Add(parent);
+                }
+            }
+
+            return result.Where(tree => tree.IsVisible).OrderBy(tree => tree.Sort);
+        }
+
         private static bool CanVisible(MenuTree tree)
         {
             var result = false;

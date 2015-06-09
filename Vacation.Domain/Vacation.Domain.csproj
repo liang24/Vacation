@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Notice.cs" />
     <Compile Include="Entities\CommonEnum.cs" />
     <Compile Include="Entities\Message.cs" />
     <Compile Include="Entities\MessageReceiver.cs" />

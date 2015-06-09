@@ -4,7 +4,7 @@
 <form id="form1" action="@Url.Action("Add")">
 <div class="addinfo_con">
     <dl>
-        <dt><i>*</i> 用户名：</dt>
+        <dt><i>*</i> 警号：</dt>
         <dd>
             <input type="text" name="UserName" class="info_put" datatype="*" nullmsg="请输入用户名！"
                 ajaxurl="@Url.Action("CheckName")" />
@@ -42,6 +42,16 @@
         <dd>
             <input type="text" name="Phone" class="info_put" datatype="m" nullmsg="请输入手机号码！" /></dd>
     </dl>
+
+     <dl><dt><i>*</i>性别：</dt>
+            <dd>
+                <label>
+                    <input type="radio" name="sex" value="true"/>男</label>
+                <label>
+                    <input type="radio" name="sex" value="false"/>女</label>
+            </dd>
+     </dl>
+
     <dl class="input_an">
         <dt></dt>
         <dd>

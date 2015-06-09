@@ -19,6 +19,9 @@ namespace Vacation.Domain.Entities
         [Column("is_system")]
         public bool IsSystem { get; set; }
 
+        //[Column("parent_id")]
+        //public int ParentID { get; set; }
+        
         [Column("role_name")]
         public string Name { get; set; }
     }
