@@ -1,9 +1,9 @@
 ﻿@{
-    ViewBag.Title = "部门管理";
+    ViewBag.Title = "休假类型管理";
 }
 <div class="class_con">
     <p class="showlink">
-        <span>权限管理 > 部门管理</span>
+        <span>系统管理 > 休假类型管理</span>
     </p>
     <p id="wrapSearchBar" class="cz_an">
         <span class="fLeft"><a class="choicecl" href="#" id="btnCheckAll">全选</a><a class="del"
@@ -18,14 +18,14 @@
                 <td class="pdl30" style="width: 40px;">
                     选择
                 </td>
-                <td width="20%">
-                    编号
-                </td>
                 <td>
                     名称
                 </td>
                 <td>
                     排序
+                </td>
+                <td>
+                    描述
                 </td>
                 <td>
                     操作
@@ -42,10 +42,14 @@
 </div>
 <script type="text/x-jquery-tmpl" id="tmplList">
         <tr>
-            <td><input type="checkbox" node-type="ckb" rel="${ID}" class="cho check-box" /></td>
-            <td>${Code}&nbsp;</td>
+            <td>
+                {{if IsSystem == false}}
+                <input type="checkbox" node-type="ckb" rel="${ID}" class="cho check-box" />
+                {{/if}}
+            </td>
             <td>${Name}&nbsp;</td> 
             <td>${Sort}&nbsp;</td>
+            <td>${Description}&nbsp;</td>
             <td>
                 <a class="update" href="#" btn="btnUpdate" node-id="${ID}">修改</a>  
             </td>
@@ -73,9 +77,9 @@
             $("#tbList tbody").on("click", '[btn="btnUpdate"]', function () {
                 var id = $(this).attr("node-id");
                 art.dialog.open("@Url.Action("update")/" + id, { title: "更新", height: 350, lock: true, close: function () {
-                    if (art.dialog.data("dept_update")) {
+                    if (art.dialog.data("type_update")) {
                         $("#pager").pager("reload");
-                        art.dialog.removeData("dept_update");
+                        art.dialog.removeData("type_update");
                     }
                 }
                 });
@@ -83,9 +87,9 @@
 
             $("#btnAdd").click(function () {
                 art.dialog.open("@Url.Action("add")", { title: "新增", lock: true, close: function () {
-                    if (art.dialog.data("dept_add")) {
+                    if (art.dialog.data("type_add")) {
                         $("#pager").pager("reload");
-                        art.dialog.removeData("dept_add");
+                        art.dialog.removeData("type_add");
                     }
                 }
                 });

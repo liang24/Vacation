@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "添加休假类型";
+    var currUser = SysHelper.GetCurrUser();
+}
+<form id="form1" action="@Url.Action("Add")">
+<div class="addinfo_con">
+    <dl>
+        <dt><i>*</i> 名称：</dt>
+        <dd>
+            <input type="text" name="Name" class="info_put" datatype="*" nullmsg="请输入名称！" />
+        </dd>
+    </dl>
+    <dl>
+        <dt>排序：</dt>
+        <dd>
+            <input type="text" name="Sort" class="info_put" datatype="n" value="99" />
+        </dd>
+    </dl>
+    @if (currUser.IsSuperUser)
+    {
+        <dl>
+            <dt>系统数据：</dt>
+            <dd>
+                <label>
+                    <input type="radio" name="IsSystem" value="true" />是</label>
+                <label>
+                    <input type="radio" name="IsSystem" value="false" checked="checked" />否</label>
+            </dd>
+        </dl>
+    }
+    <dl>
+        <dt>描述：</dt>
+        <dd>
+            <textarea name="Description" class="info_put" style="width: 250px; height: 200px;"></textarea>
+        </dd>
+    </dl>
+    <dl class="input_an">
+        <dt></dt>
+        <dd>
+            <a class="input_ok" href="#" id="btnAdd">新增</a><a class="close" href="#" id="btnClose">关闭</a>
+        </dd>
+    </dl>
+</div>
+</form>
+@section Script
+{
+    <script type="text/javascript">
+        $(function () {
+            $("#form1").Validform({
+                tiptype: 4,
+                ajaxPost: true,
+                btnSubmit: "#btnAdd",
+                callback: function (data) {
+                    if (data.IsSuccess) {
+                        art.dialog.data("type_add", true);
+                        art.dialog({ content: "操作成功，是否继续添加？", icon: "succeed", okVal: "继续", ok: function () {
+                            $("#form1")[0].reset();
+                        }, cancel: function () { art.dialog.close(); }
+                        });
+                    }
+                    else {
+                        art.dialog({ content: data.Message, icon: "error", ok: true });
+                    }
+                }
+            });
+            $("#btnClose").click(function () {
+                art.dialog.close();
+            });
+        }); 
+    </script>
+}

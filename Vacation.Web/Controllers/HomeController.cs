@@ -45,5 +45,10 @@ namespace Vacation.Web.Controllers
 
             return Json(result);
         }
+
+        public ActionResult Building()
+        {
+            return View();
+        }
     }
 }
