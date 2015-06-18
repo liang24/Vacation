@@ -93,10 +93,7 @@ namespace Vacation.Web.Controllers
             CurrUser.DeptID = model.DeptID;
             CurrUser.RealName = model.RealName;
             CurrUser.HeadImage = model.HeadImage;
-            CurrUser.EmployedDate = model.EmployedDate;
-
-            CurrUser.RoleID = model.RoleID;
-
+            CurrUser.EmployedDate = model.EmployedDate; 
             CurrUser.Update();
 
             return Json(ArtDialogResponseResult.SuccessResult);

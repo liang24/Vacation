@@ -1,0 +1,91 @@
+﻿@model VacationApply
+@{
+    ViewBag.Title = "休假申请";
+}
+<style type="text/css">
+    .addinfo_con dl
+    {
+        width: 800px;
+    }
+    .addinfo_con dt
+    {
+        width: 30%;
+    }
+    .layout-nav .head-avatar .head-avatar-edit
+    {
+        position: absolute;
+        width: 120px;
+        top: 97px;
+        left: 3px;
+        font-size: 12px;
+        text-align: center;
+        z-index: 2;
+    }
+</style>
+<div class="class_con">
+    <p class="showlink">
+        <span>休假管理 > 休假申请</span>
+    </p>
+    <form id="form1" action="@Url.Action("apply")">
+    <div class="addinfo_con">
+        <dl>
+            <dt>申请人：</dt>
+            <dd>
+                <input type="text" class="info_put" readonly ="readonly" disabled="disabled" value="@SysHelper.GetCurrUser().RealName" />
+            </dd>
+        </dl>
+        <dl>
+            <dt>休假类型：</dt>
+            <dd>
+                <select name="VacationTypeID">
+                </select>
+            </dd>
+        </dl>
+        <dl>
+            <dt>开始时间：</dt>
+            <dd>
+                <input type="text" class="info_put" name="StartTime" datatype="*" />
+            </dd>
+        </dl>
+        <dl>
+            <dt>结束时间：</dt>
+            <dd>
+                <input type="text" name="EndTime" class="info_put" datatype="*" /></dd>
+        </dl>
+        <dl>
+            <dt>休假原因：</dt>
+            <dd>
+                <textarea name="Reason" class="info_put" datatype="*" style="height: 150px; width: 300px;"></textarea>
+            </dd>
+        </dl>
+        <dl class="input_an">
+            <dt></dt>
+            <dd>
+                <a class="input_ok" href="javascript:void();" id="btnApply">申请</a>
+            </dd>
+        </dl>
+    </div>
+    </form>
+</div>
+@section Script{
+    <!--时间插件-->
+    <link href="/Scripts/My97DatePicker/skin/WdatePicker.css" rel="Stylesheet" type="text/css" />
+    <script src="/Scripts/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#form1").Validform({
+                tiptype: 4,
+                ajaxPost: true,
+                btnSubmit: "#btnApply",
+                callback: function (data) {
+                    if (data.IsSuccess) {
+                        art.dialog.tips("申请成功！");
+                    }
+                    else {
+                        art.dialog({ content: data.Message, icon: "error", ok: true });
+                    }
+                }
+            });
+        });
+    </script>
+}

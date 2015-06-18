@@ -28,6 +28,9 @@
                     描述
                 </td>
                 <td>
+                    是否启用
+                </td>
+                <td>
                     操作
                 </td>
             </tr>
@@ -47,9 +50,10 @@
                 <input type="checkbox" node-type="ckb" rel="${ID}" class="cho check-box" />
                 {{/if}}
             </td>
-            <td>${Name}&nbsp;</td> 
+            <td>${Name}&nbsp;</td>             
             <td>${Sort}&nbsp;</td>
             <td>${Description}&nbsp;</td>
+            <td>{{if IsEnabled}}是{{else}}<font style="color:red;">否</font>{{/if}}</td>
             <td>
                 <a class="update" href="#" btn="btnUpdate" node-id="${ID}">修改</a>  
             </td>

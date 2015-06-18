@@ -41,6 +41,7 @@ namespace Vacation.Web.Controllers
         [HttpPost]
         public JsonResult Add(VacationType vacationType)
         {
+            vacationType.Type = EnumVacationTypeType.General;
             vacationType.Insert();
 
             return Json(ArtDialogResponseResult.SuccessResult);
@@ -56,9 +57,16 @@ namespace Vacation.Web.Controllers
         [HttpPost]
         public JsonResult Update(VacationType vacationType)
         {
-            var old = VacationType.SingleOrDefault(vacationType.ID); 
+            var old = VacationType.SingleOrDefault(vacationType.ID);
             old.Name = vacationType.Name;
             old.Sort = vacationType.Sort;
+            old.Description = vacationType.Description;
+            old.IsEnabled = vacationType.IsEnabled;
+
+            if (CurrUser.IsSuperUser)
+            {
+                old.IsSystem = vacationType.IsSystem;
+            }
 
             old.Update();
 

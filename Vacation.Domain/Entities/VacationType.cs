@@ -22,8 +22,8 @@ namespace Vacation.Domain.Entities
         [Column("name")]
         public string Name { get; set; }
 
-        //[Column("type")]
-        //public string Type { get; set; }
+        [Column("type")]
+        public EnumVacationTypeType Type { get; set; }
 
         /// <summary>
         /// 排序
@@ -42,5 +42,25 @@ namespace Vacation.Domain.Entities
         /// </summary>
         [Column("description")]
         public string Description { get; set; }
+
+        /// <summary>
+        /// 是否启用
+        /// </summary>
+        [Column("is_enabled")]
+        public bool IsEnabled { get; set; }
+    }
+
+    /// <summary>
+    /// 年假
+    /// </summary>
+    public class Annual : VacationType
+    {
+
+    }
+
+    public enum EnumVacationTypeType
+    {
+        General = 1,
+        Annual
     }
 }

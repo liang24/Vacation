@@ -12,7 +12,7 @@ namespace Vacation.Web.Controllers
     [Authorize]
     public class NoticeController : BaseController
     {
-       
+
         #region 管理模块
 
         public ActionResult Index()
@@ -24,7 +24,7 @@ namespace Vacation.Web.Controllers
         {
             var sql = Sql.Builder.Where("title like @0", "%" + name + "%");
 
-            var page =Notice.Page(pageIndex, pageSize, sql);
+            var page = Notice.Page(pageIndex, pageSize, sql);
 
             return Json(new ResponseData
             {
@@ -60,7 +60,6 @@ namespace Vacation.Web.Controllers
             old.ID = notice.ID;
             old.Title = notice.Title;
             old.Content = notice.Content;
-            old.CreateTime = notice.CreateTime;
 
             old.Update();
 

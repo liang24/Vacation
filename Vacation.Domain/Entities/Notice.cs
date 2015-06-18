@@ -6,9 +6,9 @@ using PetaPoco;
 
 namespace Vacation.Domain.Entities
 {
-[TableName("textnotices")]
+    [TableName("notices")]
     [PrimaryKey("id")]
-
+    [ExplicitColumns]
     public class Notice : DB.Record<Notice>
     {
         [Column("id")]
@@ -18,15 +18,15 @@ namespace Vacation.Domain.Entities
         [Column("content")]
         public string Content { get; set; }
 
-
         [Column("create_time")]
-        public string CreateTime { get; set; }
+        public DateTime CreateTime { get; set; }
 
-     public Notice()
+        public string CreateTimeString { get { return this.CreateTime.ToString("yyyy-MM-dd HH:mm:ss"); } }
+
+        public Notice()
         {
-            CreateTime = DateTime.Now.ToString("yyyy年MM月dd日 HH:mm:ss");
-            
-                }
+            CreateTime = DateTime.Now;
+        }
     }
 
 }

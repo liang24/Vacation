@@ -13,6 +13,15 @@
         </dd>
     </dl>
     <dl>
+        <dt>是否启用：</dt>
+        <dd>
+            <label>
+                <input type="radio" name="IsEnabled" value="true" @(Model.IsEnabled ? "checked=\"checked\"" : "") />启用</label>
+            <label>
+                <input type="radio" name="IsEnabled" value="false" @(Model.IsEnabled ? "" : "checked=\"checked\"")  />禁用</label>
+        </dd>
+    </dl>
+    <dl>
         <dt>排序：</dt>
         <dd>
             <input type="text" name="Sort" class="info_put" datatype="n" value="@Model.Sort" />
