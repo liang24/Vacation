@@ -39,8 +39,24 @@ namespace Vacation.Domain.Entities
         [Column("head_image")]
         public string HeadImage { get; set; }
 
+        /// <summary>
+        /// 入职时间
+        /// </summary>
+        [Column("employed_date")]
+        public DateTime? EmployedDate { get; set; }
+     
+        
         [Column("sex")]
         public bool Sex { get; set; }
+
+        [Column("marry")]
+        public bool Marry { get; set; }
+
+        [Column("dept_id")]
+        public int DeptID { get; set; }
+
+        [Column("role_id")]
+        public int RoleID { get; set; }
 
         [Column("phone")]
         public string Phone { get; set; }
@@ -48,6 +64,10 @@ namespace Vacation.Domain.Entities
         public SysUser()
         {
             this.IsFirstVisit = true;
+
+            this.EmployedDate = null;
+       
+
         }
 
         /// <summary>

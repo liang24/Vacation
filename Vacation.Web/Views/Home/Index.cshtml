@@ -13,15 +13,13 @@
     <!--头部-->
     <div class="con_top">
         <div class="top_logo">
-            <a href="@Url.Action("index")" title="休假管理系统">
-                @*<img src="/images/i_03.png" />*@</a>
+            <a href="@Url.Action("index")" title="休假管理系统">@*<img src="/images/i_03.png" />*@</a>
         </div>
         <div class="top_right">
             <div class="top_menu" id="top_menu">
                 <ul>
-                    <li><a class="menuc_home  menucl" href="@Url.Action("Dashboard")" target="content" node-type="top-menu"
-                        module-id="0">首页</a></li>
-                    @*<asp:repeater id="repFirstMenu" runat="server">
+                    @*<li><a class="menuc_home  menucl" href="@Url.Action("Dashboard")" target="content" node-type="top-menu"
+                        module-id="0">首页</a></li>*@ @*<asp:repeater id="repFirstMenu" runat="server">
                             <ItemTemplate>
                                 <li><a id="menuc_1 menucl1" class="menuc_<%# Eval("Icon")%>" href="javascript:void(0)"
                                     node-type="top-menu" module-id="<%# Eval("ID") %>">
@@ -65,32 +63,26 @@
                     </a></li>
                 </ul>
             </div>
-            <div module-id="1" class="menu_list"">
-                <p>
-                    <a class=" xz" href="javascript:void(0);">权限管理</a></p>
-                <ul style="display: none;">
-                    <li><a target="content" href="@Url.Action("index","user")">用户管理</a></li>
-                    <li><a target="content" href="@Url.Action("index", "dept")">部门管理 </a></li>
-                    <li><a target="content" href="@Url.Action("index", "role")">角色管理 </a></li>
-                </ul>
-            </div>
-            @*<asp:repeater id="repSecondMenu" runat="server" onitemdatabound="repSecondMenu_ItemDataBound">
-                    <ItemTemplate>
-                        <div module-id="<%# Eval("ParentID")%>" class="menu_list" style="display: none">
-                            <p>
-                                <a class="" href="javascript:void(0);">
-                                    <%# Eval("Name")%></a></p>
-                            <ul style="display: none;">
-                                <asp:Repeater ID="repThirdMenu" runat="server">
-                                    <ItemTemplate>
-                                        <li><a target="content" href="<%# Eval("Url") %>">
-                                            <%# Eval("Name")%></a></li>
-                                    </ItemTemplate>
-                                </asp:Repeater>
-                            </ul>
-                        </div>
-                    </ItemTemplate>
-                </asp:repeater>*@
+            @{
+                var trees = BasicDataCache.GetCurrUserMenuTrees();
+
+                foreach (var module in trees.Where(tree => tree.ParentID == 0).OrderBy(tree => tree.Sort))
+                {
+                <div module-id="@module.ID" class="menu_list" >
+                    <p>
+                        <a class="xz" href="javascript:void(0);">
+                            @module.Name</a></p>
+                    <ul style="display: none;">
+                        @foreach (var menu in trees.Where(tree => tree.ParentID == module.ID).OrderBy(tree => tree.Sort))
+                        {
+                            <li><a target="content" href="@menu.Url">
+                                @menu.Name</a></li>
+                        }
+                    </ul>
+                </div>
+                }
+                
+            }
         </div>
         <div class="main_right" style="position: absolute; right: 0px;">
             <iframe name="content" scrolling="auto" frameborder="0" src="@Url.Action("Dashboard")" style="width: 100%;

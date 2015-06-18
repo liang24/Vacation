@@ -49,8 +49,38 @@ namespace Vacation.Web.Controllers
         {
             var user = SysHelper.GetCurrUser();
 
+            string deptHtml = string.Empty;   
+
+            BuildDeptOption(SysDept.Fetch(Sql.Builder), 0, "", user.DeptID, ref deptHtml);
+        
+            ViewBag.DeptHtml = deptHtml;
+        
             return View(user);
         }
+
+        private void BuildDeptOption(IEnumerable<SysDept> depts, int parentId, string prefix, int seleceted, ref string result)
+        {
+            if (parentId != 0)
+            {
+                prefix += "├";
+            }
+
+            foreach (SysDept item in depts.Where(d => d.ParentID == parentId).OrderBy(d => d.Sort))
+            {
+                if (item.ID == seleceted)
+                {
+                    result += string.Format("<option value=\"{0}\" selected=\"selected\">{2}{1}</option>", item.ID, item.Name, prefix);
+                }
+                else
+                {
+                    result += string.Format("<option value=\"{0}\">{2}{1}</option>", item.ID, item.Name, prefix);
+                }
+                BuildDeptOption(depts, item.ID, prefix, seleceted, ref result);
+            }
+        }
+
+      
+
 
         [Authorize]
         [HttpPost]
@@ -59,8 +89,13 @@ namespace Vacation.Web.Controllers
             CurrUser.Email = model.Email;
             CurrUser.Phone = model.Phone;
             CurrUser.Sex = model.Sex;
+            CurrUser.Marry = model.Marry;
+            CurrUser.DeptID = model.DeptID;
             CurrUser.RealName = model.RealName;
             CurrUser.HeadImage = model.HeadImage;
+            CurrUser.EmployedDate = model.EmployedDate;
+
+            CurrUser.RoleID = model.RoleID;
 
             CurrUser.Update();
 
@@ -174,7 +209,7 @@ namespace Vacation.Web.Controllers
         [Authorize]
         public JsonResult Page(int pageIndex, int pageSize, string name, string inRole, string outRole)
         {
-            var sql = Sql.Builder.Where("real_name like @0 or user_name like @0", "%" + name + "%");
+            var sql = Sql.Builder.Where("is_super_user=0 and (real_name like @0 or user_name like @0)", "%" + name + "%");
 
             if (!string.IsNullOrEmpty(inRole))
             {
@@ -196,7 +231,8 @@ namespace Vacation.Web.Controllers
                     user.Email,
                     user.UserName,
                     user.RealName,
-                    user.Phone
+                    user.Phone,
+                    user.EmployedDate
                 })
             });
         }
@@ -232,6 +268,7 @@ namespace Vacation.Web.Controllers
             old.RealName = user.RealName;
             old.Email = user.Email;
             old.Phone = user.Phone;
+            old.EmployedDate = old.EmployedDate;
 
             old.Update();
 

@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "添加公告";
+}
+<form id="form1" action="@Url.Action("Add")">
+<div class="addinfo_con">
+    <dl>
+        <dt><i>*</i> 标题：</dt>
+        <dd>
+            <input type="text" name="Title" class="info_put" datatype="*" nullmsg="请输入标题！" />
+        </dd>
+    </dl>
+    <dl>
+        <dt><i>*</i> 内容：</dt>
+        <dd>
+            <input type="text" name="Content" class="info_put" datatype="*" nullmsg="请输入内容！" />
+        </dd>
+    </dl>
+    
+    <dl class="input_an">
+        <dt></dt>
+        <dd>
+            <a class="input_ok" href="#" id="btnAdd">新增</a><a class="close" href="#" id="btnClose">关闭</a>
+        </dd>
+    </dl>
+</div>
+</form>
+@section Script
+{ 
+    <script type="text/javascript">
+        $(function () {
+            $("#form1").Validform({
+                tiptype: 4,
+                ajaxPost: true,
+                btnSubmit: "#btnAdd", 
+                callback: function (data) {
+                    if (data.IsSuccess) {
+                        art.dialog.data("notice_add", true);
+                        art.dialog({ content: "操作成功，是否继续添加？", icon: "succeed", okVal: "继续", ok: function () {
+                            $("#form1")[0].reset();
+                        }, cancel: function () { art.dialog.close(); }
+                        });
+                    }
+                    else {
+                        art.dialog({ content: data.Message, icon: "error", ok: true });
+                    }
+                }
+            });
+            $("#btnClose").click(function () {
+                art.dialog.close();
+            });
+        }); 
+    </script>
+}

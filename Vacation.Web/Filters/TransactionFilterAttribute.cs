@@ -8,14 +8,14 @@ using System.Transactions;
 namespace Vacation.Web.Filters
 {
     [AttributeUsage(AttributeTargets.Method, Inherited = true)]
-    public class TransactionFilterAttribute : ActionFilterAttribute
+    public class PowerFilterAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            using (TransactionScope scope = new TransactionScope())
-            {
-                base.OnActionExecuting(filterContext);
-            }
+            //using (TransactionScope scope = new TransactionScope())
+            //{
+            //    base.OnActionExecuting(filterContext);
+            //}
         }
     }
 }

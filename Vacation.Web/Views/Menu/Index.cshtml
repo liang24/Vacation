@@ -1,0 +1,275 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<style type="text/css">
+    .info_con dl
+    {
+        width: 500px;
+    }
+    .info_con dt
+    {
+        width: 120px;
+    }
+    .input_an a
+    {
+        margin-right: 5px;
+    }
+    #btnChooseParent
+    {
+        color: blue;
+    }
+</style>
+<div class="class_con">
+    <p class="showlink">
+        <span>权限管理 > 菜单管理</span>
+    </p>
+    <div id="menuTree" class="ztree" style="float: left; width: 20%; margin-top: 15px;">
+    </div>
+    <div class="tcc" style="float: right; width: 78%">
+        <form id="form">
+        <input type="hidden" id="isAdd" value="true" />
+        <div class="info_con" id="menuPanel">
+            <dl>
+                <dt>ID：</dt>
+                <dd class="cho_dd2">
+                    <input type="text" class="info_put" id="txtID" name="ID" readonly="readonly" />
+                </dd>
+            </dl>
+            <dl>
+                <dt><i>*</i>名称：</dt>
+                <dd class="cho_dd2">
+                    <input type="text" class="info_put" id="txtName" name="Name" datatype="*" nullmsg="请输入名称！" />
+                </dd>
+            </dl>
+            <dl>
+                <dt><i>*</i>上级菜单：</dt>
+                <dd class="cho_dd2">
+                    <input type="text" class="info_put" id="txtParentName" readonly="readonly" value="根菜单" />
+                    <a href="javascript:void(0)" id="btnChooseParent" onclick="chooseParent()">选择</a>
+                    <a href="javascript:void(0)" id="btnRemoveParent" onclick="removeParent()"></a>
+                    <input type="hidden" id="txtParentID" name="ParentID" value="0" />
+                </dd>
+            </dl>
+            <dl>
+                <dt>地址：</dt>
+                <dd class="cho_dd2">
+                    <input type="text" class="info_put" id="txtUrl" name="Url" />
+                </dd>
+            </dl>
+            <dl>
+                <dt><i>*</i>排序：</dt>
+                <dd class="cho_dd2">
+                    <input type="text" class="info_put" id="txtSort" name="Sort" datatype="n" nullmsg="请输入排序！" />
+                </dd>
+            </dl>
+            <dl>
+                <dt>标签：</dt>
+                <dd class="cho_dd2">
+                    <input type="text" class="info_put" id="txtTag" name="Tag" />
+                </dd>
+            </dl>
+            <dl>
+                <dt><i>*</i>是否可见：</dt>
+                <dd class="cho_dd2" style="height: 30px; line-height: 30px;">
+                    <input type="radio" checked="checked" value="true" name="IsVisible" id="rbShow" /><label
+                        for="rbShow">是</label>
+                    <input type="radio" value="false" name="IsVisible" id="rbHide" /><label for="rbHide">否</label>
+                </dd>
+            </dl>
+            <dl id="panelFunction">
+                <dt>预插入功能：</dt>
+                <dd class="cho_dd2" style="height: 30px; line-height: 30px;">
+                    <input type="checkbox" id="cbxView" value="1" checked="checked" />
+                    <label for="cbxView">
+                        查看</label>
+                    <input type="checkbox" id="cbxAdd" value="2" /><label for="cbxAdd">新增</label>
+                    <input type="checkbox" id="cbxUpdate" value="4" /><label for="cbxUpdate">修改</label>
+                    <input type="checkbox" id="cbxDelete" value="8" /><label for="cbxDelete">删除</label>
+                </dd>
+            </dl>
+            <p class="input_an" style="margin-bottom: 20px; padding-left: 80px; width: 600px;
+                margin-top: 15px;">
+                <a class="input_ok" id="btnAdd" href="javascript:void(0);" onclick="setValue(true);">
+                    添加</a> <a class="input_ok" id="btnSave" href="javascript:void(0);" onclick="setValue(false);">
+                        更新</a> <a class="input_ok" id="btnDelete" href="javascript:void(0);" onclick="del()">
+                            删除</a> <a class="input_ok" id="btnClear" href="javascript:void(0);" onclick="formClear()">
+                                清空</a><a class="input_ok" id="btnFunc" href="javascript:void(0);" onclick="openFuncs()">
+                                    功能管理</a>
+            </p>
+            <div style="height: 20px;">
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+@section Script{
+    <!-- zTree -->
+    <link href="/Scripts/zTree/css/zTreeStyle.css" rel="stylesheet" type="text/css" />
+    <script src="/Scripts/zTree/js/jquery.ztree.core-3.5.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var setting = {
+            view: {
+                selectedMulti: false
+            },
+            async: {
+                enable: true,
+                url: '@Url.Action("GetNodes")',
+                autoParam: ["id"]
+            },
+            callback: {
+                onClick: function (event, treeId, treeNode, clickFlag) {
+                    $("#panelFunction").hide();
+
+                    $("#txtID").val(treeNode.menu.ID);
+                    $("#txtName").val(treeNode.menu.Name);
+                    if (treeNode.parentTId) {
+                        $("#txtParentName").val(getParentNode(treeNode.parentTId).name);
+                    }
+                    else {
+                        $("#txtParentName").val("根菜单");
+                    }
+                    $("#txtParentID").val(treeNode.menu.ParentID);
+                    $("#txtUrl").val(treeNode.menu.Url);
+                    $("#txtSort").val(treeNode.menu.Sort);
+                    $("#txtTag").val(treeNode.menu.Tag);
+                    $("#txtDescription").val(treeNode.menu.Description);
+                    $("#hdFilePath").val(treeNode.menu.Icon);
+                    $("[name='IsVisible'][value='" + treeNode.menu.IsVisible + "']").click();
+                    $("[name='IsShowIndex'][value='" + treeNode.menu.IsShowIndex + "']").click();
+                    setValue(false);
+                }
+            }
+        };
+
+        $(function () {
+            $.fn.zTree.init($("#menuTree"), setting);
+            $("#form").Validform({
+                btnSubmit: "#btnAdd,#btnSave",
+                tiptype: 3,
+                showAllError: true,
+                postonce: true,
+                beforeSubmit: function (curform) {
+                    if ($("#isAdd").val() == 'true')
+                        add();
+                    else
+                        update();
+                    return false;
+                }
+            });
+        });
+
+        function add() {
+            var node = getNode();
+
+            if (node.ID) {
+                art.dialog({ content: "请先清空再操作...", icon: "warning", ok: true });
+                return false;
+            }
+
+            node.predefine = 0;
+            $("#panelFunction :checked").each(function () { node.predefine += +$(this).val(); });
+
+            $.post('@Url.Action("Add")', node, function (response) {
+                if (response.IsSuccess) {
+                    art.dialog({ content: "成功...", icon: "succeed", ok: true });
+                    getTree().reAsyncChildNodes(getParentNode(null), "refresh");
+
+                    formClear();
+                } else {
+                    art.dialog({ content: response.Message, icon: "error", ok: true });
+                }
+            }, "json");
+        }
+
+        function update() {
+            var node = getNode();
+
+            if (!node.ID) {
+                art.dialog({ content: "请选择菜单项...", icon: "warning", ok: true });
+                return false;
+            }
+
+            $.post('@Url.Action("Update")', node, function (response) {
+                if (response.IsSuccess) {
+                    art.dialog({ content: "成功...", icon: "succeed", ok: true });
+                    getTree().reAsyncChildNodes(getParentNode(null), "refresh");
+
+                    formClear();
+                } else {
+                    art.dialog({ content: response.Message, icon: "error", ok: true });
+                }
+            }, "json");
+        }
+
+        function del() {
+            var node = getNode();
+
+            if (!node.ID) {
+                art.dialog({ content: "请选择菜单项...", icon: "warning", ok: true });
+                return false;
+            }
+            BaseOP.DeleteById('@Url.Action("Delete")', node.ID, function () {
+                getTree().reAsyncChildNodes(getParentNode(null), "refresh");
+            });
+        }
+
+        function formClear() {
+            $("#panelFunction").show();
+            $("#form").get(0).reset();
+        }
+
+        function chooseParent() {
+            art.dialog({
+                title: "选择上级菜单",
+                content: '<div id="parentTree" class="ztree"></div>',
+                init: function () {
+                    $.fn.zTree.init($("#parentTree"), {
+                        view: {
+                            selectedMulti: false
+                        },
+                        async: {
+                            enable: true,
+                            url: '@Url.Action("GetNodes")',
+                            autoParam: ["id"]
+                        },
+                        callback: {
+                            onClick: function (event, treeId, treeNode, clickFlag) {
+                                $("#txtParentName").val(treeNode.menu.Name);
+                                $("#txtParentID").val(treeNode.menu.ID);
+                            }
+                        }
+                    });
+                },
+                ok: true,
+                lock: true
+            });
+        }
+
+        function removeParent() {
+            $("#txtParentName").val("根菜单");
+            $("#txtParentID").val(0);
+        }
+
+        function getNode() {
+            return BaseOP.getParameter("#menuPanel [name]");
+        }
+
+        function getParentNode(parentId) {
+            return getTree().getNodeByTId(parentId);
+        }
+
+        function getTree() {
+            return $.fn.zTree.getZTreeObj("menuTree");
+        }
+        function setValue(isadd) {
+            $("#isAdd").val(isadd);
+        }
+
+        function openFuncs() {
+            var node = getNode();
+            if (node.ID != 0) {
+                art.dialog.open('@Url.Action("Function")?menuId=' + node.ID, { title: "功能管理", height: 500, width: 720, lock: true });
+            }
+        }
+    </script>
+}
