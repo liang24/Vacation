@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Vacation.Domain.Entities;
 using PetaPoco;
 using Common.Models;
+using Vacation.Web.Filters;
+using Vacation.Web.AppCode;
 
 namespace Vacation.Web.Controllers
 {
@@ -39,6 +41,7 @@ namespace Vacation.Web.Controllers
         }
 
         [HttpPost]
+        [RemoveCacheFilter(BasicDataCache.VacationType_CacheKey)]
         public JsonResult Add(VacationType vacationType)
         {
             vacationType.Type = EnumVacationTypeType.General;
@@ -55,6 +58,7 @@ namespace Vacation.Web.Controllers
         }
 
         [HttpPost]
+        [RemoveCacheFilter(BasicDataCache.VacationType_CacheKey)]
         public JsonResult Update(VacationType vacationType)
         {
             var old = VacationType.SingleOrDefault(vacationType.ID);
@@ -73,6 +77,7 @@ namespace Vacation.Web.Controllers
             return Json(ArtDialogResponseResult.SuccessResult);
         }
 
+        [RemoveCacheFilter(BasicDataCache.VacationType_CacheKey)]
         public JsonResult Delete(string id)
         {
             VacationType.Delete("where id in (@0)", id.ToIntList());

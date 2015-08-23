@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "添加休假审核流程";
+    var currUser = SysHelper.GetCurrUser();
+}
+<form id="form1" action="@Url.Action("Add")">
+<div class="addinfo_con">
+    <dl>
+        <dt><i>*</i> 名称：</dt>
+        <dd>
+            <input type="text" name="Name" class="info_put" datatype="*" nullmsg="请输入名称！" />
+        </dd>
+    </dl>
+    <dl>
+        <dt><i>*</i> 排序：</dt>
+        <dd>
+            <input type="text" name="Sort" class="info_put" datatype="*" nullmsg="请输入排序！" value="@ViewBag.MaxSort" />
+        </dd>
+    </dl>
+    <dl>
+        <dt>审核角色：</dt>
+        <dd>
+            <select name="AuditRoleID" datatype="*">
+                <option value="">--请选择--</option>
+                @foreach (SysRole item in ViewBag.Roles)
+                {
+                    <option value="@item.ID">@item.Name</option>
+                }
+            </select>
+        </dd>
+    </dl>
+    <dl>
+        <dt>影响的部门层次：</dt>
+        <dd>
+            <select name="DeptLevel" datatype="*">
+                @foreach (Common.Models.ComboBox item in ViewBag.DeptLevels)
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
+        </dd>
+    </dl>
+    <dl class="input_an">
+        <dt></dt>
+        <dd>
+            <a class="input_ok" href="#" id="btnAdd">新增</a><a class="close" href="#" id="btnClose">关闭</a>
+        </dd>
+    </dl>
+</div>
+</form>
+@section Script
+{
+    <script type="text/javascript">
+        $(function () {
+            $("#form1").Validform({
+                tiptype: 4,
+                ajaxPost: true,
+                btnSubmit: "#btnAdd",
+                callback: function (data) {
+                    if (data.IsSuccess) {
+                        art.dialog.data("flow_add", true);
+                        art.dialog({ content: "操作成功，是否继续添加？", icon: "succeed", okVal: "继续", ok: function () {
+                            $("#form1")[0].reset();
+                        }, cancel: function () { art.dialog.close(); }
+                        });
+                    }
+                    else {
+                        art.dialog({ content: data.Message, icon: "error", ok: true });
+                    }
+                }
+            });
+            $("#btnClose").click(function () {
+                art.dialog.close();
+            });
+        }); 
+    </script>
+}

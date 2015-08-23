@@ -22,6 +22,9 @@ namespace Vacation.Domain.Entities
         [Column("name")]
         public string Name { get; set; }
 
+        /// <summary>
+        /// 休假类型
+        /// </summary>
         [Column("type")]
         public EnumVacationTypeType Type { get; set; }
 
@@ -47,7 +50,7 @@ namespace Vacation.Domain.Entities
         /// 是否启用
         /// </summary>
         [Column("is_enabled")]
-        public bool IsEnabled { get; set; }
+        public bool IsEnabled { get; set; } 
     }
 
     /// <summary>

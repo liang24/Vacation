@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.Title = "休假审核流程管理";
+}
+<div class="class_con">
+    <p class="showlink">
+        <span>系统管理 > 休假审核流程管理</span>
+    </p>
+    <p id="wrapSearchBar" class="cz_an">
+        <span class="fLeft"><a class="choicecl" href="#" id="btnCheckAll">全选</a><a class="del"
+            href="#" id="btnDelete">删除</a><a class="add" href="#" id="btnAdd">新增</a> </span>
+    </p>
+    <table id="tbList" class="tainfo" style="width: 100%;">
+        <thead>
+            <tr class="thead">
+                <td class="pdl30" style="width: 40px;">
+                    选择
+                </td>
+                <td>
+                    名称
+                </td>
+                <td>
+                    排序
+                </td>
+                <td>
+                    操作
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (VacationAuditFlow item in ViewBag.Data)
+            {
+                <tr>
+                    <td>
+                        <input type="checkbox" node-type="ckb" rel="@item.ID" class="cho check-box"  />
+                    </td>
+                    <td>@(item.Name)&nbsp;
+                    </td>
+                    <td>
+                        @item.Sort
+                    </td>
+                    <td>
+                        <a class="update" href="#" btn="btnUpdate" node-id="@item.ID">修改</a>  
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script type="text/x-jquery-tmpl" id="tmplList">
+        <tr>
+            <td> 
+                <input type="checkbox" node-type="ckb" rel="${ID}" class="cho check-box" /> 
+            </td>
+            <td>${Name}&nbsp;</td>
+            <td>${Sort}</td>
+            <td>
+                <a class="update" href="#" btn="btnUpdate" node-id="${ID}">修改</a>  
+            </td>
+        </tr>
+</script>
+@section Script
+{
+    <script type="text/javascript">
+        $(function () { 
+            function reload(){
+                $.post("@Url.Action("getlist")",function(data){ 
+                    $("#tbList tbody").html($("#tmplList").tmpl(data.Data));
+                },"json");
+            }
+
+            $("#tbList tbody").on("click", '[btn="btnUpdate"]', function () {
+                var id = $(this).attr("node-id");
+                art.dialog.open("@Url.Action("update")/" + id, { title: "更新", height: 350, lock: true, close: function () {
+                    if (art.dialog.data("flow_update")) {
+                        reload();
+                        art.dialog.removeData("flow_update");
+                    }
+                }
+                });
+            });
+
+            $("#btnAdd").click(function () {
+                art.dialog.open("@Url.Action("add")", { title: "新增", lock: true, close: function () {
+                    if (art.dialog.data("flow_add")) {
+                        reload();
+                        art.dialog.removeData("flow_add");
+                    }
+                }
+                });
+            });
+
+            $("#btnDelete").click(function () {
+                BaseOP.DeleteByIds("@Url.Action("delete")", "", reload);
+            }); 
+        }); 
+    </script>
+}

@@ -40,6 +40,21 @@ namespace Vacation.Web.AppCode
         public const string MenuTree_CacheKey = "list_menutree";
 
         /// <summary>
+        /// 休假类型缓存键
+        /// </summary>
+        public const string VacationType_CacheKey = "list_vacationtype";
+
+        /// <summary>
+        /// 休假审核流程缓存键
+        /// </summary>
+        public const string VacationAuditFlow_CacheKey = "list_vacationauditflow";
+
+        /// <summary>
+        /// 角色缓存键
+        /// </summary>
+        public const string Role_CacheKey = "list_role";
+
+        /// <summary>
         /// 缓存同步锁
         /// </summary>
         private static object _cacheLockObject = new object();
@@ -133,6 +148,83 @@ namespace Vacation.Web.AppCode
             }
         }
 
+        public static IEnumerable<VacationType> listVacationTypes
+        {
+            get
+            {
+                IEnumerable<VacationType> vacationTypes = CacheHelper.Instance.Get(VacationType_CacheKey) as List<VacationType>;
+
+                if (vacationTypes != null)
+                {
+                    return vacationTypes;
+                }
+
+                lock (_cacheLockObject)
+                {
+                    vacationTypes = CacheHelper.Instance.Get(VacationType_CacheKey) as List<VacationType>;
+                    if (vacationTypes == null)
+                    {
+                        vacationTypes = VacationType.Fetch(Sql.Builder).OrderBy(type => type.Sort);
+
+                        CacheHelper.Instance.Add(VacationType_CacheKey, vacationTypes);
+                    }
+                }
+
+                return vacationTypes;
+            }
+        }
+
+        public static IEnumerable<VacationAuditFlow> listVacationAuditFlows
+        {
+            get
+            {
+                IEnumerable<VacationAuditFlow> vacationAuditFlows = CacheHelper.Instance.Get(VacationAuditFlow_CacheKey) as List<VacationAuditFlow>;
+
+                if (vacationAuditFlows != null)
+                {
+                    return vacationAuditFlows;
+                }
+
+                lock (_cacheLockObject)
+                {
+                    vacationAuditFlows = CacheHelper.Instance.Get(VacationAuditFlow_CacheKey) as List<VacationAuditFlow>;
+                    if (vacationAuditFlows == null)
+                    {
+                        vacationAuditFlows = VacationAuditFlow.Fetch(Sql.Builder).OrderBy(type => type.Sort);
+
+                        CacheHelper.Instance.Add(VacationAuditFlow_CacheKey, vacationAuditFlows);
+                    }
+                }
+
+                return vacationAuditFlows;
+            }
+        }
+
+        public static IEnumerable<SysRole> listRoles
+        {
+            get
+            {
+                IEnumerable<SysRole> roles = CacheHelper.Instance.Get(Role_CacheKey) as List<SysRole>;
+
+                if (roles != null)
+                {
+                    return roles;
+                }
+
+                lock (_cacheLockObject)
+                {
+                    roles = CacheHelper.Instance.Get(Role_CacheKey) as List<SysRole>;
+                    if (roles == null)
+                    {
+                        roles = SysRole.Fetch(Sql.Builder);
+
+                        CacheHelper.Instance.Add(Role_CacheKey, roles);
+                    }
+                }
+
+                return roles;
+            }
+        }
         #endregion
 
 

@@ -37,20 +37,25 @@
         <dl>
             <dt>休假类型：</dt>
             <dd>
-                <select name="VacationTypeID">
+                <select name="VacationTypeID" datatype="*">
+                    <option value="">--请选择--</option>
+                    @foreach (VacationType item in ViewBag.VacationTypes)
+                    {
+                        <option value="@item.ID">@item.Name</option>
+                    }
                 </select>
             </dd>
         </dl>
         <dl>
             <dt>开始时间：</dt>
             <dd>
-                <input type="text" class="info_put" name="StartTime" datatype="*" />
+                <input type="text" class="info_put" name="StartTime" datatype="*" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
             </dd>
         </dl>
         <dl>
             <dt>结束时间：</dt>
             <dd>
-                <input type="text" name="EndTime" class="info_put" datatype="*" /></dd>
+                <input type="text" class="info_put" name="EndTime"datatype="*" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/></dd>
         </dl>
         <dl>
             <dt>休假原因：</dt>

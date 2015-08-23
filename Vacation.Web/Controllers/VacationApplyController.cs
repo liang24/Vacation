@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Vacation.Domain.Entities;
 using Common.Models;
+using Vacation.Web.AppCode;
 
 namespace Vacation.Web.Controllers
 {
@@ -14,6 +15,8 @@ namespace Vacation.Web.Controllers
         [HttpGet]
         public ActionResult Apply()
         {
+            ViewBag.VacationTypes = BasicDataCache.listVacationTypes;
+
             return View();
         }
 
@@ -24,6 +27,11 @@ namespace Vacation.Web.Controllers
             apply.ApplyTime = DateTime.Now;
             apply.Status = EnumVacationApplyStatus.Apply;
 
+            var firstFlow = BasicDataCache.listVacationAuditFlows.SingleOrDefault(flow => flow.Sort == 1);
+            if (firstFlow != null)
+            {
+                apply.FlowID = firstFlow.ID;
+            }
             apply.Insert();
 
             return Json(ArtDialogResponseResult.SuccessResult);

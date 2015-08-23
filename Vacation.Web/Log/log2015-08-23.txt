@@ -1,4 +1,4 @@
-[2015-03-24 22:38:06]错误页路径：/favicon.ico
+[2015-08-23 23:50:29]错误页路径：/favicon.ico
 引发异常的方法名：GetControllerInstance
 错误信息：未找到路径“/favicon.ico”的控制器或该控制器未实现 IController。
 错误跟踪信息：   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)

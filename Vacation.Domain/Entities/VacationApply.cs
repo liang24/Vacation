@@ -36,6 +36,11 @@ namespace Vacation.Domain.Entities
 
         [Column("reason")]
         public string Reason { get; set; }
+
+        public VacationApply()
+        {
+            ApplyTime = DateTime.Now;
+        }
     }
 
     /// <summary>

@@ -9,6 +9,7 @@ using Vacation.Domain.Entities;
 using Vacation.Web.Filters;
 using Vacation.Web.Models;
 using Vacation.Domain.Views;
+using Vacation.Web.AppCode;
 
 namespace Vacation.Web.Controllers
 {
@@ -41,6 +42,7 @@ namespace Vacation.Web.Controllers
         }
 
         [HttpPost]
+        [RemoveCacheFilter(BasicDataCache.Role_CacheKey)]
         public JsonResult Add(SysRole role)
         {
             role.Insert();
@@ -56,6 +58,7 @@ namespace Vacation.Web.Controllers
         }
 
         [HttpPost]
+        [RemoveCacheFilter(BasicDataCache.Role_CacheKey)]
         public JsonResult Update(SysRole role)
         {
             var old = SysRole.SingleOrDefault(role.ID);
@@ -67,6 +70,8 @@ namespace Vacation.Web.Controllers
             return Json(ArtDialogResponseResult.SuccessResult);
         }
 
+        [HttpPost]
+        [RemoveCacheFilter(BasicDataCache.Role_CacheKey)]
         public JsonResult Delete(string id)
         {
             SysRole.Delete("where id in (@0)", id.ToIntList());
