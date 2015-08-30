@@ -1,6 +1,6 @@
 ﻿@model SysUser
 @{
-    ViewBag.Title = "Info";
+    ViewBag.Title = "修改个人资料";
 }
 <style type="text/css">
     .addinfo_con dl
@@ -65,7 +65,7 @@
 </style>
 <div class="class_con">
     <p class="showlink">
-        <span>个人设置 > 信息修改</span>
+        <span>个人设置 > @ViewBag.Title</span>
     </p>
     <form id="form1" action="@Url.Action("modify", "user")">
     <div class="addinfo_con">
@@ -120,40 +120,6 @@
                 <input type="text" name="Email" class="info_put" datatype="e"  
                     value="@Model.Email" /></dd>
         </dl>
-        <dl>
-            <dt>入职时间：</dt>
-            <dd>
-                <input type="text" name="employeddate" class="info_put" value="@Model.EmployedDate" datatype="*" onclick="WdatePicker();"  />
-            </dd>
-        </dl>
-        <dl>
-            <dt>所属部门：</dt>
-            @*<select name="DeptID" datatype="*">
-             <option value="">请选择</option>
-                @foreach (SysDept item in ViewBag.Depts as IEnumerable<SysDept>)
-                {
-                    if (item.ID == Model.DeptID)
-                    {
-                    <option value="@item.ID" selected="selected">@item.Name</option>
-                    }
-                    else
-                    { 
-                    <option value="@item.ID">@item.Name</option>
-                    }
-                }
-            </select>*@ 
-            <dd>
-                <select name="DeptID" datatype="*">
-                    @(new MvcHtmlString(ViewBag.DeptHtml))
-                                        
-                </select>
-            </dd>
-        </dl>
-
-             
-
-
-
         <dl class="input_an">
             <dt></dt>
             <dd>

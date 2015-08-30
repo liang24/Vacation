@@ -9,6 +9,13 @@
         <span class="fLeft"><a class="choicecl" href="#" id="btnCheckAll">全选</a><a class="del"
             href="#" id="btnDelete">删除</a><a class="add" href="#" id="btnAdd">新增</a> </span>
         <span class="fRight">
+            <select name="DeptID" class="ss_input fLeft mr5">
+                <option value="">--所有部门--</option>
+                @foreach (var item in ComboDataSource.DeptTree())
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
             <input type="text" name="name" class="ss_input fLeft mr5" placeholder="请输入用户名" /><a
                 class="ss_an" href="#" id="btnSearch">搜索</a></span>
     </p>
@@ -19,13 +26,16 @@
                     选择
                 </td>
                 <td width="20%">
-                    用户名
+                    警号
                 </td>
                 <td>
                     姓名
                 </td>
                 <td>
-                    邮箱
+                    部门
+                </td>
+                <td>
+                    角色
                 </td>
                 <td>
                     操作
@@ -45,7 +55,8 @@
             <td><input type="checkbox" node-type="ckb" rel="${ID}" class="cho check-box" /></td>
             <td>${UserName}&nbsp;</td>
             <td>${RealName}&nbsp;</td> 
-            <td>${Email}&nbsp;</td>
+            <td>${DeptName}&nbsp;</td>
+            <td>${RoleName}&nbsp;</td>
             <td>
                 <a class="update" href="#" btn="btnUpdate" node-id="${ID}">修改</a>  
             </td>

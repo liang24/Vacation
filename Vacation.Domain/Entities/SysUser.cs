@@ -54,6 +54,9 @@ namespace Vacation.Domain.Entities
         [Column("dept_id")]
         public int DeptID { get; set; }
 
+        [Column("role_id")]
+        public int RoleID { get; set; }
+
         [Column("phone")]
         public string Phone { get; set; }
 

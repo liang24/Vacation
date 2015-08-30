@@ -6,7 +6,7 @@
 <input type="hidden" name="ID" value="@Model.ID" />
 <div class="addinfo_con">
     <dl>
-        <dt>用户名：</dt>
+        <dt>警号：</dt>
         <dd>
             <input type="text" class="info_put" disabled="disabled" value="@Model.UserName" />
         </dd>
@@ -14,19 +14,66 @@
     <dl>
         <dt><i>*</i> 真实姓名：</dt>
         <dd>
-            <input type="text" id="txtRealName" name="RealName" class="info_put" datatype="*"
+            <input type="text"  name="RealName" class="info_put" datatype="*"
                     nullmsg="请输入真实姓名！" value="@Model.RealName" /></dd>
     </dl>
     <dl>
-        <dt><i>*</i> 邮箱：</dt>
+        <dt>邮箱：</dt>
         <dd>
-            <input type="text" id="txtEmail" name="Email" class="info_put" value="@Model.Email"
-                    datatype="e" nullmsg="请输入邮箱！" /></dd>
+            <input type="text"   name="Email" class="info_put" value="@Model.Email"  /></dd>
     </dl>
     <dl>
-        <dt><i>*</i> 手机号码：</dt>
+        <dt>手机号码：</dt>
         <dd>
-            <input type="text" name="Phone" class="info_put" datatype="m" nullmsg="请输入手机号码！" value="@Model.Phone" /></dd>
+            <input type="text" name="Phone" class="info_put" value="@Model.Phone" /></dd>
+    </dl>
+    <dl>
+        <dt><i>*</i>性别：</dt>
+        <dd>
+            <label>
+                <input type="radio" name="sex" value="true" @(Model.Sex ? "checked=\"checked\"" : "")  />男</label>
+            <label>
+                <input type="radio" name="sex" value="false" @(Model.Sex ? "" : "checked=\"checked\"")  />女</label>
+        </dd>
+    </dl>
+    <dl>
+        <dt><i>*</i>所属部门：</dt>
+        <dd>
+            <select name="DeptID" datatype="*">
+                <option value="">-- 请选择所属部门 --</option>
+                @foreach (var item in ComboDataSource.DeptTree())
+                {
+                    <option value="@item.Value" @(item.ID == Model.DeptID ? "selected=\"selected\"" : "")>@item.Text</option>
+                }
+            </select>
+        </dd>
+    </dl>
+    <dl>
+        <dt><i>*</i>角色：</dt>
+        <dd>
+            <select name="RoleID" datatype="*">
+                <option value="">-- 请选择角色 --</option>
+                @foreach (var item in ComboDataSource.Role())
+                {
+                    <option value="@item.Value" @(item.ID == Model.RoleID ? "selected=\"selected\"" : "")>@item.Text</option>
+                }
+            </select>
+        </dd>
+    </dl>
+    <dl>
+        <dt>入职时间：</dt>
+        <dd>
+            <input type="text" name="employeddate" class="info_put" value="@(Model.EmployedDate.HasValue ? Model.EmployedDate.Value.ToString("yyyy-MM-dd") : "")" datatype="*" onclick="WdatePicker();"  />
+        </dd>
+    </dl>
+    <dl>
+        <dt>婚否：</dt>
+        <dd>
+            <label>
+                <input type="radio" name="marry" value="true" @(Model.Marry ? "checked=\"checked\"" : "") />已婚</label>
+            <label>
+                <input type="radio" name="marry" value="false" @(Model.Marry ? "" : "checked=\"checked\"") />未婚</label>
+        </dd>
     </dl>
     <dl class="input_an">
         <dt></dt>
@@ -37,6 +84,9 @@
 </div>
 </form>
 @section Script{
+    <!--时间插件-->
+    <link href="/Scripts/My97DatePicker/skin/WdatePicker.css" rel="Stylesheet" type="text/css" />
+    <script src="/Scripts/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
             $("#form1").Validform({

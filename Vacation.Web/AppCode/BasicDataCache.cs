@@ -50,9 +50,19 @@ namespace Vacation.Web.AppCode
         public const string VacationAuditFlow_CacheKey = "list_vacationauditflow";
 
         /// <summary>
+        /// 休假审核流程类型缓存键
+        /// </summary>
+        public const string VacationAuditFlowType_CacheKey = "list_vacationauditflowtype";
+
+        /// <summary>
         /// 角色缓存键
         /// </summary>
         public const string Role_CacheKey = "list_role";
+
+        /// <summary>
+        /// 部门缓存键
+        /// </summary>
+        public const string Dept_CacheKey = "list_dept";
 
         /// <summary>
         /// 缓存同步锁
@@ -200,6 +210,32 @@ namespace Vacation.Web.AppCode
             }
         }
 
+        public static IEnumerable<VacationAuditFlowType> listVacationAuditFlowTypes
+        {
+            get
+            {
+                IEnumerable<VacationAuditFlowType> vacationAuditFlowTypes = CacheHelper.Instance.Get(VacationAuditFlowType_CacheKey) as List<VacationAuditFlowType>;
+
+                if (vacationAuditFlowTypes != null)
+                {
+                    return vacationAuditFlowTypes;
+                }
+
+                lock (_cacheLockObject)
+                {
+                    vacationAuditFlowTypes = CacheHelper.Instance.Get(VacationAuditFlowType_CacheKey) as List<VacationAuditFlowType>;
+                    if (vacationAuditFlowTypes == null)
+                    {
+                        vacationAuditFlowTypes = VacationAuditFlowType.Fetch(Sql.Builder);
+
+                        CacheHelper.Instance.Add(VacationAuditFlowType_CacheKey, vacationAuditFlowTypes);
+                    }
+                }
+
+                return vacationAuditFlowTypes;
+            }
+        }
+
         public static IEnumerable<SysRole> listRoles
         {
             get
@@ -223,6 +259,32 @@ namespace Vacation.Web.AppCode
                 }
 
                 return roles;
+            }
+        }
+
+        public static IEnumerable<SysDept> listDepts
+        {
+            get
+            {
+                IEnumerable<SysDept> depts = CacheHelper.Instance.Get(Dept_CacheKey) as List<SysDept>;
+
+                if (depts != null)
+                {
+                    return depts;
+                }
+
+                lock (_cacheLockObject)
+                {
+                    depts = CacheHelper.Instance.Get(Dept_CacheKey) as List<SysDept>;
+                    if (depts == null)
+                    {
+                        depts = SysDept.Fetch(Sql.Builder).OrderBy(type => type.Sort);
+
+                        CacheHelper.Instance.Add(Dept_CacheKey, depts);
+                    }
+                }
+
+                return depts;
             }
         }
         #endregion
@@ -307,6 +369,43 @@ namespace Vacation.Web.AppCode
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// 获取本部门及子部门
+        /// </summary>
+        /// <param name="deptId"></param>
+        /// <returns></returns>
+        public static List<SysDept> GetSubDepts(int deptId)
+        {
+            List<SysDept> result = new List<SysDept>();
+
+            var dept = BasicDataCache.listDepts.Single(d => d.ID == deptId);
+
+            result.Add(dept);
+            foreach (var sub in BasicDataCache.listDepts.Where(d => d.ParentID == dept.ID))
+            {
+                result.AddRange(GetSubDepts(sub.ID));
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 获取所属站
+        /// </summary>
+        /// <param name="deptId"></param>
+        /// <returns></returns>
+        public static SysDept GetSite(int deptId)
+        {
+            var dept = BasicDataCache.listDepts.Single(d => d.ID == deptId);
+
+            while (dept.ParentID != 0)
+            {
+                dept = BasicDataCache.listDepts.Single(d => d.ID == dept.ParentID);
+            }
+
+            return dept;
         }
 
         #endregion

@@ -79,52 +79,52 @@ namespace Vacation.Web.Controllers
             return Json(ArtDialogResponseResult.SuccessResult);
         }
 
-        [HttpGet]
-        public ActionResult Assign(int id)
-        {
-            SysRole role = SysRole.SingleOrDefault(id);
+        //[HttpGet]
+        //public ActionResult Assign(int id)
+        //{
+        //    SysRole role = SysRole.SingleOrDefault(id);
 
-            return View(role);
-        }
+        //    return View(role);
+        //}
 
-        [HttpPost]
-        public JsonResult Assign(string userIds, int id)
-        {
-            if (!string.IsNullOrEmpty(userIds))
-            {
-                var users = SysUser.Fetch("where id in (@0)", userIds.ToIntList());
-                var role = SysRole.SingleOrDefault(id);
+        //[HttpPost]
+        //public JsonResult Assign(string userIds, int id)
+        //{
+        //    if (!string.IsNullOrEmpty(userIds))
+        //    {
+        //        var users = SysUser.Fetch("where id in (@0)", userIds.ToIntList());
+        //        var role = SysRole.SingleOrDefault(id);
 
-                foreach (var user in users)
-                {
-                    try
-                    {
-                        SysUserRole userRole = new SysUserRole
-                        {
-                            RoleID = role.ID,
-                            UserID = user.ID
-                        };
+        //        foreach (var user in users)
+        //        {
+        //            try
+        //            {
+        //                SysUserRole userRole = new SysUserRole
+        //                {
+        //                    RoleID = role.ID,
+        //                    UserID = user.ID
+        //                };
 
-                        DB.GetInstance().Insert(userRole);
-                    }
-                    catch { }
-                }
+        //                DB.GetInstance().Insert(userRole);
+        //            }
+        //            catch { }
+        //        }
 
-            }
-            return Json(ArtDialogResponseResult.SuccessResult);
-        }
+        //    }
+        //    return Json(ArtDialogResponseResult.SuccessResult);
+        //}
 
-        [HttpPost]
-        public JsonResult CancelAssign(string userIds, int id)
-        {
-            if (!string.IsNullOrEmpty(userIds))
-            {
+        //[HttpPost]
+        //public JsonResult CancelAssign(string userIds, int id)
+        //{
+        //    if (!string.IsNullOrEmpty(userIds))
+        //    {
 
-                DB.GetInstance().Delete<SysUserRole>("where user_id in (@0) and role_id = @1", userIds.ToIntList(), id);
+        //        DB.GetInstance().Delete<SysUserRole>("where user_id in (@0) and role_id = @1", userIds.ToIntList(), id);
 
-            }
-            return Json(ArtDialogResponseResult.SuccessResult);
-        }
+        //    }
+        //    return Json(ArtDialogResponseResult.SuccessResult);
+        //}
 
         [HttpGet]
         public ActionResult Authorize(int id)
@@ -167,12 +167,12 @@ namespace Vacation.Web.Controllers
             }
 
             // 刷新用户权限
-            var users = SysUser.Fetch("where id in (select user_id from sys_user_roles where role_id=@0)", role.ID);
+            var users = SysUser.Fetch("where role_id=@0", role.ID);
             foreach (var user in users)
             {
                 SysPower.Delete("where master_id in (@0) and master_type=@1", user.ID, MasterType.User.ToString());
 
-                var powers = SysPower.Fetch("where master_id in (select role_id from sys_user_roles where user_id=@0) and master_type=@1", user.ID, MasterType.Role.ToString());
+                var powers = SysPower.Fetch("where master_id=@0 and master_type=@1", user.RoleID, MasterType.Role.ToString());
 
                 foreach (var power in powers)
                 {

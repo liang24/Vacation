@@ -75,6 +75,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppCode\BasicDataCache.cs" />
+    <Compile Include="AppCode\ComboDataSource.cs" />
+    <Compile Include="AppCode\EntityExtension.cs" />
     <Compile Include="AppCode\SysHelper.cs" />
     <Compile Include="AppCode\UploadHelper.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -94,6 +96,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\RoleAuthorizeModel.cs" />
+    <Compile Include="Models\VacationApplyModel.cs" />
+    <Compile Include="Models\VacationAuditFlowTypeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -540,13 +544,34 @@
     <Content Include="Views\VacationApply\Apply.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\VacationAuditFlow\Add.cshtml" />
+    <Content Include="Views\VacationAuditFlow\AddFlow.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\VacationAuditFlow\Update.cshtml" />
+    <Content Include="Views\VacationAuditFlow\UpdateFlow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\VacationAuditFlow\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\VacationAuditFlow\AddType.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\VacationAuditFlow\UpdateType.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\VacationApply\MyIndex.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\VacationApply\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\VacationApply\Modify.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\VacationApply\AuditIndex.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\VacationApply\Audit.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

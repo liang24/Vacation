@@ -7,6 +7,7 @@ using Vacation.Web.AppCode;
 using Vacation.Domain.Entities;
 using Common.Models;
 using PetaPoco;
+using Vacation.Web.Filters;
 
 namespace Vacation.Web.Controllers
 {
@@ -49,38 +50,8 @@ namespace Vacation.Web.Controllers
         {
             var user = SysHelper.GetCurrUser();
 
-            string deptHtml = string.Empty;   
-
-            BuildDeptOption(SysDept.Fetch(Sql.Builder), 0, "", user.DeptID, ref deptHtml);
-        
-            ViewBag.DeptHtml = deptHtml;
-        
             return View(user);
         }
-
-        private void BuildDeptOption(IEnumerable<SysDept> depts, int parentId, string prefix, int seleceted, ref string result)
-        {
-            if (parentId != 0)
-            {
-                prefix += "├";
-            }
-
-            foreach (SysDept item in depts.Where(d => d.ParentID == parentId).OrderBy(d => d.Sort))
-            {
-                if (item.ID == seleceted)
-                {
-                    result += string.Format("<option value=\"{0}\" selected=\"selected\">{2}{1}</option>", item.ID, item.Name, prefix);
-                }
-                else
-                {
-                    result += string.Format("<option value=\"{0}\">{2}{1}</option>", item.ID, item.Name, prefix);
-                }
-                BuildDeptOption(depts, item.ID, prefix, seleceted, ref result);
-            }
-        }
-
-      
-
 
         [Authorize]
         [HttpPost]
@@ -90,10 +61,8 @@ namespace Vacation.Web.Controllers
             CurrUser.Phone = model.Phone;
             CurrUser.Sex = model.Sex;
             CurrUser.Marry = model.Marry;
-            CurrUser.DeptID = model.DeptID;
             CurrUser.RealName = model.RealName;
             CurrUser.HeadImage = model.HeadImage;
-            CurrUser.EmployedDate = model.EmployedDate; 
             CurrUser.Update();
 
             return Json(ArtDialogResponseResult.SuccessResult);
@@ -194,7 +163,6 @@ namespace Vacation.Web.Controllers
             return Json(result);
         }
 
-
         #region 管理模块
 
         [Authorize]
@@ -204,17 +172,22 @@ namespace Vacation.Web.Controllers
         }
 
         [Authorize]
-        public JsonResult Page(int pageIndex, int pageSize, string name, string inRole, string outRole)
+        public JsonResult Page(int pageIndex, int pageSize, string name, string inRole, string outRole, int? deptID)
         {
             var sql = Sql.Builder.Where("is_super_user=0 and (real_name like @0 or user_name like @0)", "%" + name + "%");
 
             if (!string.IsNullOrEmpty(inRole))
             {
-                sql.Where("id in (select user_id from sys_user_roles where role_id = @0)", inRole.ToInt());
+                sql.Where("role_id = @0", inRole.ToInt());
             }
             else if (!string.IsNullOrEmpty(outRole))
             {
-                sql.Where("id not in (select user_id from sys_user_roles where role_id = @0)", outRole.ToInt());
+                sql.Where("role_id <> @0", outRole.ToInt());
+            }
+
+            if (deptID.HasValue)
+            {
+                sql.Where("dept_id in (@0)", BasicDataCache.GetSubDepts(deptID.Value).Select(d => d.ID));
             }
 
             var page = SysUser.Page(pageIndex, pageSize, sql);
@@ -229,7 +202,9 @@ namespace Vacation.Web.Controllers
                     user.UserName,
                     user.RealName,
                     user.Phone,
-                    user.EmployedDate
+                    user.EmployedDate,
+                    DeptName = user.DeptID.ToDept().GetFullDeptName(),
+                    RoleName = user.RoleID.ToRole().Name
                 })
             });
         }
@@ -242,9 +217,12 @@ namespace Vacation.Web.Controllers
 
         [Authorize]
         [HttpPost]
+        [TransactionFilter]
         public JsonResult Add(SysUser user)
         {
-            user.Insert();
+            user.ID = Convert.ToInt32(user.Insert());
+
+            ResetUserPower(user);
 
             return Json(ArtDialogResponseResult.SuccessResult);
         }
@@ -252,24 +230,58 @@ namespace Vacation.Web.Controllers
         [Authorize]
         public ActionResult Update(int id)
         {
-            var user = SysUser.SingleOrDefault(id);
+            var user = SysUser.Single(id);
 
             return View(user);
         }
 
         [Authorize]
         [HttpPost]
+        [TransactionFilter]
         public JsonResult Update(SysUser user)
         {
-            var old = SysUser.SingleOrDefault(user.ID);
+            var old = SysUser.Single(user.ID);
             old.RealName = user.RealName;
             old.Email = user.Email;
             old.Phone = user.Phone;
-            old.EmployedDate = old.EmployedDate;
+            old.EmployedDate = user.EmployedDate;
+            old.DeptID = user.DeptID;
+            old.Marry = user.Marry;
+            old.Sex = user.Sex;
+
+            if (old.RoleID != user.RoleID)
+            {
+                old.RoleID = user.RoleID;
+
+                ResetUserPower(user);
+            }
 
             old.Update();
 
             return Json(ArtDialogResponseResult.SuccessResult);
+        }
+
+        private static void ResetUserPower(SysUser user)
+        {
+            // 重新赋权
+            List<SysPower> powers = SysPower.Fetch("where master_id=@0 and master_type=@1", user.RoleID, MasterType.Role.ToString());
+            foreach (var item in powers)
+            {
+                try
+                {
+                    SysPower power = new SysPower
+                    {
+                        FunctionID = item.FunctionID,
+                        MasterID = user.ID,
+                        MasterType = MasterType.User.ToString()
+                    };
+
+                    power.Insert();
+                }
+                catch
+                {
+                }
+            }
         }
 
         [Authorize]

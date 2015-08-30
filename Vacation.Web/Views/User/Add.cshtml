@@ -6,7 +6,7 @@
     <dl>
         <dt><i>*</i> 警号：</dt>
         <dd>
-            <input type="text" name="UserName" class="info_put" datatype="*" nullmsg="请输入用户名！"
+            <input type="text" name="UserName" class="info_put" datatype="*" nullmsg="请输入警号！"
                 ajaxurl="@Url.Action("CheckName")" />
         </dd>
     </dl>
@@ -33,25 +33,63 @@
             <input type="text" name="RealName" class="info_put" datatype="*" nullmsg="请输入真实姓名！" /></dd>
     </dl>
     <dl>
-        <dt><i>*</i> 邮箱：</dt>
+        <dt>邮箱：</dt>
         <dd>
-            <input type="text" name="Email" class="info_put" datatype="e" nullmsg="请输入邮箱！" /></dd>
+            <input type="text" name="Email" class="info_put" /></dd>
     </dl>
     <dl>
-        <dt><i>*</i> 手机号码：</dt>
+        <dt>手机号码：</dt>
         <dd>
-            <input type="text" name="Phone" class="info_put" datatype="m" nullmsg="请输入手机号码！" /></dd>
+            <input type="text" name="Phone" class="info_put" /></dd>
     </dl>
-
-     <dl><dt><i>*</i>性别：</dt>
-            <dd>
-                <label>
-                    <input type="radio" name="sex" value="true"/>男</label>
-                <label>
-                    <input type="radio" name="sex" value="false"/>女</label>
-            </dd>
-     </dl>
-
+    <dl>
+        <dt><i>*</i>性别：</dt>
+        <dd>
+            <label>
+                <input type="radio" name="sex" value="true" checked="checked" />男</label>
+            <label>
+                <input type="radio" name="sex" value="false" />女</label>
+        </dd>
+    </dl>
+    <dl>
+        <dt><i>*</i>所属部门：</dt>
+        <dd>
+            <select name="DeptID" datatype="*">
+                <option value="">-- 请选择所属部门 --</option>
+                @foreach (var item in ComboDataSource.DeptTree())
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
+        </dd>
+    </dl>
+    <dl>
+        <dt><i>*</i>角色：</dt>
+        <dd>
+            <select name="RoleID" datatype="*">
+                <option value="">-- 请选择角色 --</option>
+                @foreach (var item in ComboDataSource.Role())
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
+        </dd>
+    </dl>
+    <dl>
+        <dt><i>*</i>入职时间：</dt>
+        <dd>
+            <input type="text" name="employeddate" class="info_put" datatype="*" onclick="WdatePicker();" />
+        </dd>
+    </dl>
+    <dl>
+        <dt>婚否：</dt>
+        <dd>
+            <label>
+                <input type="radio" name="marry" value="true" />已婚</label>
+            <label>
+                <input type="radio" name="marry" value="false" checked="checked" />未婚</label>
+        </dd>
+    </dl>
     <dl class="input_an">
         <dt></dt>
         <dd>
@@ -64,6 +102,9 @@
 {
     <link href="/Scripts/validform/passwordStrength.css" rel="stylesheet" type="text/css" />
     <script src="/Scripts/validform/passwordStrength-min.js" type="text/javascript"></script>
+    <!--时间插件-->
+    <link href="/Scripts/My97DatePicker/skin/WdatePicker.css" rel="Stylesheet" type="text/css" />
+    <script src="/Scripts/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
             $("#form1").Validform({

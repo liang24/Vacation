@@ -1,9 +1,8 @@
-﻿@model VacationAuditFlow
+﻿@model VacationAuditFlowType
 @{
-    ViewBag.Title = "修改休假审核流程";
-    var currUser = SysHelper.GetCurrUser();
+    ViewBag.Title = "修改休假审核流程类型"; 
 }
-<form id="form1" action="@Url.Action("Update")">
+<form id="form1" action="@Url.Action("UpdateType")">
 <input type="hidden" name="ID" value="@Model.ID" />
 <div class="addinfo_con">
     <dl>
@@ -13,19 +12,12 @@
         </dd>
     </dl>
     <dl>
-        <dt><i>*</i> 排序：</dt>
+        <dt><i>*</i>适用角色：</dt>
         <dd>
-            <input type="text" name="Sort" class="info_put" datatype="*" nullmsg="请输入排序！" value="@Model.Sort" />
-        </dd>
-    </dl>
-    <dl>
-        <dt>审核角色：</dt>
-        <dd>
-            <select name="AuditRoleID" datatype="*">
-                <option value="">--请选择--</option>
+            <select name="UsedRoleIDs" datatype="*" multiple="multiple" style="height: 200px;">
                 @foreach (SysRole item in ViewBag.Roles)
                 {
-                    if (Model.AuditRoleID == item.ID)
+                    if (Model.UsedRoleIDs.ToIntList().Contains(item.ID))
                     {
                     <option value="@item.ID" selected="selected">@item.Name</option>
                     }
@@ -33,24 +25,6 @@
                     { 
                     <option value="@item.ID">@item.Name</option>
                     }
-                }
-            </select>
-        </dd>
-    </dl>
-    <dl>
-        <dt>影响的部门层次：</dt>
-        <dd>
-            <select name="DeptLevel" datatype="*">
-                @foreach (Common.Models.ComboBox item in ViewBag.DeptLevels)
-                {
-                    if ((int)Model.DeptLevel == item.ID)
-                    { 
-                    <option value="@item.Value" selected="selected">@item.Text</option>
-                    }
-                    else
-                    { 
-                    <option value="@item.Value">@item.Text</option>
-                    }  
                 }
             </select>
         </dd>

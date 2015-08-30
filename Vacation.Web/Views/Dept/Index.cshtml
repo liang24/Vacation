@@ -9,6 +9,14 @@
         <span class="fLeft"><a class="choicecl" href="#" id="btnCheckAll">全选</a><a class="del"
             href="#" id="btnDelete">删除</a><a class="add" href="#" id="btnAdd">新增</a> </span>
         <span class="fRight">
+            <select name="ParentID" class="ss_input fLeft mr5" >
+                <option value="">-- 请选择所属部门 --</option>
+                <option value="0">-- 一级部门 --</option>
+                @foreach (var item in ComboDataSource.DeptTree())
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
             <input type="text" name="name" class="ss_input fLeft mr5" placeholder="请输入名称" /><a
                 class="ss_an" href="#" id="btnSearch">搜索</a></span>
     </p>
@@ -17,6 +25,9 @@
             <tr class="thead">
                 <td class="pdl30" style="width: 40px;">
                     选择
+                </td>
+                <td>
+                    上级部门
                 </td>
                 <td width="20%">
                     编号
@@ -43,6 +54,7 @@
 <script type="text/x-jquery-tmpl" id="tmplList">
         <tr>
             <td><input type="checkbox" node-type="ckb" rel="${ID}" class="cho check-box" /></td>
+            <td>${ParentName}&nbsp;</td>
             <td>${Code}&nbsp;</td>
             <td>${Name}&nbsp;</td> 
             <td>${Sort}&nbsp;</td>

@@ -6,20 +6,17 @@
         <span>系统管理 > 休假审核流程管理</span>
     </p>
     <p id="wrapSearchBar" class="cz_an">
-        <span class="fLeft"><a class="choicecl" href="#" id="btnCheckAll">全选</a><a class="del"
-            href="#" id="btnDelete">删除</a><a class="add" href="#" id="btnAdd">新增</a> </span>
+        <span class="fLeft"><a class="add" href="#" id="btnAddType" style="width: 80px;">新增类型</a>
+        </span>
     </p>
     <table id="tbList" class="tainfo" style="width: 100%;">
         <thead>
             <tr class="thead">
-                <td class="pdl30" style="width: 40px;">
-                    选择
-                </td>
                 <td>
                     名称
                 </td>
                 <td>
-                    排序
+                    适用角色
                 </td>
                 <td>
                     操作
@@ -27,19 +24,60 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (VacationAuditFlow item in ViewBag.Data)
+            @foreach (VacationAuditFlowTypeModel item in ViewBag.Data)
             {
                 <tr>
-                    <td>
-                        <input type="checkbox" node-type="ckb" rel="@item.ID" class="cho check-box"  />
-                    </td>
                     <td>@(item.Name)&nbsp;
                     </td>
                     <td>
-                        @item.Sort
+                        @item.UsedRoles&nbsp;
                     </td>
                     <td>
-                        <a class="update" href="#" btn="btnUpdate" node-id="@item.ID">修改</a>  
+                        <a class="update mr5" href="#" btn="btnUpdateType" node-id="@item.ID">修改</a><a class="update mr5" href="#" btn="btnDeleteType" node-id="@item.ID">删除</a>
+                        <a class="update mr5" href="#" btn="btnAddFlow" node-id="@item.ID">添加流程</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <table class="tainfo" style="width: 100%;">
+                            <thead>
+                                <tr class="thead">
+                                    <td>
+                                        名称
+                                    </td>
+                                    <td>
+                                        审核角色
+                                    </td>
+                                    <td>
+                                        审核范围
+                                    </td>
+                                    <td>
+                                        审核步骤
+                                    </td>
+                                    <td>
+                                        操作
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (VacationAuditFlowModel flow in item.Flows)
+                                {
+                                    <tr>
+                                        <td>@flow.Name
+                                        </td>
+                                        <td>@flow.AuditRole
+                                        </td>
+                                        <td>@flow.DeptLevel
+                                        </td>
+                                        <td>@flow.Sort
+                                        </td>
+                                        <td>
+                                            <a class="update mr5" href="#" btn="btnUpdateFlow" node-id="@flow.ID">修改</a><a class="update mr5" href="#" btn="btnDeleteFlow" node-id="@flow.ID">删除</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     </td>
                 </tr>
             }
@@ -47,10 +85,7 @@
     </table>
 </div>
 <script type="text/x-jquery-tmpl" id="tmplList">
-        <tr>
-            <td> 
-                <input type="checkbox" node-type="ckb" rel="${ID}" class="cho check-box" /> 
-            </td>
+        <tr> 
             <td>${Name}&nbsp;</td>
             <td>${Sort}</td>
             <td>
@@ -63,34 +98,52 @@
     <script type="text/javascript">
         $(function () { 
             function reload(){
-                $.post("@Url.Action("getlist")",function(data){ 
-                    $("#tbList tbody").html($("#tmplList").tmpl(data.Data));
-                },"json");
+                window.location.reload();
             }
 
-            $("#tbList tbody").on("click", '[btn="btnUpdate"]', function () {
+            $("#tbList tbody").on("click", '[btn="btnUpdateType"]', function () {
                 var id = $(this).attr("node-id");
-                art.dialog.open("@Url.Action("update")/" + id, { title: "更新", height: 350, lock: true, close: function () {
+                art.dialog.open("@Url.Action("updatetype")/" + id, { title: "更新类型", height: 350, lock: true, close: function () {
                     if (art.dialog.data("flow_update")) {
-                        reload();
                         art.dialog.removeData("flow_update");
-                    }
-                }
-                });
-            });
-
-            $("#btnAdd").click(function () {
-                art.dialog.open("@Url.Action("add")", { title: "新增", lock: true, close: function () {
-                    if (art.dialog.data("flow_add")) {
                         reload();
-                        art.dialog.removeData("flow_add");
                     }
                 }
                 });
+            }).on("click", '[btn="btnDeleteType"]', function () {
+                var id = $(this).attr("node-id");
+                BaseOP.DeleteById("@Url.Action("deletetype")", id, reload);
+            }).on("click", '[btn="btnAddFlow"]', function () {
+                var id = $(this).attr("node-id");
+                art.dialog.open("@Url.Action("addflow")?typeid=" + id, { title: "添加流程", height: 350, lock: true, close: function () {
+                    if (art.dialog.data("flow_add")) {
+                        art.dialog.removeData("flow_add");
+                        reload();
+                    }
+                }
+                });
+            }).on("click", '[btn="btnUpdateFlow"]', function () {
+                var id = $(this).attr("node-id");
+                art.dialog.open("@Url.Action("updateflow")/" + id, { title: "更新流程", height: 350, lock: true, close: function () {
+                    if (art.dialog.data("flow_update")) {
+                        art.dialog.removeData("flow_update");
+                        reload();
+                    }
+                }
+                });
+            }).on("click", '[btn="btnDeleteFlow"]', function () {
+                var id = $(this).attr("node-id");
+                BaseOP.DeleteById("@Url.Action("deleteflow")", id, reload);
             });
 
-            $("#btnDelete").click(function () {
-                BaseOP.DeleteByIds("@Url.Action("delete")", "", reload);
+            $("#btnAddType").click(function () {
+                art.dialog.open("@Url.Action("addtype")", { title: "新增类型", lock: true, close: function () {
+                    if (art.dialog.data("flow_add")) {
+                        art.dialog.removeData("flow_add");
+                        reload();
+                    }
+                }
+                });
             }); 
         }); 
     </script>

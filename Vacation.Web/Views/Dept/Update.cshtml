@@ -18,6 +18,18 @@
         </dd>
     </dl>
     <dl>
+        <dt><i>*</i>所属部门：</dt>
+        <dd>
+            <select name="ParentID" datatype="*">
+                <option value="0">-- 一级部门 --</option>
+                @foreach (var item in ComboDataSource.DeptTree())
+                {
+                    <option value="@item.Value" @(item.ID == Model.ParentID ? "selected=\"selected\"" : "")>@item.Text</option>
+                }
+            </select>
+        </dd>
+    </dl>
+    <dl>
         <dt>排序：</dt>
         <dd>
             <input type="text" name="Sort" class="info_put" datatype="n" value="@Model.Sort" />

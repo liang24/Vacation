@@ -1,6 +1,6 @@
 ﻿@model VacationApply
 @{
-    ViewBag.Title = "休假申请";
+    ViewBag.Title = "休假申请修改";
 }
 <style type="text/css">
     .addinfo_con dl
@@ -24,14 +24,15 @@
 </style>
 <div class="class_con">
     <p class="showlink">
-        <span>休假管理 > 休假申请</span>
+        <span>休假管理 > 休假申请修改</span>
     </p>
-    <form id="form1" action="@Url.Action("apply")">
+    <form id="form1" action="@Url.Action("modify")">
+    <input type="hidden" name="ID" value="@Model.ID" />
     <div class="addinfo_con">
         <dl>
             <dt>申请人：</dt>
             <dd>
-                <input type="text" class="info_put" readonly ="readonly" disabled="disabled" value="@SysHelper.GetCurrUser().RealName" />
+                <input type="text" class="info_put" readonly ="readonly" disabled="disabled" value="@Model.UserID.ToUser().RealName" />
             </dd>
         </dl>
         <dl>
@@ -39,9 +40,9 @@
             <dd>
                 <select name="VacationTypeID" datatype="*">
                     <option value="">--请选择--</option>
-                    @foreach (VacationType item in ViewBag.VacationTypes)
+                    @foreach (var item in ComboDataSource.VacationType())
                     {
-                        <option value="@item.ID">@item.Name</option>
+                        <option value="@item.Value" @(Model.VacationTypeID == item.ID ? "selected=\"selected\"" : "") >@item.Text</option>
                     }
                 </select>
             </dd>
@@ -49,24 +50,42 @@
         <dl>
             <dt>开始时间：</dt>
             <dd>
-                <input type="text" class="info_put" name="StartTime" datatype="*" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+                <input type="text" class="info_put" name="StartTime" datatype="*" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" value="@Model.StartTime.ToDateTimeString()" />
             </dd>
         </dl>
         <dl>
             <dt>结束时间：</dt>
             <dd>
-                <input type="text" class="info_put" name="EndTime"datatype="*" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/></dd>
+                <input type="text" class="info_put" name="EndTime" datatype="*" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" value="@Model.EndTime.ToDateTimeString()"/></dd>
         </dl>
+        @if (Model.Status == EnumVacationApplyStatus.Nopass)
+        {
+            <dl>
+                <dt>审核状态：</dt>
+                <dd>
+                    <font style="color: Red;">审核不通过</font>
+                </dd>
+            </dl>            
+            if (!string.IsNullOrEmpty(Model.Opinion))
+            {
+            <dl>
+                <dt>审核不通过原因：</dt>
+                <dd>
+                    <textarea class="info_put" readonly="readonly" style="height: 150px; width: 300px;">@Model.Opinion</textarea>
+                </dd>
+            </dl>
+            }
+        }
         <dl>
             <dt>休假原因：</dt>
             <dd>
-                <textarea name="Reason" class="info_put" datatype="*" style="height: 150px; width: 300px;"></textarea>
+                <textarea name="Reason" class="info_put" datatype="*" style="height: 150px; width: 300px;">@Model.Reason</textarea>
             </dd>
         </dl>
         <dl class="input_an">
             <dt></dt>
             <dd>
-                <a class="input_ok" href="javascript:void();" id="btnApply">申请</a>
+                <a class="input_ok" href="javascript:void();" id="btnModify">修改</a><a class="close" href="@Url.Action("myindex")">返回列表</a>
             </dd>
         </dl>
     </div>
@@ -81,12 +100,14 @@
             $("#form1").Validform({
                 tiptype: 4,
                 ajaxPost: true,
-                btnSubmit: "#btnApply",
+                btnSubmit: "#btnModify",
                 callback: function (data) {
                     if (data.IsSuccess) {
-                        art.dialog.tips("申请成功！");
+                        art.dialog.tips("修改成功！");
 
                         setTimeout(function () { window.location.href = '@Url.Action("myindex")'; }, 1000);
+
+
                     }
                     else {
                         art.dialog({ content: data.Message, icon: "error", ok: true });

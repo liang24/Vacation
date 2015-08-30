@@ -17,14 +17,23 @@ namespace Vacation.Domain.Entities
         [Column("name")]
         public string Name { get; set; } 
 
-        [Column("audit_role_id")]
-        public int AuditRoleID { get; set; }
+        /// <summary>
+        /// 审核角色
+        /// </summary>
+        [Column("audit_role_ids")]
+        public string AuditRoleIDs { get; set; }
 
         [Column("sort")]
         public int Sort { get; set; }
 
         [Column("dept_level")]
         public EnumDeptLevel DeptLevel { get; set; }
+
+        /// <summary>
+        /// 类型ID
+        /// </summary>
+        [Column("type_id")]
+        public int TypeID { get; set; }
 
         public VacationAuditFlow()
         {
@@ -43,9 +52,14 @@ namespace Vacation.Domain.Entities
         [Enum("本部门或子部门")]
         TheOrSub = 1,
         /// <summary>
-        /// 所有部门
+        /// 本站内
         /// </summary>
-        [Enum("所有部门")]
+        [Enum("本站内")]
+        TheSite,
+        /// <summary>
+        /// 所有站
+        /// </summary>
+        [Enum("所有站")]
         All
     }
 }

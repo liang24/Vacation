@@ -1,0 +1,107 @@
+﻿@{
+    ViewBag.Title = "审批休假申请";
+}
+<div class="class_con">
+    <p class="showlink">
+        <span>休假管理 > @ViewBag.Title</span>
+    </p>
+    <p id="wrapSearchBar" class="cz_an">
+        <span class="fRight">
+            <select name="DeptID" class="ss_input fLeft mr5">
+                <option value="">--所有部门--</option>
+                @foreach (var item in ComboDataSource.DeptTree())
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
+            <select name="TypeID" class="ss_input fLeft mr5">
+                <option value="">--所有类型--</option>
+                @foreach (var item in ComboDataSource.VacationType())
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
+            <a class="ss_an" href="#" id="btnSearch">搜索</a></span>
+    </p>
+    <table id="tbList" class="tainfo" style="width: 100%;">
+        <thead>
+            <tr class="thead">
+                <td>
+                    类型
+                </td>
+                <td>
+                    警号
+                </td>
+                <td>
+                    申请人
+                </td>
+                <td>
+                    部门
+                </td>
+                <td>
+                    申请时间
+                </td>
+                <td>
+                    休假时间
+                </td>
+                <td>
+                    原因
+                </td>
+                <td>
+                    操作
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <p class="cz_link">
+        <span class="cont">共 <b id="total">0</b> 记录</span> <span id="pager" class="pagination">
+        </span>
+    </p>
+</div>
+<script type="text/x-jquery-tmpl" id="tmplList">
+        <tr> 
+            <td>${VacationTypeName}&nbsp;</td>           
+            <td>${UserName}&nbsp;</td>
+            <td>${RealName}&nbsp;</td>             
+            <td>${DeptName}&nbsp;</td>     
+            <td>${ApplyTime}&nbsp;</td>
+            <td>${StartTime} - ${EndTime}&nbsp;</td>
+            <td>${Reason}</td>
+            <td> 
+                <a class="update" href="#" btn="btnAudit" node-id="${ID}">审核</a>  
+            </td>
+        </tr>
+</script>
+@section Script
+{
+    <script type="text/javascript">
+        $(function () { 
+            $("#pager").pager({
+                url: '@Url.Action("auditpage")',
+                onLoaded: function (data, currPage, total, totalPage) {
+
+                    $("#total").text(total);
+                    $("#tbList tbody").html($("#tmplList").tmpl(data));
+
+                    $("#tbList tbody").unmask();
+                },
+                onLoadStart: function () {
+                    $("#tbList tbody").mask("加载数据，请稍候...");
+                }
+            });  
+
+            $("#tbList tbody").on("click", '[btn="btnAudit"]', function () {
+                var id = $(this).attr("node-id");
+                art.dialog.open("@Url.Action("audit")/" + id, { title: "审核", height: 450, lock: true, close: function () {
+                    if (art.dialog.data("type_change")) {
+                        $("#pager").pager("reload");
+                        art.dialog.removeData("type_change");
+                    }
+                }
+                });
+            });
+        }); 
+    </script>
+}

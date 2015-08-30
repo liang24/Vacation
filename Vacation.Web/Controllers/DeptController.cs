@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Vacation.Domain.Entities;
 using PetaPoco;
 using Common.Models;
+using Vacation.Web.AppCode;
+using Vacation.Web.Filters;
 
 namespace Vacation.Web.Controllers
 {
@@ -20,16 +22,29 @@ namespace Vacation.Web.Controllers
             return View();
         }
 
-        public JsonResult Page(int pageIndex, int pageSize, string name)
+        public JsonResult Page(int pageIndex, int pageSize, string name, int? parentId)
         {
             var sql = Sql.Builder.Where("dept_code like @0 or dept_name like @0", "%" + name + "%");
+
+            if (parentId.HasValue)
+            {
+                sql.Where("parent_id=@0", parentId.Value);
+            }
 
             var page = SysDept.Page(pageIndex, pageSize, sql);
 
             return Json(new ResponseData
             {
                 Total = page.TotalItems,
-                Data = page.Items
+                Data = page.Items.Select(d => new
+                {
+                    d.ID,
+                    d.Code,
+                    d.Name,
+                    d.Sort,
+                    d.ParentID,
+                    ParentName = d.ParentID.ToDept().Name
+                })
             });
         }
 
@@ -39,6 +54,7 @@ namespace Vacation.Web.Controllers
         }
 
         [HttpPost]
+        [RemoveCacheFilter(BasicDataCache.Dept_CacheKey)]
         public JsonResult Add(SysDept dept)
         {
             dept.Insert();
@@ -54,18 +70,22 @@ namespace Vacation.Web.Controllers
         }
 
         [HttpPost]
+        [RemoveCacheFilter(BasicDataCache.Dept_CacheKey)]
         public JsonResult Update(SysDept dept)
         {
             var old = SysDept.SingleOrDefault(dept.ID);
             old.Code = dept.Code;
             old.Name = dept.Name;
             old.Sort = dept.Sort;
+            old.ParentID = dept.ParentID;
 
             old.Update();
 
             return Json(ArtDialogResponseResult.SuccessResult);
         }
 
+        [HttpPost]
+        [RemoveCacheFilter(BasicDataCache.Dept_CacheKey)]
         public JsonResult Delete(string id)
         {
             SysDept.Delete("where id in (@0)", id.ToIntList());

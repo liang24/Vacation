@@ -43,8 +43,7 @@
             <td>${Name}</td>
             <td>${Description}</td> 
             <td> 
-                <a class="update" href="javascript:void();" btn="btnUpdate" node-id="${ID}">修改</a>
-                <a class="update" href="javascript:void();" btn="btnAssign" node-id="${ID}">分配用户</a>
+                <a class="update" href="javascript:void();" btn="btnUpdate" node-id="${ID}">修改</a> 
                 <a class="update" href="javascript:void();" btn="btnAuthorize" node-id="${ID}">分配权限</a> 
             </td> 
         </tr>
@@ -77,9 +76,6 @@
                     }
                 }
                 });
-            }).on("click", '[btn="btnAssign"]', function () {
-                var id = $(this).attr("node-id");
-                art.dialog.open("@Url.Action("assign")/" + id, { title: "分配用户", height: 500, lock: true });
             }).on("click", '[ btn="btnAuthorize"]', function () {
                 var id = $(this).attr("node-id");
                 art.dialog.open("@Url.Action("authorize")/" + id, { title: "分配权限", height: 500, width: 720, lock: true });

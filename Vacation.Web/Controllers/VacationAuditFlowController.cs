@@ -9,6 +9,7 @@ using Common.Models;
 using Vacation.Web.Filters;
 using Vacation.Web.AppCode;
 using Common.EnumLib;
+using Vacation.Web.Models;
 
 namespace Vacation.Web.Controllers
 {
@@ -20,39 +21,45 @@ namespace Vacation.Web.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.Data = BasicDataCache.listVacationAuditFlows;
+            ViewBag.Data = BasicDataCache.listVacationAuditFlowTypes.Select(type => new VacationAuditFlowTypeModel
+            {
+                ID = type.ID,
+                Name = type.Name,
+                UsedRoles = type.UsedRoleIDs.ToIntList().Select(role => role.ToRole().Name).Join(),
+                Flows = BasicDataCache.listVacationAuditFlows.Where(flow => flow.TypeID == type.ID).OrderBy(flow => flow.Sort).Select(flow => new VacationAuditFlowModel
+                {
+                    AuditRole = flow.AuditRoleIDs.ToIntList().Select(role => role.ToRole().Name).Join(),
+                    DeptLevel = flow.DeptLevel.EnumToName(),
+                    ID = flow.ID,
+                    Name = flow.Name,
+                    Sort = flow.Sort
+                })
+            });
 
             return View();
         }
 
-        public JsonResult GetList()
-        {
-            var sql = Sql.Builder;
-
-            var list = BasicDataCache.listVacationAuditFlows;
-
-            return Json(new ResponseData
-            {
-                Total = list.Count(),
-                Data = list
-            });
-        }
+        #region 审核流程
 
         [HttpGet]
-        public ActionResult Add()
+        public ActionResult AddFlow(int typeID)
         {
             ViewBag.DeptLevels = EnumExtension.GetComboBox<EnumDeptLevel>();
             ViewBag.Roles = BasicDataCache.listRoles;
-            ViewBag.MaxSort = BasicDataCache.listVacationAuditFlows.Max(flow => flow.Sort) + 1;
+            ViewBag.MaxSort = BasicDataCache.listVacationAuditFlows.Where(flow => flow.TypeID == typeID).Count() > 0 ? BasicDataCache.listVacationAuditFlows.Where(flow => flow.TypeID == typeID).Max(flow => flow.Sort) + 1 : 1;
 
-            return View();
+            VacationAuditFlow model = new VacationAuditFlow();
+            model.TypeID = typeID;
+
+            return View(model);
         }
 
         [HttpPost]
         [RemoveCacheFilter(BasicDataCache.VacationAuditFlow_CacheKey)]
         [TransactionFilter]
-        public JsonResult Add(VacationAuditFlow vacationAuditFlow)
+        public JsonResult AddFlow(VacationAuditFlow vacationAuditFlow)
         {
+            vacationAuditFlow.AuditRoleIDs = Request.Form["AuditRoleIDs"];
             vacationAuditFlow.Insert();
 
             return Json(ArtDialogResponseResult.SuccessResult);
@@ -96,7 +103,7 @@ namespace Vacation.Web.Controllers
         //    }
         //}
 
-        public ActionResult Update(int id)
+        public ActionResult UpdateFlow(int id)
         {
             var vacationAuditFlow = VacationAuditFlow.SingleOrDefault(id);
 
@@ -109,20 +116,73 @@ namespace Vacation.Web.Controllers
         [HttpPost]
         [RemoveCacheFilter(BasicDataCache.VacationAuditFlow_CacheKey)]
         [TransactionFilter]
-        public JsonResult Update(VacationAuditFlow vacationAuditFlow)
+        public JsonResult UpdateFlow(VacationAuditFlow vacationAuditFlow)
         {
+            vacationAuditFlow.AuditRoleIDs = Request.Form["AuditRoleIDs"];
             vacationAuditFlow.Update();
 
             return Json(ArtDialogResponseResult.SuccessResult);
         }
 
         [RemoveCacheFilter(BasicDataCache.VacationAuditFlow_CacheKey)]
-        public JsonResult Delete(string id)
+        public JsonResult DeleteFlow(string id)
         {
             VacationAuditFlow.Delete("where id in (@0)", id.ToIntList());
 
             return Json(ArtDialogResponseResult.SuccessResult);
         }
+        #endregion
+
+        #region 审核流程类型
+
+        [HttpGet]
+        public ActionResult AddType()
+        {
+            ViewBag.Roles = BasicDataCache.listRoles;
+
+            return View();
+        }
+
+        [HttpPost]
+        [RemoveCacheFilter(BasicDataCache.VacationAuditFlowType_CacheKey)]
+        public JsonResult AddType(VacationAuditFlowType vacationAuditFlowType)
+        {
+            vacationAuditFlowType.UsedRoleIDs = Request.Form["UsedRoleIDs"];
+            vacationAuditFlowType.Insert();
+
+            return Json(ArtDialogResponseResult.SuccessResult);
+        }
+
+        [HttpGet]
+        public ActionResult UpdateType(int id)
+        {
+            var vacationAuditFlowType = VacationAuditFlowType.SingleOrDefault(id);
+
+            ViewBag.Roles = BasicDataCache.listRoles;
+
+            return View(vacationAuditFlowType);
+        }
+
+        [HttpPost]
+        [RemoveCacheFilter(BasicDataCache.VacationAuditFlowType_CacheKey)]
+        public JsonResult UpdateType(VacationAuditFlowType vacationAuditFlowType)
+        {
+            vacationAuditFlowType.UsedRoleIDs = Request.Form["UsedRoleIDs"];
+            vacationAuditFlowType.Update();
+
+            return Json(ArtDialogResponseResult.SuccessResult);
+        }
+
+        [HttpPost]
+        [RemoveCacheFilter(BasicDataCache.VacationAuditFlowType_CacheKey)]
+        public JsonResult DeleteType(string id)
+        {
+            VacationAuditFlowType.Delete("where id in (@0)", id.ToIntList());
+
+            return Json(ArtDialogResponseResult.SuccessResult);
+        }
+
+        #endregion
 
         #endregion
 

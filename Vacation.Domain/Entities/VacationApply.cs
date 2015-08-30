@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using PetaPoco;
+using Common.EnumLib;
 
 namespace Vacation.Domain.Entities
 {
@@ -34,8 +35,17 @@ namespace Vacation.Domain.Entities
         [Column("flow_id")]
         public int? FlowID { get; set; }
 
+        /// <summary>
+        /// 原因
+        /// </summary>
         [Column("reason")]
         public string Reason { get; set; }
+
+        /// <summary>
+        /// 意见
+        /// </summary>
+        [Column("opinion")]
+        public string Opinion { get; set; }
 
         public VacationApply()
         {
@@ -48,9 +58,13 @@ namespace Vacation.Domain.Entities
     /// </summary>
     public enum EnumVacationApplyStatus
     {
+        [Enum("申请中")]
         Apply = 1,
+        [Enum("审核中")]
         Audited,
+        [Enum("通过")]
         Pass,
+        [Enum("不通过")]
         Nopass
     }
 }

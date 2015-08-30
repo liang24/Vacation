@@ -1,0 +1,121 @@
+﻿@model VacationApply
+@{
+    ViewBag.Title = "审核休假申请"; 
+}
+<style type="text/css">
+    table.addinfo_con
+    {
+        width: 700px;
+        line-height: 35px;
+    }
+</style>
+<form id="form1" action="@Url.Action("audit")">
+<input type="hidden" name="ID" value="@Model.ID" />
+<table class="addinfo_con">
+    <tr>
+        <th>
+            申请人:
+        </th>
+        <td>
+            <input type="text" class="info_put" readonly ="readonly"  value="@Model.UserID.ToUser().RealName" />
+        </td>
+        <th>
+            休假类型：
+        </th>
+        <td>
+            <input type="text" class="info_put" readonly="readonly"  value="@Model.VacationTypeID.ToVacationType().Name" />
+        </td>
+    </tr>
+    <tr>
+        <th>
+            申请时间：
+        </th>
+        <td>
+            <input type="text" class="info_put" readonly="readonly" value="@Model.ApplyTime.ToDateTimeString()" />
+        </td>
+        <th>
+        </th>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            开始时间：
+        </th>
+        <td>
+            <input type="text" class="info_put" readonly="readonly" value="@Model.StartTime.ToDateTimeString()" />
+        </td>
+        <th>
+            结束时间：
+        </th>
+        <td>
+            <input type="text" class="info_put" readonly="readonly" value="@Model.EndTime.ToDateTimeString()" />
+        </td>
+    </tr>
+    <tr>
+        <th>
+            休假原因：
+        </th>
+        <td colspan="3">
+            <textarea name="Reason" class="info_put" readonly="readonly" style="height: 80px;
+                width: 300px;">@Model.Reason</textarea>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            是否同意：
+        </th>
+        <td colspan="3">
+            <label>
+                <input type="radio" name="ispass" value="true" checked="checked" />同意</label>
+            <label>
+                <input type="radio" name="ispass" value="false" />不同意</label>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            意见：
+        </th>
+        <td colspan="3">
+            <textarea name="Opinion" class="info_put" style="height: 150px; width: 300px;"></textarea>
+        </td>
+    </tr>
+    <tr>
+        <th>
+        </th>
+        <td class="input_an" colspan="3">
+            <a class="input_ok" href="#" id="btnAudit">审核</a><a class="close" href="#" id="btnClose">关闭</a>
+        </td>
+    </tr>
+</table>
+</form>
+@section Script
+{
+    <script type="text/javascript">
+        $(function () {
+            $("#form1").Validform({
+                tiptype: 4,
+                ajaxPost: true,
+                btnSubmit: "#btnAudit",
+                beforeSubmit: function () {
+                    return confirm('确定要进行此操作吗？');
+                },
+                callback: function (data) {
+                    if (data.IsSuccess) {
+                        art.dialog.data("type_change", true);
+                        art.dialog({ content: "操作成功，点击确定关闭当前窗口！", icon: "succeed", okVal: "确定", ok: function () {
+                            art.dialog.close();
+                        }
+                        });
+                    }
+                    else {
+                        art.dialog({ content: data.Message, icon: "error", ok: true });
+                    }
+                }
+            });
+            $("#btnClose").click(function () {
+                art.dialog.close();
+            });
+        }); 
+    </script>
+}
