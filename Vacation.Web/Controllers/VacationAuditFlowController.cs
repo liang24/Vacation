@@ -19,6 +19,7 @@ namespace Vacation.Web.Controllers
 
         #region 管理模块
 
+        [PowerFilter("flow_view")]
         public ActionResult Index()
         {
             ViewBag.Data = BasicDataCache.listVacationAuditFlowTypes.Select(type => new VacationAuditFlowTypeModel
@@ -42,6 +43,7 @@ namespace Vacation.Web.Controllers
         #region 审核流程
 
         [HttpGet]
+        [PowerFilter("flow_setting")]
         public ActionResult AddFlow(int typeID)
         {
             ViewBag.DeptLevels = EnumExtension.GetComboBox<EnumDeptLevel>();
@@ -57,6 +59,7 @@ namespace Vacation.Web.Controllers
         [HttpPost]
         [RemoveCacheFilter(BasicDataCache.VacationAuditFlow_CacheKey)]
         [TransactionFilter]
+        [PowerFilter("flow_setting")]
         public JsonResult AddFlow(VacationAuditFlow vacationAuditFlow)
         {
             vacationAuditFlow.AuditRoleIDs = Request.Form["AuditRoleIDs"];
@@ -103,6 +106,7 @@ namespace Vacation.Web.Controllers
         //    }
         //}
 
+        [PowerFilter("flow_setting")]
         public ActionResult UpdateFlow(int id)
         {
             var vacationAuditFlow = VacationAuditFlow.SingleOrDefault(id);
@@ -116,6 +120,7 @@ namespace Vacation.Web.Controllers
         [HttpPost]
         [RemoveCacheFilter(BasicDataCache.VacationAuditFlow_CacheKey)]
         [TransactionFilter]
+        [PowerFilter("flow_setting")]
         public JsonResult UpdateFlow(VacationAuditFlow vacationAuditFlow)
         {
             vacationAuditFlow.AuditRoleIDs = Request.Form["AuditRoleIDs"];
@@ -125,6 +130,7 @@ namespace Vacation.Web.Controllers
         }
 
         [RemoveCacheFilter(BasicDataCache.VacationAuditFlow_CacheKey)]
+        [PowerFilter("flow_setting")]
         public JsonResult DeleteFlow(string id)
         {
             VacationAuditFlow.Delete("where id in (@0)", id.ToIntList());
@@ -136,6 +142,7 @@ namespace Vacation.Web.Controllers
         #region 审核流程类型
 
         [HttpGet]
+        [PowerFilter("flow_setting")]
         public ActionResult AddType()
         {
             ViewBag.Roles = BasicDataCache.listRoles;
@@ -145,6 +152,7 @@ namespace Vacation.Web.Controllers
 
         [HttpPost]
         [RemoveCacheFilter(BasicDataCache.VacationAuditFlowType_CacheKey)]
+        [PowerFilter("flow_setting")]
         public JsonResult AddType(VacationAuditFlowType vacationAuditFlowType)
         {
             vacationAuditFlowType.UsedRoleIDs = Request.Form["UsedRoleIDs"];
@@ -154,6 +162,7 @@ namespace Vacation.Web.Controllers
         }
 
         [HttpGet]
+        [PowerFilter("flow_setting")]
         public ActionResult UpdateType(int id)
         {
             var vacationAuditFlowType = VacationAuditFlowType.SingleOrDefault(id);
@@ -165,6 +174,7 @@ namespace Vacation.Web.Controllers
 
         [HttpPost]
         [RemoveCacheFilter(BasicDataCache.VacationAuditFlowType_CacheKey)]
+        [PowerFilter("flow_setting")]
         public JsonResult UpdateType(VacationAuditFlowType vacationAuditFlowType)
         {
             vacationAuditFlowType.UsedRoleIDs = Request.Form["UsedRoleIDs"];
@@ -175,6 +185,7 @@ namespace Vacation.Web.Controllers
 
         [HttpPost]
         [RemoveCacheFilter(BasicDataCache.VacationAuditFlowType_CacheKey)]
+        [PowerFilter("flow_setting")]
         public JsonResult DeleteType(string id)
         {
             VacationAuditFlowType.Delete("where id in (@0)", id.ToIntList());

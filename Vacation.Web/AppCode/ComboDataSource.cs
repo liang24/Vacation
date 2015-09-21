@@ -13,7 +13,15 @@ namespace Vacation.Web.AppCode
         {
             List<ComboBox> result = new List<ComboBox>();
 
-            var depts = BasicDataCache.listDepts.Where(d => d.ParentID == parentId);
+            var depts = BasicDataCache.listDepts;
+            if (parentId > 0)
+            {
+                depts = depts.Where(d => d.ID == parentId);
+            }
+            else
+            {
+                depts = depts.Where(d => d.ParentID == parentId);
+            }
 
             string prefix = string.Empty;
 

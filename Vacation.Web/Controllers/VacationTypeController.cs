@@ -17,11 +17,12 @@ namespace Vacation.Web.Controllers
 
         #region 管理模块
 
+        [PowerFilter("vacation_type_view")]
         public ActionResult Index()
         {
             return View();
         }
-
+        [PowerFilter("vacation_type_view")]
         public JsonResult Page(int pageIndex, int pageSize, string name)
         {
             var sql = Sql.Builder.Where("name like @0", "%" + name + "%");
@@ -34,7 +35,7 @@ namespace Vacation.Web.Controllers
                 Data = page.Items
             });
         }
-
+        [PowerFilter("vacation_type_add")]
         public ActionResult Add()
         {
             return View();
@@ -42,6 +43,7 @@ namespace Vacation.Web.Controllers
 
         [HttpPost]
         [RemoveCacheFilter(BasicDataCache.VacationType_CacheKey)]
+        [PowerFilter("vacation_type_add")]
         public JsonResult Add(VacationType vacationType)
         {
             vacationType.Type = EnumVacationTypeType.General;
@@ -49,7 +51,7 @@ namespace Vacation.Web.Controllers
 
             return Json(ArtDialogResponseResult.SuccessResult);
         }
-
+        [PowerFilter("vacation_type_update")]
         public ActionResult Update(int id)
         {
             var vacationType = VacationType.SingleOrDefault(id);
@@ -59,6 +61,7 @@ namespace Vacation.Web.Controllers
 
         [HttpPost]
         [RemoveCacheFilter(BasicDataCache.VacationType_CacheKey)]
+        [PowerFilter("vacation_type_update")]
         public JsonResult Update(VacationType vacationType)
         {
             var old = VacationType.SingleOrDefault(vacationType.ID);
@@ -78,6 +81,7 @@ namespace Vacation.Web.Controllers
         }
 
         [RemoveCacheFilter(BasicDataCache.VacationType_CacheKey)]
+        [PowerFilter("vacation_type_delete")]
         public JsonResult Delete(string id)
         {
             VacationType.Delete("where id in (@0)", id.ToIntList());

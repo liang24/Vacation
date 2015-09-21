@@ -1,5 +1,11 @@
 ﻿@{
     ViewBag.Title = "审批休假申请";
+     
+    bool all = SysHelper.HasPower("vacation_apply_aduit_all");
+
+    bool site = SysHelper.HasPower("vacation_apply_aduit_site");
+
+    int parentDeptId = all ? 0 : (site ? BasicDataCache.listDepts.Single(d => d.ID == SysHelper.GetCurrUser().DeptID).ParentID : SysHelper.GetCurrUser().DeptID);
 }
 <div class="class_con">
     <p class="showlink">
@@ -9,7 +15,7 @@
         <span class="fRight">
             <select name="DeptID" class="ss_input fLeft mr5">
                 <option value="">--所有部门--</option>
-                @foreach (var item in ComboDataSource.DeptTree())
+                @foreach (var item in ComboDataSource.DeptTree(parentDeptId))
                 {
                     <option value="@item.Value">@item.Text</option>
                 }

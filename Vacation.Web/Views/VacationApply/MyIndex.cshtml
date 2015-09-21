@@ -72,9 +72,9 @@
 @section Script
 {
     <script type="text/javascript">
-        $(function () { 
+        $(function () {
             $("#pager").pager({
-                url: "@Url.Action("mypage")",
+                url: '@Url.Action("mypage")',
                 onLoaded: function (data, currPage, total, totalPage) {
 
                     $("#total").text(total);
@@ -86,14 +86,18 @@
                 onLoadStart: function () {
                     $("#tbList tbody").mask("加载数据，请稍候...");
                 }
-            }); 
+            });
 
-            $('[btn="btnDelete"]').click(function () {
-                
+            $('#tbList').on("click", '[btn="btnDelete"]', function () {
+
                 var id = $(this).attr('node-id');
 
-                BaseOP.DeleteById("@Url.Action("mydelete")", id, function () { $("#pager").pager("reload"); });
-            }); 
+                BaseOP.DeleteById('@Url.Action("mydelete")', id, function () { $("#pager").pager("reload"); });
+            });
+
+            $("#btnDelete").click(function () {
+                BaseOP.DeleteByIds('@Url.Action("mydelete")', "", function () { $("#pager").pager("reload"); });
+            });
         }); 
     </script>
 }

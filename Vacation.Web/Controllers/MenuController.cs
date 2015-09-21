@@ -127,6 +127,7 @@ namespace Vacation.Web.Controllers
         [RemoveCacheFilter(BasicDataCache.FunctionList_CacheKey)]
         public JsonResult FunctionDelete(string id)
         {
+            SysPower.Delete("where function_id in (@0)", id.ToIntList());
             SysFunction.Delete("where id in (@0)", id.ToIntList());
 
             return Json(ArtDialogResponseResult.SuccessResult);

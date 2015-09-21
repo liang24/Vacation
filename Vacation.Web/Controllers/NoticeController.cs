@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Vacation.Domain.Entities;
 using PetaPoco;
 using Common.Models;
+using Vacation.Web.Filters;
 
 namespace Vacation.Web.Controllers
 {
@@ -15,11 +16,13 @@ namespace Vacation.Web.Controllers
 
         #region 管理模块
 
+        [PowerFilter("notice_view")]
         public ActionResult Index()
         {
             return View();
         }
 
+        [PowerFilter("notice_view")]
         public JsonResult Page(int pageIndex, int pageSize, string name)
         {
             var sql = Sql.Builder.Where("title like @0", "%" + name + "%");
@@ -33,19 +36,21 @@ namespace Vacation.Web.Controllers
             });
         }
 
+        [PowerFilter("notice_add")]
         public ActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
+        [PowerFilter("notice_add")]
         public JsonResult Add(Notice notice)
         {
             notice.Insert();
 
             return Json(ArtDialogResponseResult.SuccessResult);
         }
-
+        [PowerFilter("notice_update")]
         public ActionResult Update(int id)
         {
             var notice = Notice.SingleOrDefault(id);
@@ -54,6 +59,7 @@ namespace Vacation.Web.Controllers
         }
 
         [HttpPost]
+        [PowerFilter("notice_update")]
         public JsonResult Update(Notice notice)
         {
             var old = Notice.SingleOrDefault(notice.ID);
@@ -65,7 +71,7 @@ namespace Vacation.Web.Controllers
 
             return Json(ArtDialogResponseResult.SuccessResult);
         }
-
+        [PowerFilter("notice_delete")]
         public JsonResult Delete(string id)
         {
             Notice.Delete("where id in (@0)", id.ToIntList());

@@ -10,6 +10,7 @@ using PetaPoco;
 using Vacation.Web.Models;
 using Common.EnumLib;
 using Common.WebLib;
+using Vacation.Web.Filters;
 
 namespace Vacation.Web.Controllers
 {
@@ -19,6 +20,7 @@ namespace Vacation.Web.Controllers
         #region 个人模块
 
         [HttpGet]
+        [PowerFilter("my_vacation_apply_apply")]
         public ActionResult Apply()
         {
             ViewBag.VacationTypes = BasicDataCache.listVacationTypes;
@@ -27,6 +29,7 @@ namespace Vacation.Web.Controllers
         }
 
         [HttpPost]
+        [PowerFilter("my_vacation_apply_apply")]
         public ActionResult Apply(VacationApply apply)
         {
             ArtDialogResponseResult result = new ArtDialogResponseResult();
@@ -51,11 +54,41 @@ namespace Vacation.Web.Controllers
             }
         }
 
+        [PowerFilter("vacation_my_record_delete")]
+        public ActionResult MyDelete(string id)
+        {
+            ArtDialogResponseResult result = new ArtDialogResponseResult();
+
+            var ids = id.ToIntList();
+
+            if (ids.HasElements())
+            {
+                foreach (var item in VacationApply.Fetch("where id in (@0)", ids))
+                {
+                    if (CanModify(item.Status) && item.UserID == CurrUser.ID)
+                    {
+                        item.Delete();
+                    }
+                }
+
+                result.IsSuccess = true;
+            }
+            else
+            {
+                result.IsSuccess = false;
+                result.Message = "请选择至少一条记录操作！";
+            }
+
+            return Json(result);
+        }
+
+        [PowerFilter("vacation_my_record_view")]
         public ActionResult MyIndex()
         {
             return View();
         }
 
+        [PowerFilter("vacation_my_record_view")]
         public JsonResult MyPage(int pageIndex, int pageSize, int? typeID)
         {
             var sql = Sql.Builder.Where("user_id = @0", CurrUser.ID);
@@ -93,6 +126,7 @@ namespace Vacation.Web.Controllers
         }
 
         [HttpGet]
+        [PowerFilter("vacation_my_record_update")]
         public ActionResult Modify(int id)
         {
             var apply = VacationApply.Single(id);
@@ -109,6 +143,7 @@ namespace Vacation.Web.Controllers
         }
 
         [HttpPost]
+        [PowerFilter("vacation_my_record_update")]
         public JsonResult Modify(VacationApply apply)
         {
             ArtDialogResponseResult result = new ArtDialogResponseResult();
@@ -147,11 +182,13 @@ namespace Vacation.Web.Controllers
 
         #region 管理模块
 
+        [PowerFilter("vacation_record_view")]
         public ActionResult Index()
         {
             return View();
         }
 
+        [PowerFilter("vacation_record_view")]
         public JsonResult Page(int pageIndex, int pageSize, int? typeID, int? deptID)
         {
             var sql = Sql.Builder;
@@ -159,6 +196,20 @@ namespace Vacation.Web.Controllers
             if (typeID.HasValue)
             {
                 sql.Where("vacation_type_id=@0", typeID.Value);
+            }
+            // 如果没有查看总站的权限时
+            if (!SysHelper.HasPower("vacation_record_all"))
+            {
+                if (SysHelper.HasPower("vacation_record_site"))
+                {
+                    if (!deptID.HasValue)
+                        deptID = BasicDataCache.listDepts.Single(d => d.ID == CurrUser.DeptID).ParentID;
+                }
+                else
+                {
+                    if (!deptID.HasValue)
+                        deptID = CurrUser.DeptID;
+                }
             }
 
             if (deptID.HasValue)
@@ -178,12 +229,14 @@ namespace Vacation.Web.Controllers
         }
 
         [HttpGet]
+        [PowerFilter("vacation_apply_aduit_view")]
         public ActionResult AuditIndex()
         {
             return View();
         }
 
         [HttpPost]
+        [PowerFilter("vacation_apply_aduit_view")]
         public JsonResult AuditPage(int pageIndex, int pageSize, int? typeID, int? deptID)
         {
             var sql = Sql.Builder.Where("status in (@0,@1)", EnumVacationApplyStatus.Apply, EnumVacationApplyStatus.Audited);
@@ -191,6 +244,21 @@ namespace Vacation.Web.Controllers
             if (typeID.HasValue)
             {
                 sql.Where("vacation_type_id=@0", typeID.Value);
+            }
+
+            // 如果没有查看总站的权限时
+            if (!SysHelper.HasPower("vacation_apply_aduit_all"))
+            {
+                if (SysHelper.HasPower("vacation_apply_aduit_site"))
+                {
+                    if (!deptID.HasValue)
+                        deptID = BasicDataCache.listDepts.Single(d => d.ID == CurrUser.DeptID).ParentID;
+                }
+                else
+                {
+                    if (!deptID.HasValue)
+                        deptID = CurrUser.DeptID;
+                }
             }
 
             if (deptID.HasValue)
@@ -279,6 +347,7 @@ namespace Vacation.Web.Controllers
         }
 
         [HttpGet]
+        [PowerFilter("vacation_apply_aduit_aduit")]
         public ActionResult Audit(int id)
         {
             var apply = VacationApply.Single(id);
@@ -294,6 +363,7 @@ namespace Vacation.Web.Controllers
         }
 
         [HttpPost]
+        [PowerFilter("vacation_apply_aduit_aduit")]
         public JsonResult Audit(int id, bool isPass, string opinion)
         {
             ArtDialogResponseResult result = new ArtDialogResponseResult();
@@ -345,6 +415,31 @@ namespace Vacation.Web.Controllers
 
                 return Json(ArtDialogResponseResult.SuccessResult);
             }
+        }
+
+        [PowerFilter("vacation_record_delete")]
+        public ActionResult Delete(string id)
+        {
+            ArtDialogResponseResult result = new ArtDialogResponseResult();
+
+            var ids = id.ToIntList();
+
+            if (ids.HasElements())
+            {
+                foreach (var item in VacationApply.Fetch("where id in (@0)", ids))
+                {
+                    item.Delete();
+                }
+
+                result.IsSuccess = true;
+            }
+            else
+            {
+                result.IsSuccess = false;
+                result.Message = "请选择至少一条记录操作！";
+            }
+
+            return Json(result);
         }
 
         private bool CanAudit(EnumVacationApplyStatus status)
